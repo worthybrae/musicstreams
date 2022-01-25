@@ -141,7 +141,6 @@ class Albums(models.Model):
         album_dict['streamsgraphlabels'] = json.dumps(streams_graph_label)
         album_dict['streamsgraphdata'] = [x[1] for x in album_dict['songsorder']]
         album_dict['revenuegraphdata'] = [round((x[1] * .00348), 2) for x in album_dict['songsorder']]
-        print(album_dict['songsorder'])
         album_dict['avgsonglength'] = str(datetime.timedelta(seconds=(album_dict['runtime']) / album_dict['totalsongs'])).split(':')
         avg_minutes = int(album_dict['avgsonglength'][1])
         avg_seconds = float(album_dict['avgsonglength'][2])
@@ -211,9 +210,9 @@ class Albums(models.Model):
         album_dict['newslist'] = news_list
         urllib.request.urlretrieve(self.cover, "cover.png")
         color_thief = ColorThief('cover.png')
-        palette = color_thief.get_palette(color_count=20)
+        palette = color_thief.get_palette(color_count=10)
         best_color_match = {'distance': 0}
-        for c in palette:
+        for c in palette[:2]:
             for c2 in [x for x in palette if x != c]:
                 color1 = np.asarray(tuple(c))
                 color2 = np.asarray(tuple(c2))
@@ -225,19 +224,25 @@ class Albums(models.Model):
                     best_color_match['distance'] = d
                     best_color_match['color1gray'] = 0.2126*tuple(c)[0] + 0.7152*tuple(c)[1] + 0.0722*tuple(c)[2]
                     best_color_match['color2gray'] = 0.2126*tuple(c2)[0] + 0.7152*tuple(c2)[1] + 0.0722*tuple(c2)[2]
-
-        if best_color_match['color1gray'] >= best_color_match['color2gray']:
+        print(best_color_match['distance'], best_color_match['color1'], best_color_match['color1gray'], best_color_match['color2'], best_color_match['color2gray'])
+        if best_color_match['color1gray'] >= 200 and best_color_match['color2gray'] > 127:
+            best_color_match['colormain'] = (90,90,90)
+            best_color_match['coloralt'] = c2
+        elif best_color_match['color2gray'] >= 200 and best_color_match['color1gray'] > 127:
+            best_color_match['colormain'] = (90,90,90)
+            best_color_match['coloralt'] = c
+        elif best_color_match['color1gray'] >= best_color_match['color2gray']:
             best_color_match['colormain'] = c2
             best_color_match['coloralt'] = c
         else:
             best_color_match['colormain'] = c
             best_color_match['coloralt'] = c2
-        album_dict['colormainr'] = best_color_match['coloralt'][0] - (255 - best_color_match['coloralt'][0]) * .5
-        album_dict['colormaing'] = best_color_match['coloralt'][1] - (255 - best_color_match['coloralt'][1]) * .5
-        album_dict['colormainb'] = best_color_match['coloralt'][2] - (255 - best_color_match['coloralt'][2]) * .5
-        album_dict['coloraltr'] = best_color_match['colormain'][0] + (255 - best_color_match['colormain'][0]) * .75
-        album_dict['coloraltg'] = best_color_match['colormain'][1] + (255 - best_color_match['colormain'][1]) * .75
-        album_dict['coloraltb'] = best_color_match['colormain'][2] + (255 - best_color_match['colormain'][2]) * .75
+        album_dict['colormainr'] = best_color_match['coloralt'][0] + (255 - best_color_match['coloralt'][0]) * .75
+        album_dict['colormaing'] = best_color_match['coloralt'][1] + (255 - best_color_match['coloralt'][1]) * .75
+        album_dict['colormainb'] = best_color_match['coloralt'][2] + (255 - best_color_match['coloralt'][2]) * .75
+        album_dict['coloraltr'] = best_color_match['colormain'][0] - (255 - best_color_match['colormain'][0]) * .75
+        album_dict['coloraltg'] = best_color_match['colormain'][1] - (255 - best_color_match['colormain'][1]) * .75
+        album_dict['coloraltb'] = best_color_match['colormain'][2] - (255 - best_color_match['colormain'][2]) * .75
         album_dict['colormain'] = json.dumps(f"rgb({best_color_match['colormain'][0]}, {best_color_match['colormain'][1]}, {best_color_match['colormain'][2]})")
         album_dict['coloralt'] = json.dumps(f"rgb({best_color_match['coloralt'][0]}, {best_color_match['coloralt'][1]}, {best_color_match['coloralt'][2]})")
         return album_dict
