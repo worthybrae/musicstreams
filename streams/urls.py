@@ -1,7 +1,8 @@
 from django.urls import path
-from .views import HomePageView, AboutPageView
+from . import views
 
 urlpatterns = [
-    path("", HomePageView.as_view(), name="home"),
-    path("about/", AboutPageView.as_view(), name="about"),
+    path("", views.Homepage, name="Homepage"),
+    path("about/", views.Aboutpage, name="Aboutpage"),
+    path("<str:album_spotify_id>/", views.Detailpage, name="Detailpage"),
 ]

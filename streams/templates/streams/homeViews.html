@@ -1,0 +1,21 @@
+{% block css %}
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'streams/base.css' %}"/>
+{% endblock %}
+{% block content %}
+<div class="views-bar">
+    <div class="views-item">
+        <div class="selected">
+            <h1>[<a href="{% url 'Homepage' %}">Top Streams</a>]</h1>
+        </div>
+    </div>
+    <div class="views-item">
+        <h1>&nbsp;</h1>
+    </div>
+    <div class="views-item">
+    	<div class="secondary">
+            <h1><a class="secondary" href="{% url 'Growthpage' %}">Top Growth</a></h1>
+        </div>
+    </div>
+</div>
+{% endblock content %}

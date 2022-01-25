@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Musicstreams</title>
+        {% load static %}
+
+        {% block css %}{% endblock %}
+        <link rel="stylesheet" type="text/css" href="{% static 'streams/base.css' %}" />
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+      	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Inter&display=swap" rel="stylesheet">
+      	<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    </head>
+    <body id="mbody">
+        <div class="top-bar" id="mtopbar">
+    	    <div class="main-title">
+            <h1 id="mmaintitle">Musicstreams</h1>
+    	    </div>
+    	    <div class="nav">
+    	        <div class="nav-item">
+                    <h1><a href="{% url 'Homepage' %}" id='mhomelink'>Home</a></h1>
+                </div>
+                <div class="nav-item">
+                    <h1><a href="{% url 'Aboutpage' %}" id='maboutlink'>About</a></h1>
+                </div>
+            </div>
+        </div>
+        {% block content %} {% endblock content %}
+    </body>
+</html>

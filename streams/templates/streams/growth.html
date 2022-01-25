@@ -1,0 +1,78 @@
+{% extends "streams/base.html" %}
+{% block css %}
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'streams/base.css' %}"/>
+{% endblock %}
+{% block content %}
+{% include "streams/growthViews.html" %}
+<table>
+  <tr>
+    <th class="rank"><h1>Rank</h1></th>
+    <th class="cover-art"><h1>Album</h1></th>
+    <th class="artist-name"><h1>Artist</h1></th>
+    <th class="weekly-gain"><h1>Growth</h1></th>
+    <th class="total-streams"><h1>Streams</h1></th>
+    <th class="revenue"><h1>Revenue</h1></th>
+    <th class="performance"><h1>Performance</h1></th>
+  </tr>
+  {% for rank, data in top_growth.items %}
+  <tr>
+    <td class="rank"><div class="rank-circle"><h1>{{ rank }}</h1></div></td>
+    <td class="cover-art"><img src="{{ data.cover_art }}"></td>
+    <td class="artist-name"><h1>{{ data.artist_name }}</h1></td>
+    <td class="weekly-gain"><h1>{{ data.total_growth_val }}</h1></td>
+    <td class="total-streams"><h1>{{ data.total_streams_abr }}</h1></td>
+    <td class="revenue"><h1>{{ data.total_revenue }}</h1></td>
+    <td class="streams-graph">
+      <div class="myChart">
+        <canvas id="myChart{{ forloop.counter0 }}" height="100" width="200"></canvas>
+        <script>
+            var ctx = document.getElementById("myChart" + {{ forloop.counter0 }}).getContext('2d');
+            var myChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: {{ data.streams_dates_data }},
+                    datasets: [{
+                        data: {{ data.streams_data }},
+                        backgroundColor: 'white',
+                        borderColor: 'black',
+                        borderWidth: 3
+                    }]
+                },
+                options: {
+                    responsive: false,
+                    plugins: {
+                      legend: {
+                        display: false
+                      }
+                    },
+                    scales: {
+                        y: {
+                          grid: {
+                            display: false,
+                            drawBorder: false
+                          },
+                          ticks: {
+                            display: false
+                          }
+                        },
+                        x: {
+                          grid: {
+                            display: false,
+                            drawBorder: false
+                          },
+                          ticks: {
+                            display: false
+                          }
+                        }
+                    }
+                }
+            });
+        </script>
+      </div>
+    </td>
+  </tr>
+  {% endfor %}
+</table>
+{% endblock content %}
+

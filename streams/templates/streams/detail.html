@@ -1,0 +1,755 @@
+{% extends "streams/base.html" %}
+
+{% block content %}
+<div class='detail-container'>
+  <div class='info-container'>
+    <div class='info-holder'>
+        <div class='image-holder-large'>
+        	<img src="{{ album_dict.cover }}">
+        </div>
+        <div class='album-general' id="msection">
+          <div class="item-holder">
+          	<div class='album-name-detail' >
+      	       <h1 id="mname">{{ album_dict.name }}</h1>
+      	    </div>
+      	    <div class='artist-name-detail'>
+      	       <h1 id="martist">{{ album_dict.artist }}</h1>
+      	    </div>
+          </div>
+          <div class="streams-general">
+            <div class="streams-holder">
+              <div class="detail-streams">
+                <h1 id="mtotalstreams">{{ album_dict.totalstreams }}</h1>
+              </div>
+            </div>
+            <div class="detail-streams-label">
+              <h1 id="mspotifystreams">Spotify Streams</h1>
+            </div>
+          </div>
+        </div>
+    </div>
+
+    <div class="info-graph">
+      <div class="mainChart">
+        <canvas id="mainChart" ></canvas>
+        <script>
+            var mr = "{{ album_dict.colormainr }}";
+            var mre = mr.toString();
+            var mg = "{{ album_dict.colormaing }}";
+            var mgr = mg.toString();
+            var mb = "{{ album_dict.colormainb }}";
+            var mbl = mb.toString();
+            var ar = "{{ album_dict.coloraltr }}";
+            var are = ar.toString();
+            var ag = "{{ album_dict.coloraltg }}";
+            var agr = ag.toString();
+            var ab = "{{ album_dict.coloraltb }}";
+            var abl = ab.toString();
+            var mainColor = "rgb(" + mre + ", " + mgr + ", " + mbl + ")";
+            var subColor = "rgb(" + are + ", " + agr + ", " + abl + ")";
+
+            var ctx = document.getElementById("mainChart").getContext('2d');
+            var myChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: {{ album_dict.totaldsrlist }},
+                    datasets: [{
+                        data: {{ album_dict.totalstreamslist }},
+                        backgroundColor: mainColor,
+                        borderColor: subColor,
+                        borderWidth: 3
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                      legend: {
+                        display: false
+                      }
+                    },
+                    scales: {
+                        y: {
+                          grid: {
+                            display: false,
+                            drawBorder: false
+                          },
+                          ticks: {
+                            color: subColor,
+                            font: {
+                              family: "'Inter', sans-serif",
+                              size: 15,
+
+                            },
+                            count: 5
+                          }
+                        },
+                        x: {
+                          title: {
+                            display: true,
+                            color: subColor,
+                            text: 'Days Since Release',
+                            font: {
+                              family: "'Inter', sans-serif",
+                              size: 20
+                            }
+                          },
+                          grid: {
+                            display: false,
+                            drawBorder: false
+                          },
+                          ticks: {
+                            display: false
+                          }
+                        }
+                    }
+                }
+            });
+        </script>
+      </div>
+    </div>
+    <div class="statistics-section" id="mgsection">
+      <div class="statistics-header">
+        <h1>General</h1>
+      </div>
+      <div class="statistics-body">
+        <div class="statistics-col">
+
+          <div class="statistics-item">
+            <div class="statistics-label">
+              <h1>Release Date</h1>
+            </div>
+            <div class="statistics-value">
+              <h1>{{ album_dict.releasedate }}</h1>
+            </div>
+          </div>
+          <div class="statistics-item">
+            <div class="statistics-label">
+              <h1>Total Songs</h1>
+            </div>
+            <div class="statistics-value">
+              <h1>{{ album_dict.totalsongs }}</h1>
+            </div>
+          </div>
+
+
+        </div>
+        <div class="col-seperator">
+
+        </div>
+        <div class="statistics-col">
+
+          <div class="statistics-item">
+            <div class="statistics-label">
+              <h1>Days Since Release</h1>
+            </div>
+            <div class="statistics-value">
+              <h1>{{ album_dict.dsr }}</h1>
+            </div>
+          </div>
+          <div class="statistics-item">
+            <div class="statistics-label">
+              <h1>Runtime</h1>
+            </div>
+            <div class="statistics-value">
+              <h1>{{ album_dict.runtime }}</h1>
+            </div>
+          </div>
+          
+
+        </div>
+      </div>
+    </div>
+
+    <div class="statistics-section" id="mssection">
+      <div class="statistics-header" onclick="document.querySelector('#sound').classList.toggle('expand');">
+        <h1>Sound</h1>
+      </div>
+      <div class="statistics-body-sound">
+        <div class="statistics-bar-container">
+          <div class="first-bar-label">
+            <h1>Sad</h1>
+          </div>
+          <div class="statistics-bar" id="mvalence">
+            <div class="statistics-progress" id="valence">
+            </div>
+          </div>
+          <div class="second-bar-label">
+            <h1>Happy</h1>
+          </div>
+        </div>
+        <div class="statistics-bar-container">
+          <div class="first-bar-label">
+            <h1>Mellow</h1>
+          </div>
+          <div class="statistics-bar" id="menergy">
+            <div class="statistics-progress" id="energy">
+            </div>
+          </div>
+          <div class="second-bar-label">
+            <h1>Crazy</h1>
+          </div>
+        </div>
+        <div class="statistics-bar-container">
+          <div class="first-bar-label">
+            <h1>Sitting</h1>
+          </div>
+          <div class="statistics-bar" id="mdanceability">
+            <div class="statistics-progress" id="danceability">
+            </div>
+          </div>
+          <div class="second-bar-label">
+            <h1>Dancing</h1>
+          </div>
+        </div>
+
+
+
+      </div>
+    </div>
+    <script type="text/javascript">
+      const pbvalence = document.getElementById('valence');
+      const pbenergy = document.getElementById('energy');
+      const pbdanceability = document.getElementById('danceability');
+      let valence = "{{ album_dict.happiness }}";
+      let energy = "{{ album_dict.energy }}";
+      let danceability = "{{ album_dict.danceability }}";
+      pbvalence.style.width = `${(valence)}%`;
+      pbenergy.style.width = `${(energy)}%`;
+      pbdanceability.style.width = `${(danceability)}%`;
+
+
+    </script>
+    <div class="statistics-section">
+      <div class="statistics-header">
+        <h1>Streams</h1>
+      </div>
+      <div class="statistics-alt-body">
+        <div class="statistics-alt-container">
+          <div class="item-holder-alt">
+          	<div class="item-alt-val">
+      	       <h1>{{ album_dict.totalstreams }}</h1>
+      	    </div>
+      	    <div class="item-alt-lab">
+      	       <h1>Total Streams</h1>
+      	    </div>
+          </div>
+
+          <div class="item-holder-alt">
+              <div class="item-alt-val">
+                <h1>{{ album_dict.avgsongstreams }}</h1>
+              </div>
+            <div class="item-alt-lab">
+              <h1>Avg per Song</h1>
+            </div>
+          </div>
+
+          <div class="item-holder-alt">
+              <div class="item-alt-val">
+                <h1>{{ album_dict.avgsongstreamscov }}</h1>
+              </div>
+            <div class="item-alt-lab">
+              <h1>Streams CoV</h1>
+            </div>
+          </div>
+        </div>
+
+        <div class="streamChart">
+          <canvas id="streamChart"></canvas>
+          <script>
+              var mr = "{{ album_dict.colormainr }}";
+              var mre = mr.toString();
+              var mg = "{{ album_dict.colormaing }}";
+              var mgr = mg.toString();
+              var mb = "{{ album_dict.colormainb }}";
+              var mbl = mb.toString();
+              var ar = "{{ album_dict.coloraltr }}";
+              var are = ar.toString();
+              var ag = "{{ album_dict.coloraltg }}";
+              var agr = ag.toString();
+              var ab = "{{ album_dict.coloraltb }}";
+              var abl = ab.toString();
+              var mainColor = "rgb(" + mre + ", " + mgr + ", " + mbl + ")";
+              var subColor = "rgb(" + are + ", " + agr + ", " + abl + ")";
+
+              var ctx = document.getElementById("streamChart").getContext('2d');
+              var myChart = new Chart(ctx, {
+                  type: 'bar',
+                  data: {
+                      labels: {{ album_dict.streamsgraphlabels | safe}},
+                      datasets: [{
+                          data: {{ album_dict.streamsgraphdata }},
+                          backgroundColor: subColor,
+                          borderRadius: 5,
+                      }]
+                  },
+                  options: {
+                      responsive: true,
+                      barPercentage: 0.25,
+                      indexAxis: 'y',
+                      plugins: {
+                        legend: {
+                          display: false
+                        }
+                      },
+                      scales: {
+                          y: {
+
+                            grid: {
+                              display: false,
+                              drawBorder: false,
+
+                            },
+                            ticks: {
+                              crossAlign: "near",
+                              color: subColor,
+                              font: {
+                                family: "'Inter', sans-serif",
+                                size: 15,
+
+
+                              },
+                              count: 5
+                            }
+                          },
+                          x: {
+                            title: {
+                              color: subColor,
+                              display: true,
+                              text: 'Spotify Streams',
+                              font: {
+                                family: "'Inter', sans-serif",
+                                size: 20,
+                              }
+                            },
+                            grid: {
+                              display: false,
+                              drawBorder: false
+                            },
+                            ticks: {
+                              color: subColor,
+                              display: true,
+                              font: {
+                                family: "'Inter', sans-serif",
+                                size: 15
+                              },
+                              count: 5
+                            },
+
+                          }
+                      }
+                  }
+              });
+          </script>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="statistics-section">
+      <div class="statistics-header">
+        <h1>Growth</h1>
+      </div>
+      <div class="statistics-alt-body">
+        <div class="statistics-alt-container">
+          <div class="item-holder-alt">
+          	<div class="item-alt-val">
+      	       <h1>{{ album_dict.totalgrowth }}</h1>
+      	    </div>
+      	    <div class="item-alt-lab">
+      	       <h1>Total Growth</h1>
+      	    </div>
+          </div>
+
+          <div class="item-holder-alt">
+              <div class="item-alt-val">
+                <h1>{{ album_dict.avgsonggrowth }}</h1>
+              </div>
+            <div class="item-alt-lab">
+              <h1>Avg per Song</h1>
+            </div>
+          </div>
+
+          <div class="item-holder-alt">
+              <div class="item-alt-val">
+                <h1>{{ album_dict.avgsonggrowthcov }}</h1>
+              </div>
+            <div class="item-alt-lab">
+              <h1>Growth CoV</h1>
+            </div>
+          </div>
+        </div>
+
+        <div class="streamChart">
+          <canvas id="growthChart"></canvas>
+          <script>
+              var mr = "{{ album_dict.colormainr }}";
+              var mre = mr.toString();
+              var mg = "{{ album_dict.colormaing }}";
+              var mgr = mg.toString();
+              var mb = "{{ album_dict.colormainb }}";
+              var mbl = mb.toString();
+              var ar = "{{ album_dict.coloraltr }}";
+              var are = ar.toString();
+              var ag = "{{ album_dict.coloraltg }}";
+              var agr = ag.toString();
+              var ab = "{{ album_dict.coloraltb }}";
+              var abl = ab.toString();
+              var mainColor = "rgb(" + mre + ", " + mgr + ", " + mbl + ")";
+              var subColor = "rgb(" + are + ", " + agr + ", " + abl + ")";
+
+              var ctx = document.getElementById("growthChart").getContext('2d');
+              var myChart = new Chart(ctx, {
+                  type: 'bar',
+                  data: {
+                      labels: {{ album_dict.growthgraphlabels | safe}},
+                      datasets: [{
+                          data: {{ album_dict.growthgraphdata }},
+                          backgroundColor: subColor,
+                          borderRadius: 5,
+                      }]
+                  },
+                  options: {
+                      responsive: true,
+                      barPercentage: 0.25,
+                      indexAxis: 'y',
+                      plugins: {
+                        legend: {
+                          display: false
+                        }
+                      },
+                      scales: {
+                          y: {
+
+                            grid: {
+                              display: false,
+                              drawBorder: false,
+
+                            },
+                            ticks: {
+                              crossAlign: "near",
+                              color: subColor,
+                              font: {
+                                family: "'Inter', sans-serif",
+                                size: 15,
+
+
+                              },
+                              count: 5
+                            }
+                          },
+                          x: {
+                            title: {
+                              color: subColor,
+                              display: true,
+                              text: '% Growth Since First Day Streams',
+                              font: {
+                                family: "'Inter', sans-serif",
+                                size: 20,
+                              }
+                            },
+                            grid: {
+                              display: false,
+                              drawBorder: false
+                            },
+                            ticks: {
+                              color: subColor,
+                              display: true,
+                              font: {
+                                family: "'Inter', sans-serif",
+                                size: 15
+                              },
+                              count: 5,
+                              callback: function(value, index, ticks) {
+                                return value + "%";
+                              }
+                            },
+
+                          }
+                      }
+                  }
+              });
+          </script>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="statistics-section">
+      <div class="statistics-header">
+        <h1>Revenue</h1>
+      </div>
+      <div class="statistics-alt-body">
+        <div class="statistics-alt-container">
+          <div class="item-holder-alt">
+          	<div class="item-alt-val">
+      	       <h1>{{ album_dict.totalrevenue }}</h1>
+      	    </div>
+      	    <div class="item-alt-lab">
+      	       <h1>Total Revenue</h1>
+      	    </div>
+          </div>
+
+          <div class="item-holder-alt">
+              <div class="item-alt-val">
+                <h1>{{ album_dict.avgsongrevenue }}</h1>
+              </div>
+            <div class="item-alt-lab">
+              <h1>Avg per Song</h1>
+            </div>
+          </div>
+
+          <div class="item-holder-alt">
+              <div class="item-alt-val">
+                <h1>{{ album_dict.avgsongstreamscov }}</h1>
+              </div>
+            <div class="item-alt-lab">
+              <h1>Streams CoV</h1>
+            </div>
+          </div>
+        </div>
+
+        <div class="streamChart">
+          <canvas id="revenueChart"></canvas>
+          <script>
+              var mr = "{{ album_dict.colormainr }}";
+              var mre = mr.toString();
+              var mg = "{{ album_dict.colormaing }}";
+              var mgr = mg.toString();
+              var mb = "{{ album_dict.colormainb }}";
+              var mbl = mb.toString();
+              var ar = "{{ album_dict.coloraltr }}";
+              var are = ar.toString();
+              var ag = "{{ album_dict.coloraltg }}";
+              var agr = ag.toString();
+              var ab = "{{ album_dict.coloraltb }}";
+              var abl = ab.toString();
+              var mainColor = "rgb(" + mre + ", " + mgr + ", " + mbl + ")";
+              var subColor = "rgb(" + are + ", " + agr + ", " + abl + ")";
+              var ctx = document.getElementById("revenueChart").getContext('2d');
+              var myChart = new Chart(ctx, {
+                  type: 'bar',
+                  data: {
+                      labels: {{ album_dict.streamsgraphlabels | safe}},
+                      datasets: [{
+                          data: {{ album_dict.revenuegraphdata }},
+                          backgroundColor: subColor,
+                          borderRadius: 5,
+                      }]
+                  },
+                  options: {
+                      responsive: true,
+                      barPercentage: 0.25,
+                      indexAxis: 'y',
+                      plugins: {
+                        legend: {
+                          display: false
+                        }
+                      },
+                      scales: {
+                          y: {
+
+                            grid: {
+                              display: false,
+                              drawBorder: false,
+
+                            },
+                            ticks: {
+                              crossAlign: "near",
+                              color: subColor,
+                              font: {
+                                family: "'Inter', sans-serif",
+                                size: 15,
+
+
+                              },
+                              count: 5
+                            }
+                          },
+                          x: {
+                            title: {
+                              color: subColor,
+                              display: true,
+                              text: 'Streaming Revenue ($USD)',
+                              font: {
+                                family: "'Inter', sans-serif",
+                                size: 20,
+                              }
+                            },
+                            grid: {
+                              display: false,
+                              drawBorder: false
+                            },
+                            ticks: {
+                              color: subColor,
+                              display: true,
+                              font: {
+                                family: "'Inter', sans-serif",
+                                size: 15
+                              },
+                              count: 5,
+                              callback: function(value, index, ticks) {
+                                return '$' + value;
+                              }
+                            },
+
+                          }
+                      }
+                  }
+              });
+          </script>
+        </div>
+
+      </div>
+    </div>
+
+
+
+
+    <div class="news-section">
+      <div class="news-header">
+        <h1>News</h1>
+      </div>
+      <div class="news-body">
+        {% for title, date, link, datetime in album_dict.newslist %}
+        <a href="{{ link }}" target="_blank">
+          <div class="news-item">
+            <div class="news-title">
+              <h1>{{ title }}</h1>
+            </div>
+            <div class="news-date">
+              <h1>{{ date }}</h1>
+            </div>
+          </div>
+        </a>
+        {% endfor %}
+      </div>
+    </div>
+
+
+  </div>
+
+  <div class='info-ribbon'>
+    <div class='ribbon-section' id='mribbonsection'>
+      <div class='ribbon-header'>
+          <h1>Tracks</h1>
+      </div>
+        {% for songname, streamval, streamsvalstr, streamslist, dsrlist in album_dict.songsorder %}
+        <hr class='solid'>
+        <div class='ribbon-item'>
+
+          <div class='ribbon-row'>
+
+              <div class='track-name'>
+                  <h1>{{ songname }}</h1>
+              </div>
+              <div class='subChart'>
+                  <canvas id="subChart{{ forloop.counter0 }}" height="50"></canvas>
+                  <script>
+                      var mr = "{{ album_dict.colormainr }}";
+                      var mre = mr.toString();
+                      var mg = "{{ album_dict.colormaing }}";
+                      var mgr = mg.toString();
+                      var mb = "{{ album_dict.colormainb }}";
+                      var mbl = mb.toString();
+                      var ar = "{{ album_dict.coloraltr }}";
+                      var are = ar.toString();
+                      var ag = "{{ album_dict.coloraltg }}";
+                      var agr = ag.toString();
+                      var ab = "{{ album_dict.coloraltb }}";
+                      var abl = ab.toString();
+                      var mainColor = "rgb(" + mre + ", " + mgr + ", " + mbl + ")";
+                      var subColor = "rgb(" + are + ", " + agr + ", " + abl + ")";
+              		    var ctx = document.getElementById("subChart" + {{ forloop.counter0 }}).getContext('2d');
+              		    var myChart = new Chart(ctx, {
+              		        type: 'line',
+              		        data: {
+              		            labels: {{ dsrlist }},
+              		            datasets: [{
+              		                data: {{ streamslist }},
+              		                backgroundColor: subColor,
+              		                borderColor: mainColor,
+              		                borderWidth: 3
+              		            }]
+              		        },
+              		        options: {
+              		            responsive: true,
+              		            plugins: {
+              		              legend: {
+              		                display: false
+              		              }
+              		            },
+              		            scales: {
+              		                y: {
+              		                  grid: {
+              		                    display: false,
+              		                    drawBorder: false
+              		                  },
+              		                  ticks: {
+              		                    display: false
+              		                  }
+              		                },
+              		                x: {
+              		                  grid: {
+              		                    display: false,
+              		                    drawBorder: false
+              		                  },
+              		                  ticks: {
+              		                    display: false
+              		                  }
+              		                }
+              		            }
+              		        }
+              		    });
+              		</script>
+                </div>
+          </div>
+          <div class='track-streams'>
+              <h1>{{ streamsvalstr }}</h1>
+          </div>
+        </div>
+
+        {% endfor %}
+
+    </div>
+  </div>
+    <div class="ribbon-spacer-bottom">
+
+    </div>
+  </div>
+</div>
+<script type="text/javascript">
+  var mr = "{{ album_dict.colormainr }}";
+  var mre = mr.toString();
+  var mg = "{{ album_dict.colormaing }}";
+  var mgr = mg.toString();
+  var mb = "{{ album_dict.colormainb }}";
+  var mbl = mb.toString();
+  var ar = "{{ album_dict.coloraltr }}";
+  var are = ar.toString();
+  var ag = "{{ album_dict.coloraltg }}";
+  var agr = ag.toString();
+  var ab = "{{ album_dict.coloraltb }}";
+  var abl = ab.toString();
+  var mainColor = "rgb(" + mre + ", " + mgr + ", " + mbl + ")";
+  var subColor = "rgb(" + are + ", " + agr + ", " + abl + ")";
+  document.getElementById('mbody').style.backgroundColor = mainColor;
+  document.getElementById('mtopbar').style.backgroundColor = mainColor;
+  document.getElementById('mhomelink').style.color = subColor;
+  document.getElementById('maboutlink').style.color = subColor;
+  document.getElementById('mmaintitle').style.color = subColor;
+  document.getElementById('mribbonsection').style.backgroundColor = subColor;
+  document.getElementById('mname').style.color = subColor;
+  document.getElementById('martist').style.color = subColor;
+  document.getElementById('mtotalstreams').style.color = subColor;
+  document.getElementById('mspotifystreams').style.color = subColor;
+  document.getElementById('mribbonsection').style.color = mainColor;
+  document.getElementById('mgsection').style.color = subColor;
+  document.getElementById('mssection').style.color = subColor;
+  document.getElementById('valence').style.backgroundColor = subColor;
+  document.getElementById('energy').style.backgroundColor = subColor;
+  document.getElementById('danceability').style.backgroundColor = subColor;
+  document.getElementById('mvalence').style.borderColor = subColor;
+  document.getElementById('menergy').style.borderColor = subColor;
+  document.getElementById('mdanceability').style.borderColor = subColor;
+</script>
+{% endblock content %}

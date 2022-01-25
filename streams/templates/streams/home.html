@@ -1,0 +1,210 @@
+{% extends "streams/base.html" %}
+{% block css %}
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'streams/base.css' %}"/>
+{% endblock %}
+{% block content %}
+<script src="https://cdn.jsdelivr.net/npm/@tarekraafat/autocomplete.js@10.2.6/dist/autoComplete.min.js"></script>
+<script>
+  const autoCompleteJS = new autoComplete({ config });
+</script>
+
+<div class="search-bar">
+  <input type="text" class="input-bar" id="mySearch" onclick="document.querySelector('#myMenu').classList.toggle('expand');" onkeyup="myFunction()" placeholder="Search an Album or Artist.." title="Type in a category">
+
+  <div class="search-field" id="searchField">
+    <ul id="myMenu">
+      {% for album in all_albums %}
+      <li>
+        <a href="/{{ album.spotifyid }}/">
+          <div class="search-row">
+            <div class="search-cover">
+              <img src="{{ album.cover }}" alt="">
+            </div>
+            <div class="search-text">
+              <div class="search-name">
+                <h1>{{ album.name }}</h1>
+              </div>
+              <div class="search-artist">
+                <h1>{{ album.artist }}</h1>
+              </div>
+            </div>
+
+          </div>
+        </a>
+      </li>
+      {% endfor %}
+    </ul>
+  </div>
+</div>
+<script>
+  function myFunction() {
+    // Declare variables
+    var input, filter, ul, li, a, i;
+    input = document.getElementById("mySearch");
+    filter = input.value.toUpperCase();
+    ul = document.getElementById("myMenu");
+    li = ul.getElementsByTagName("li");
+
+    // Loop through all list items, and hide those who don't match the search query
+    for (i = 0; i < li.length; i++) {
+      a = li[i].getElementsByTagName("a")[0];
+      if (a.innerHTML.toUpperCase().indexOf(filter) > -1) {
+        li[i].style.display = "";
+      } else {
+        li[i].style.display = "none";
+      }
+    }
+  }
+</script>
+
+
+
+<div class='top-streams-header'>
+    <h1>Top Streams</h1>
+</div>
+<table>
+  <tr class='data-header'>
+    <th class="rank"><h1>Rank</h1></th>
+    <th class="cover-art"><h1>Album</h1></th>
+    <th class="artist-name"><h1>Artist</h1></th>
+    <th class="weekly-gain"><h1>Growth</h1></th>
+    <th class="total-streams"><h1>Streams</h1></th>
+    <th class="revenue"><h1>Revenue</h1></th>
+    <th class="performance"><h1>Performance</h1></th>
+  </tr>
+  {% for rank, album_spotify_id, artist_name, cover_art, streams_list, dsr_list, total_streams, total_revenue, total_growth in top_streams %}
+  <tr class="data-item">
+    <td class="rank"><a href="/{{ album_spotify_id }}/"><div class="rank-circle"><div class="rank-item"><h1>{{ rank }}</h1></div></div></a></td>
+    <td class="cover-art"><a href="/{{ album_spotify_id }}/"><div class='image-holder'><img src="{{ cover_art }}"></div></a></td>
+    <td class="artist-name"><a href="/{{ album_spotify_id }}/"><h1>{{ artist_name }}</h1></a></td>
+    <td class="weekly-gain"><a href="/{{ album_spotify_id }}/"><h1>{{ total_growth }}</h1></a></td>
+    <td class="total-streams"><a href="/{{ album_spotify_id }}/"><h1>{{ total_streams }}</h1></a></td>
+    <td class="revenue"><a href="/{{ album_spotify_id }}/"><h1>{{ total_revenue }}</h1></a></td>
+    <td class="streams-graph">
+      <div class="myChart">
+        <canvas id="myChart{{ forloop.counter0 }}" height='100' width='200'></canvas>
+        <script>
+            var ctx = document.getElementById("myChart" + {{ forloop.counter0 }}).getContext('2d');
+            var myChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: {{ dsr_list }},
+                    datasets: [{
+                        data: {{ streams_list }},
+                        backgroundColor: 'whitesmoke',
+                        borderColor: 'darkslategray',
+                        borderWidth: 3
+                    }]
+                },
+                options: {
+                    responsive: false,
+                    plugins: {
+                      legend: {
+                        display: false
+                      }
+                    },
+                    scales: {
+                        y: {
+                          grid: {
+                            display: false,
+                            drawBorder: false
+                          },
+                          ticks: {
+                            display: false
+                          }
+                        },
+                        x: {
+                          grid: {
+                            display: false,
+                            drawBorder: false
+                          },
+                          ticks: {
+                            display: false
+                          }
+                        }
+                    }
+                }
+            });
+        </script>
+      </div>
+    </td>
+  </tr>
+
+  {% endfor %}
+</table>
+
+<div class='top-streams-header'>
+    <h1>Top Growth</h1>
+</div>
+<table>
+  <tr class='data-header'>
+    <th class="rank"><h1>Rank</h1></th>
+    <th class="cover-art"><h1>Album</h1></th>
+    <th class="artist-name"><h1>Artist</h1></th>
+    <th class="weekly-gain"><h1>Growth</h1></th>
+    <th class="total-streams"><h1>Streams</h1></th>
+    <th class="revenue"><h1>Revenue</h1></th>
+    <th class="performance"><h1>Performance</h1></th>
+  </tr>
+  {% for rank, album_spotify_id, artist_name, cover_art, streams_list, dsr_list, total_streams, total_revenue, total_growth in top_growth %}
+  <tr class="data-item">
+    <td class="rank"><a href="/{{ album_spotify_id }}/"><div class="rank-circle"><div class="rank-item"><h1>{{ rank }}</h1></div></div></a></td>
+    <td class="cover-art"><a href="/{{ album_spotify_id }}/"><div class='image-holder'><img src="{{ cover_art }}"></div></a></td>
+    <td class="artist-name"><a href="/{{ album_spotify_id }}/"><h1>{{ artist_name }}</h1></a></td>
+    <td class="weekly-gain"><a href="/{{ album_spotify_id }}/"><h1>{{ total_growth }}</h1></a></td>
+    <td class="total-streams"><a href="/{{ album_spotify_id }}/"><h1>{{ total_streams }}</h1></a></td>
+    <td class="revenue"><a href="/{{ album_spotify_id }}/"><h1>{{ total_revenue }}</h1></a></td>
+    <td class="streams-graph">
+      <div class="myChart">
+        <canvas id="subChart{{ forloop.counter0 }}" height='100' width='200'></canvas>
+        <script>
+            var ctx = document.getElementById("subChart" + {{ forloop.counter0 }}).getContext('2d');
+            var myChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: {{ dsr_list }},
+                    datasets: [{
+                        data: {{ streams_list }},
+                        backgroundColor: 'white',
+                        borderColor: 'black',
+                        borderWidth: 3
+                    }]
+                },
+                options: {
+                    responsive: false,
+                    plugins: {
+                      legend: {
+                        display: false
+                      }
+                    },
+                    scales: {
+                        y: {
+                          grid: {
+                            display: false,
+                            drawBorder: false
+                          },
+                          ticks: {
+                            display: false
+                          }
+                        },
+                        x: {
+                          grid: {
+                            display: false,
+                            drawBorder: false
+                          },
+                          ticks: {
+                            display: false
+                          }
+                        }
+                    }
+                }
+            });
+        </script>
+      </div>
+    </td>
+  </tr>
+
+  {% endfor %}
+</table>
+{% endblock content %}

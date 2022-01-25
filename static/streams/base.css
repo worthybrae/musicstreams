@@ -1,0 +1,193 @@
+/* NAVIGATION BAR */
+
+.top-bar {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    max-width: 1500px;
+    margin-left: auto;
+    margin-right: auto;
+    
+}
+
+.main-title {
+    width: 50%;
+}
+
+.main-title h1 {
+    font-family: 'Space Mono', monospace;
+    font-size: 32px;
+}
+
+.nav {
+    width: 50%;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.nav-item {
+    width: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.nav-item h1 {
+    
+
+}
+
+.nav-item a {
+    text-decoration: None;
+    font-family: 'Space Mono', monospace;
+    color: black;
+    font-size: 24px;
+    transition-duration: .25s;
+}
+
+.nav-item a:hover {
+    color: green;
+    transition-duration: .25s;
+}
+
+/* VIEWS BAR */
+
+.views-bar {
+    width: 100%;
+    max-width: 1500px;
+    display: flex;
+    flex-wrap: wrap;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.views-item {
+    display: flex;
+    align-items: center;
+}
+
+.views-item h1 {
+    font-family: 'Space Mono', monospace;
+    text-decoration: None;
+}
+
+.views-item a {
+    text-decoration: None;
+    color: black;
+}
+
+.selected {
+
+}
+
+.selected a {
+    color: green;
+    font-size: 24px;
+}
+
+.selected h1 {
+    font-size: 24px;
+}
+
+.secondary {
+    
+}
+
+.secondary a {
+    font-size: 18px;
+    transition-duration: .25s;
+}
+
+.secondary a:hover {
+    transition-duration: .25s;
+    font-size: 24px;
+    color: green;
+    
+}
+
+/* DATA TABLE */
+
+table {
+    width: 100%;
+    max-width: 1500px;
+    margin-left: auto;
+    margin-right: auto;
+    border-collapse: separate;
+    box-sizing: border-box;
+    
+    
+}
+
+tr {
+
+}
+
+.data-item {
+    margin-left: 20px;
+    margin-right: 20px;
+    border-radius: 25px;
+}
+
+.data-item:hover {
+    box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
+}
+
+th {
+    font-family: 'Space Mono', monospace;
+    text-align: center;
+}
+
+th h1 {
+    font-size: 20px;
+}
+
+td {
+    font-family: 'Space Mono', monospace; 
+    vertical-align: middle;
+    text-align: center;
+    box-sizing: border-box;
+    margin: 20px 20px 20px 20px;
+}
+
+td h1 {
+    font-size: 18px;
+}
+
+.rank {
+    
+}
+
+.rank-circle {
+    box-sizing: border-box;
+    padding: 17px;
+    border: 2px solid black;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: middle;
+    text-align: center;
+    
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.rank-circle h1 {
+    
+}
+
+
+.cover-art {
+    
+}
+
+td img {
+    box-sizing: border-box;
+    padding: 10px;
+    height: 75px;
+    border-radius: 5%;
+}
+
+
+
