@@ -1,0 +1,199 @@
+{% block css %}
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'streams/activity.css' %}"/>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap" rel="stylesheet">
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+{% endblock %}
+{% block content %}
+<div class="home-container" id="fullBackground">
+  <div class="sidebar-left">
+
+    <div class="sidebar-icon-container-top">
+      <a href="{% url 'Homepage' %}" class='sidebar-link'>
+        <img class="sidebar-icon" src="{% static 'streams/home.svg' %}" alt="">
+      </a>
+    </div>
+    <div class="sidebar-icon-container">
+      <a href="" class="google.com">
+        <img class="sidebar-icon" src="{% static 'streams/bar-chart.svg' %}" alt="">
+      </a>
+    </div>
+    <div class="sidebar-icon-container">
+      <a href="{% url 'Performancepage' %}" class='sidebar-link'>
+        <img class="sidebar-icon" src="{% static 'streams/activity.svg' %}" alt="">
+      </a>
+    </div>
+    <div class="sidebar-icon-container-bottom">
+      <a href="{% url 'Aboutpage' %}" class='sidebar-link'>
+        <img class="sidebar-icon" src="{% static 'streams/help-circle.svg' %}" alt="">
+      </a>
+    </div>
+  </div>
+  <div class="main-content">
+    <div class="summary">
+
+      <div class="summary-vals">
+        <div class="summary-val">
+          <h1>{{ performance_dict.totalalbums }}</h1>
+          <h2>albums</h2>
+        </div>
+        <div class="summary-val">
+          <h1>{{ performance_dict.totalsongs }}</h1>
+          <h2>songs</h2>
+        </div>
+        <div class="summary-val">
+          <h1>{{ performance_dict.totalsongstreams }}</h1>
+          <h2>stream counts</h2>
+        </div>
+      </div>
+    </div>
+    <div class="visualization">
+      <div class="visualization-title">
+        <h1>Total Album Records</h1>
+      </div>
+      <div class="topChart">
+
+        <canvas id="releaseChart"></canvas>
+        <script>
+            var ctx = document.getElementById("releaseChart").getContext('2d');
+            var myChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: {{ performance_dict.releaselabels }},
+                    datasets: [{
+                        data: {{ performance_dict.releasedata }},
+                        backgroundColor: 'rgba(255, 255, 255, .5)',
+                        borderColor: 'rgba(255, 255, 255, .5)',
+                        borderWidth: 3
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                      legend: {
+                        display: false
+                      }
+                    },
+                    elements: {
+                        point:{
+                            radius: 0
+                        }
+                    },
+                    scales: {
+                        y: {
+                          grid: {
+                            display: false,
+                            drawBorder: false
+                          },
+                          ticks: {
+                            color: 'rgba(255, 255, 255, .75)',
+                            font: {
+                              family: "'Roboto', sans-serif",
+                              size: 15,
+
+                            },
+                            count: 5
+                          }
+                        },
+                        x: {
+                          title: {
+                            display: true,
+                            color: 'rgba(255, 255, 255, .75)',
+                            text: 'Days Since Start',
+                            font: {
+                              family: "'Roboto', sans-serif",
+                              size: 15
+                            }
+                          },
+                          grid: {
+                            display: false,
+                            drawBorder: false
+                          },
+                          ticks: {
+                            display: false
+                          }
+                        }
+                    }
+                }
+            });
+        </script>
+      </div>
+      <div class="visualization-title">
+        <h1>Total Streaming Records</h1>
+      </div>
+      <div class="bottomChart">
+
+        <canvas id="pointsChart"></canvas>
+        <script>
+            var ctx = document.getElementById("pointsChart").getContext('2d');
+            var myChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: {{ performance_dict.pointslabels }},
+                    datasets: [{
+                        data: {{ performance_dict.pointsdata }},
+                        backgroundColor: 'rgba(255, 255, 255, .5)',
+                        borderColor: 'rgba(255, 255, 255, .5)',
+                        borderWidth: 3
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                      legend: {
+                        display: false
+                      }
+                    },
+                    elements: {
+                        point:{
+                            radius: 0
+                        }
+                    },
+                    scales: {
+                        y: {
+                          grid: {
+                            display: false,
+                            drawBorder: false
+                          },
+                          ticks: {
+                            color: 'rgba(255, 255, 255, .75)',
+                            font: {
+                              family: "'Roboto', sans-serif",
+                              size: 15,
+
+                            },
+                            count: 5
+                          }
+                        },
+                        x: {
+                          title: {
+                            display: true,
+                            color: 'rgba(255, 255, 255, .75)',
+                            text: 'Days Since Start',
+                            font: {
+                              family: "'Roboto', sans-serif",
+                              size: 15
+                            }
+                          },
+                          grid: {
+                            display: false,
+                            drawBorder: false
+                          },
+                          ticks: {
+                            display: false
+                          }
+                        }
+                    }
+                }
+            });
+        </script>
+      </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock content %}

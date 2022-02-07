@@ -1,210 +1,194 @@
-{% extends "streams/base.html" %}
 {% block css %}
 {% load static %}
-<link rel="stylesheet" type="text/css" href="{% static 'streams/base.css' %}"/>
+<link rel="stylesheet" type="text/css" href="{% static 'streams/home.css' %}"/>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 {% endblock %}
 {% block content %}
 <script src="https://cdn.jsdelivr.net/npm/@tarekraafat/autocomplete.js@10.2.6/dist/autoComplete.min.js"></script>
 <script>
   const autoCompleteJS = new autoComplete({ config });
 </script>
+<div class="home-container" id="fullBackground">
+  <div class="sidebar-left">
 
-<div class="search-bar">
-  <input type="text" class="input-bar" id="mySearch" onclick="document.querySelector('#myMenu').classList.toggle('expand');" onkeyup="myFunction()" placeholder="Search an Album or Artist.." title="Type in a category">
+    <div class="sidebar-icon-container-top">
+      <a href="{% url 'Homepage' %}" class='sidebar-link'>
+        <img class="sidebar-icon" src="{% static 'streams/home.svg' %}" alt="">
+      </a>
+    </div>
 
-  <div class="search-field" id="searchField">
-    <ul id="myMenu">
-      {% for album in all_albums %}
-      <li>
-        <a href="/{{ album.spotifyid }}/">
-          <div class="search-row">
-            <div class="search-cover">
-              <img src="{{ album.cover }}" alt="">
-            </div>
-            <div class="search-text">
-              <div class="search-name">
-                <h1>{{ album.name }}</h1>
+
+
+    <div class="sidebar-icon-container">
+      <a href="google.com" class='sidebar-link'>
+        <img class="sidebar-icon" src="{% static 'streams/bar-chart.svg' %}" alt="">
+      </a>
+    </div>
+
+    <div class="sidebar-icon-container">
+      <a href="{% url 'Performancepage' %}" class='sidebar-link'>
+        <img class="sidebar-icon" src="{% static 'streams/activity.svg' %}" alt="">
+      </a>
+    </div>
+
+    <div class="sidebar-icon-container-bottom">
+      <a href="{% url 'Aboutpage' %}" class='sidebar-link'>
+        <img class="sidebar-icon" src="{% static 'streams/help-circle.svg' %}" alt="">
+      </a>
+    </div>
+
+  </div>
+  <div class="main-content">
+    <div class="welcome">
+      <h1>Welcome</h1>
+    </div>
+    <div class="search-bar">
+      <div class="search-background" id="searchbackground">
+        <input type="text" class="input-bar" id="mySearch" onclick="document.querySelector('#myMenu').classList.toggle('expand');document.querySelector('#mySearch').classList.toggle('highlight');document.querySelector('#searchbackground').classList.toggle('visible');" onkeyup="myFunction()" placeholder="Search an Album or Artist.." title="Type in a category">
+
+        <div class="search-field" id="searchField">
+          <ul id="myMenu">
+            {% for album in all_albums %}
+            <li>
+              <a href="/{{ album.spotifyid }}/">
+                <div class="search-row">
+                  <div class="search-cover">
+                    <img src="{{ album.cover }}" alt="">
+                  </div>
+                  <div class="search-text">
+                    <div class="search-name">
+                      <h1>{{ album.name }}</h1>
+                    </div>
+                    <div class="search-artist">
+                      <h1>{{ album.artist }}</h1>
+                    </div>
+                  </div>
+
+                </div>
+              </a>
+            </li>
+            {% endfor %}
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="content-container">
+      <div class="container-title">
+        <h1>Trending</h1>
+      </div>
+      <div class="container-body">
+        {% for rank, albumspotifyid, albumname, artistname, coverart, streamslist, dsrlist, totalstreams in top_growth %}
+        <a href="/{{ albumspotifyid }}/">
+          <div class="container-card">
+            <div class="card-cover">
+              <img src="{{ coverart }}" alt="">
+              <div class="card-streams-circle">
+                <h1>{{ totalstreams }}</h1>
               </div>
-              <div class="search-artist">
-                <h1>{{ album.artist }}</h1>
+            </div>
+            <div class="card-text">
+              <div class="card-text-top">
+                <h1>{{ albumname }}</h1>
+              </div>
+              <div class="card-text-bottom">
+                <h1>{{ artistname }}</h1>
               </div>
             </div>
-
+            <div class='card-chart'>
+                <canvas id="cardchart{{ forloop.counter0 }}" height="70" width="250"></canvas>
+                <script>
+                    var ctx = document.getElementById("cardchart" + {{ forloop.counter0 }}).getContext('2d');
+                    var myChart = new Chart(ctx, {
+                        type: 'line',
+                        data: {
+                            labels: {{ dsrlist }},
+                            datasets: [{
+                                data: {{ streamslist }},
+                                backgroundColor: 'whitesmoke',
+                                borderColor: 'white',
+                                borderWidth: 3
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            elements: {
+                              point: {
+                                radius:0
+                              }
+                            },
+                            plugins: {
+                              legend: {
+                                display: false
+                              }
+                            },
+                            scales: {
+                                y: {
+                                  grid: {
+                                    display: false,
+                                    drawBorder: false
+                                  },
+                                  ticks: {
+                                    display: false
+                                  }
+                                },
+                                x: {
+                                  grid: {
+                                    display: false,
+                                    drawBorder: false
+                                  },
+                                  ticks: {
+                                    display: false
+                                  }
+                                }
+                            }
+                        }
+                    });
+                </script>
+              </div>
           </div>
         </a>
-      </li>
-      {% endfor %}
-    </ul>
-  </div>
-</div>
-<script>
-  function myFunction() {
-    // Declare variables
-    var input, filter, ul, li, a, i;
-    input = document.getElementById("mySearch");
-    filter = input.value.toUpperCase();
-    ul = document.getElementById("myMenu");
-    li = ul.getElementsByTagName("li");
+        {% endfor %}
+      </div>
+    </div>
+    <script>
+      function myFunction() {
+        // Declare variables
+        var input, filter, ul, li, a, i;
+        input = document.getElementById("mySearch");
+        filter = input.value.toUpperCase();
+        ul = document.getElementById("myMenu");
+        li = ul.getElementsByTagName("li");
 
-    // Loop through all list items, and hide those who don't match the search query
-    for (i = 0; i < li.length; i++) {
-      a = li[i].getElementsByTagName("a")[0];
-      if (a.innerHTML.toUpperCase().indexOf(filter) > -1) {
-        li[i].style.display = "";
-      } else {
-        li[i].style.display = "none";
+        // Loop through all list items, and hide those who don't match the search query
+        for (i = 0; i < li.length; i++) {
+          a = li[i].getElementsByTagName("a")[0];
+          if (a.innerHTML.toUpperCase().indexOf(filter) > -1) {
+            li[i].style.display = "";
+          } else {
+            li[i].style.display = "none";
+          }
+        }
       }
-    }
-  }
-</script>
+    </script>
 
-
-
-<div class='top-streams-header'>
-    <h1>Top Streams</h1>
+  </div>
+  <script>
+    var mr = "{{ color_dict.colormainr }}";
+    var mre = mr.toString();
+    var mg = "{{ color_dict.colormaing }}";
+    var mgr = mg.toString();
+    var mb = "{{ color_dict.colormainb }}";
+    var mbl = mb.toString();
+    var ar = "{{ color_dict.coloraltr }}";
+    var are = ar.toString();
+    var ag = "{{ color_dict.coloraltg }}";
+    var agr = ag.toString();
+    var ab = "{{ color_dict.coloraltb }}";
+    var abl = ab.toString();
+    var mainColor = "rgb(" + mre + ", " + mgr + ", " + mbl + ")";
+    var subColor = "rgb(" + are + ", " + agr + ", " + abl + ")";
+    document.querySelector('#fullBackground').style.backgroundImage = "linear-gradient(45deg, " + subColor + "," + mainColor + "90%)";
+  </script>
 </div>
-<table>
-  <tr class='data-header'>
-    <th class="rank"><h1>Rank</h1></th>
-    <th class="cover-art"><h1>Album</h1></th>
-    <th class="artist-name"><h1>Artist</h1></th>
-    <th class="weekly-gain"><h1>Growth</h1></th>
-    <th class="total-streams"><h1>Streams</h1></th>
-    <th class="revenue"><h1>Revenue</h1></th>
-    <th class="performance"><h1>Performance</h1></th>
-  </tr>
-  {% for rank, album_spotify_id, artist_name, cover_art, streams_list, dsr_list, total_streams, total_revenue, total_growth in top_streams %}
-  <tr class="data-item">
-    <td class="rank"><a href="/{{ album_spotify_id }}/"><div class="rank-circle"><div class="rank-item"><h1>{{ rank }}</h1></div></div></a></td>
-    <td class="cover-art"><a href="/{{ album_spotify_id }}/"><div class='image-holder'><img src="{{ cover_art }}"></div></a></td>
-    <td class="artist-name"><a href="/{{ album_spotify_id }}/"><h1>{{ artist_name }}</h1></a></td>
-    <td class="weekly-gain"><a href="/{{ album_spotify_id }}/"><h1>{{ total_growth }}</h1></a></td>
-    <td class="total-streams"><a href="/{{ album_spotify_id }}/"><h1>{{ total_streams }}</h1></a></td>
-    <td class="revenue"><a href="/{{ album_spotify_id }}/"><h1>{{ total_revenue }}</h1></a></td>
-    <td class="streams-graph">
-      <div class="myChart">
-        <canvas id="myChart{{ forloop.counter0 }}" height='100' width='200'></canvas>
-        <script>
-            var ctx = document.getElementById("myChart" + {{ forloop.counter0 }}).getContext('2d');
-            var myChart = new Chart(ctx, {
-                type: 'line',
-                data: {
-                    labels: {{ dsr_list }},
-                    datasets: [{
-                        data: {{ streams_list }},
-                        backgroundColor: 'whitesmoke',
-                        borderColor: 'darkslategray',
-                        borderWidth: 3
-                    }]
-                },
-                options: {
-                    responsive: false,
-                    plugins: {
-                      legend: {
-                        display: false
-                      }
-                    },
-                    scales: {
-                        y: {
-                          grid: {
-                            display: false,
-                            drawBorder: false
-                          },
-                          ticks: {
-                            display: false
-                          }
-                        },
-                        x: {
-                          grid: {
-                            display: false,
-                            drawBorder: false
-                          },
-                          ticks: {
-                            display: false
-                          }
-                        }
-                    }
-                }
-            });
-        </script>
-      </div>
-    </td>
-  </tr>
-
-  {% endfor %}
-</table>
-
-<div class='top-streams-header'>
-    <h1>Top Growth</h1>
-</div>
-<table>
-  <tr class='data-header'>
-    <th class="rank"><h1>Rank</h1></th>
-    <th class="cover-art"><h1>Album</h1></th>
-    <th class="artist-name"><h1>Artist</h1></th>
-    <th class="weekly-gain"><h1>Growth</h1></th>
-    <th class="total-streams"><h1>Streams</h1></th>
-    <th class="revenue"><h1>Revenue</h1></th>
-    <th class="performance"><h1>Performance</h1></th>
-  </tr>
-  {% for rank, album_spotify_id, artist_name, cover_art, streams_list, dsr_list, total_streams, total_revenue, total_growth in top_growth %}
-  <tr class="data-item">
-    <td class="rank"><a href="/{{ album_spotify_id }}/"><div class="rank-circle"><div class="rank-item"><h1>{{ rank }}</h1></div></div></a></td>
-    <td class="cover-art"><a href="/{{ album_spotify_id }}/"><div class='image-holder'><img src="{{ cover_art }}"></div></a></td>
-    <td class="artist-name"><a href="/{{ album_spotify_id }}/"><h1>{{ artist_name }}</h1></a></td>
-    <td class="weekly-gain"><a href="/{{ album_spotify_id }}/"><h1>{{ total_growth }}</h1></a></td>
-    <td class="total-streams"><a href="/{{ album_spotify_id }}/"><h1>{{ total_streams }}</h1></a></td>
-    <td class="revenue"><a href="/{{ album_spotify_id }}/"><h1>{{ total_revenue }}</h1></a></td>
-    <td class="streams-graph">
-      <div class="myChart">
-        <canvas id="subChart{{ forloop.counter0 }}" height='100' width='200'></canvas>
-        <script>
-            var ctx = document.getElementById("subChart" + {{ forloop.counter0 }}).getContext('2d');
-            var myChart = new Chart(ctx, {
-                type: 'line',
-                data: {
-                    labels: {{ dsr_list }},
-                    datasets: [{
-                        data: {{ streams_list }},
-                        backgroundColor: 'white',
-                        borderColor: 'black',
-                        borderWidth: 3
-                    }]
-                },
-                options: {
-                    responsive: false,
-                    plugins: {
-                      legend: {
-                        display: false
-                      }
-                    },
-                    scales: {
-                        y: {
-                          grid: {
-                            display: false,
-                            drawBorder: false
-                          },
-                          ticks: {
-                            display: false
-                          }
-                        },
-                        x: {
-                          grid: {
-                            display: false,
-                            drawBorder: false
-                          },
-                          ticks: {
-                            display: false
-                          }
-                        }
-                    }
-                }
-            });
-        </script>
-      </div>
-    </td>
-  </tr>
-
-  {% endfor %}
-</table>
 {% endblock content %}

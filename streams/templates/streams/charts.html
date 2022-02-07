@@ -1,0 +1,40 @@
+{% block css %}
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'streams/charts.css' %}"/>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap" rel="stylesheet">
+{% endblock %}
+{% block content %}
+<div class="home-container" id="fullBackground">
+  <div class="sidebar-left">
+
+    <div class="sidebar-icon-container-top">
+      <a href="{% url 'Homepage' %}" class='sidebar-link'>
+        <img class="sidebar-icon" src="{% static 'streams/home.svg' %}" alt="">
+      </a>
+    </div>
+    <div class="sidebar-icon-container">
+      <a href="google.com" class='sidebar-link'>
+        <img class="sidebar-icon" src="{% static 'streams/bar-chart.svg' %}" alt="">
+      </a>
+    </div>
+    <div class="sidebar-icon-container">
+      <a href="{% url 'Performancepage' %}" class='sidebar-link'>
+        <img class="sidebar-icon" src="{% static 'streams/activity.svg' %}" alt="">
+      </a>
+    </div>
+    <div class="sidebar-icon-container-bottom">
+      <a href="{% url 'Aboutpage' %}" class='sidebar-link'>
+        <img class="sidebar-icon" src="{% static 'streams/help-circle.svg' %}" alt="">
+      </a>
+    </div>
+  </div>
+  <div class="main-content">
+    <div class="welcome">
+      <h1>Activity</h1>
+    </div>
+    <div class="activity-section">
+
+    </div>
+  </div>
+</div>
+{% endblock content %}

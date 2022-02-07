@@ -1,5 +1,95 @@
-{% extends "streams/base.html" %}
-
+{% block css %}
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'streams/about.css' %}"/>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap" rel="stylesheet">
+{% endblock %}
 {% block content %}
-<h1>About page</h1>
+<div class="home-container" id="fullBackground">
+  <div class="sidebar-left">
+
+    <div class="sidebar-icon-container-top">
+      <a href="{% url 'Homepage' %}" class='sidebar-link'>
+        <img class="sidebar-icon" src="{% static 'streams/home.svg' %}" alt="">
+      </a>
+    </div>
+
+
+
+    <div class="sidebar-icon-container">
+      <a href="google.com" class='sidebar-link'>
+        <img class="sidebar-icon" src="{% static 'streams/bar-chart.svg' %}" alt="">
+      </a>
+    </div>
+
+    <div class="sidebar-icon-container">
+      <a href="{% url 'Performancepage' %}" class='sidebar-link'>
+        <img class="sidebar-icon" src="{% static 'streams/activity.svg' %}" alt="">
+      </a>
+    </div>
+
+    <div class="sidebar-icon-container-bottom">
+      <a href="{% url 'Aboutpage' %}" class='sidebar-link'>
+        <img class="sidebar-icon" src="{% static 'streams/help-circle.svg' %}" alt="">
+      </a>
+    </div>
+
+  </div>
+  <div class="main-content">
+    <div class="welcome">
+      <h1>FAQ</h1>
+    </div>
+    <div class="question-section">
+
+      <div class="question-item">
+        <div class="question">
+          <h1>Where does the streaming data come from?</h1>
+        </div>
+        <div class="answer">
+          <p>Streaming data is collected for albums every day using a proprietary collection and estimation model. The streaming data provided only captures streams recorded on Spotify.</p>
+        </div>
+      </div>
+      <div class="question-item">
+        <div class="question">
+          <h1>How does this work?</h1>
+        </div>
+        <div class="answer">
+          <p>When an album is released it is added to our collection of albums. We proceed to collect streaming data on each song in the album for the duration of a year. If an album has songs that were released before the full album, the streams prior to release are removed. This enables us to accurately track the growth of albums upon release without having singles create biased data.</p>
+        </div>
+      </div>
+      <div class="question-item">
+        <div class="question">
+          <h1>How is percentile calculated?</h1>
+        </div>
+        <div class="answer">
+          <p>The total days since release for an album is calculated initially. Once found, a dataset is created with all of our other records that have the same days since release. Once the dataset is found, it is fitted to the most optimal distribution and percentile is calculated through a cumulative density function.</p>
+        </div>
+      </div>
+      <div class="question-item">
+        <div class="question">
+          <h1>How is revenue calculated?</h1>
+        </div>
+        <div class="answer">
+          <p>There is no set amount that Spotify pays per stream. The best estimate that can be found on the internet comes from an independent label with a 350+ album catalog that generates around 1.5b annual streams. According to their most recent report, the average payout per stream from Spotify was $0.00348 which is what we use to estimate revenue.</p>
+        </div>
+      </div>
+      <div class="question-item">
+        <div class="question">
+          <h1>How is growth calculated?</h1>
+        </div>
+        <div class="answer">
+          <p>Growth is calculated by dividing the total streams on day (n) by the total streams on day one.</p>
+        </div>
+      </div>
+      <div class="question-item">
+        <div class="question">
+          <h1>Any other questions?</h1>
+        </div>
+        <div class="answer">
+          <p>Shoot us an email: info@musicplace.io</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
 {% endblock content %}

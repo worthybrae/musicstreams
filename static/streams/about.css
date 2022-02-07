@@ -1,0 +1,142 @@
+body {
+  background-color: black;
+}
+
+.home-container {
+  display: flex;
+  font-family: 'Roboto', sans-serif;
+  height: 100vh;
+  width: 100vw;
+
+}
+
+.sidebar-left {
+  width: 100px;
+  position: fixed;
+  top: 0%;
+  left: 0%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100vh;
+  background: rgba(255, 255, 255, 0.15);
+  border-top-right-radius: 15px;
+  border-bottom-right-radius: 15px;
+
+
+
+}
+
+.solid {
+  width: 100%;
+  border: solid 1px dimgray;
+
+}
+
+
+
+.sidebar-link {
+  text-decoration: none;
+  color: rgba(255, 255, 255, .9);
+}
+
+.sidebar-icon-container-top {
+  width: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 50px 0px;
+  height: 50px;
+}
+
+.sidebar-icon-container {
+  width: 100px;
+  height: 50px;
+  margin: 50px 0px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.sidebar-icon-container-bottom {
+  width: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 50px 0px;
+  height: 50px;
+}
+
+.sidebar-icon {
+  width: 40px;
+  height: 40px;
+}
+
+.sidebar-icon:hover {
+  width: 50px;
+  height: 50px;
+}
+
+.main-content {
+  width: calc(100vw - 100px);
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  top: 0%;
+  left: 100px;
+  height: 100vh;
+  overflow: hidden;
+  background-color: transparent;
+
+}
+
+.question-section {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+  height: 100%;
+  width: calc(100vw - 200px);
+  margin: 50px 50px 50px 50px;
+}
+
+
+.welcome {
+  width: calc(100vw - 200px);
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  margin: 50px 50px 0px 50px;
+
+}
+
+.welcome h1 {
+  color: white;
+  font-size: 30px;
+  font-weight: normal;
+}
+
+.question-item {
+  width: 100%;
+}
+
+.question h1 {
+  color: rgba(255, 255, 255, .9);
+  font-size: 25px;
+  font-weight: bold;
+}
+
+.question {
+  margin-bottom: 10px;
+}
+
+.answer p {
+  color: rgba(255, 255, 255, .9);
+  font-size: 20px;
+  font-weight: lighter;
+}
+
+* {
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+}
