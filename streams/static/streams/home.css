@@ -80,26 +80,27 @@ body {
 }
 
 .main-content {
-  width: calc(100vw - 100px);
+  width: calc(100vw - 200px);
   display: flex;
   flex-direction: column;
   position: absolute;
   top: 0%;
   left: 100px;
-  height: 100vh;
+  height: calc(100vh - 100px);
   margin: 50px;
-  overflow: hidden;
-  background-color: red;
+  overflow: visible;
 
 }
 
 .search {
   width: calc(100vw - 200px);
+  height: calc(50vh - 50px);
 }
 
 
 .welcome {
   width: calc(100vw - 200px);
+  height: 50px;
   display: flex;
   align-items: center;
   justify-content: flex-start;
@@ -149,17 +150,13 @@ body {
   color: rgba(255, 255, 255, .9);
   overflow: auto;
   transition: all .3s ease;
-  max-height: 0;
+  height: 0;
 
 
 }
 
 #myMenu.expand {
-  max-height: 250px;
-}
-
-#sound.expand {
-  max-height: 100px;
+  height: calc((50vh - 100px) * .5);
 }
 
 #myMenu li {
@@ -179,13 +176,13 @@ body {
 }
 
 .search-bar {
-  width: 100%;
+  width: calc(100vw - 200px);
   display: flex;
   align-items: center;
   justify-content: center;
   flex-wrap: wrap;
-  height: 40vh;
-  width: calc(100vw - 150px);
+  height: calc(50vh - 100px);
+
 
 
 }
@@ -283,14 +280,13 @@ body {
 }
 
 .content-container {
-  max-width: 100%;
-  margin: 0px 50px;
-  overflow: visible;
-  white-space: nowrap;
+  width: calc(100vw - 200px);
+  height: calc(50vh - 50px);
 }
 
 .container-title {
-  width: 100%;
+  width: calc(100vw - 200px);
+  height: 50px;
 
 }
 
@@ -302,10 +298,11 @@ body {
 
 .container-body {
   width: calc(100vw - 200px);
-  margin: 50px 0px 50px 0px;
+  height: calc(50vh - 100px);
   overflow: visible;
   white-space: nowrap;
   display: flex;
+  flex-direction: row;
   align-items: center;
   justify-content: space-between;
 }
@@ -317,12 +314,12 @@ body {
   color: rgba(255, 255, 255, .9);
 }
 .container-card {
-  height: 380px;
-  width: 250px;
+  height: calc(50vh - 100px);
+  width: calc((100vw - 200px) / 6.5);
   border-radius: 10px;
   display: flex;
   flex-direction: column;
-  padding: 25px;
+
   overflow: visible;
   background: rgba(255, 255, 255, 0.15);
   transition-duration: .25s;
@@ -352,13 +349,14 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
+  padding: calc(100% * .1);
 
 }
 
 .card-streams-circle {
   position: absolute;
-  bottom: 2.5%;
-  right: 2.5%;
+  bottom: 12.5%;
+  right: 12.5%;
   background-color: green;
   opacity: 0;
   border-radius: 50%;
@@ -377,8 +375,7 @@ body {
 }
 
 .card-cover img {
-  width: 200px;
-  height: 200px;
+  width: 100%;
   border-radius: 10px;
 
 }
@@ -388,7 +385,7 @@ body {
   display: flex;
   flex-direction: column;
   justify-content: space-around;
-  padding: 25px 0px 25px 0px;
+  padding: 0px calc(100% * .1);
 }
 
 .card-chart {
