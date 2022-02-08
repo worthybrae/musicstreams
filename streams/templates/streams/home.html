@@ -1,14 +1,23 @@
 {% block css %}
 {% load static %}
-<link rel="stylesheet" type="text/css" href="{% static 'streams/home.css' %}"/>
+<link rel="stylesheet" type="text/css" href="{% static 'home.css' %}"/>
 <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 {% endblock %}
 {% block content %}
-<script src="https://cdn.jsdelivr.net/npm/@tarekraafat/autocomplete.js@10.2.6/dist/autoComplete.min.js"></script>
-<script>
-  const autoCompleteJS = new autoComplete({ config });
-</script>
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Spotify Streams</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tarekraafat/autocomplete.js@10.2.6/dist/autoComplete.min.js"></script>
+    <script>
+      const autoCompleteJS = new autoComplete({ config });
+    </script>
+  </head>
+  <body>
+
+
 <div class="home-container" id="fullBackground">
   <div class="sidebar-left">
 
@@ -191,4 +200,6 @@
     document.querySelector('#fullBackground').style.backgroundImage = "linear-gradient(45deg, " + subColor + "," + mainColor + "90%)";
   </script>
 </div>
+</body>
+</html>
 {% endblock content %}
