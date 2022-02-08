@@ -69,7 +69,6 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': BASE_DIR / 'db.mysql',
-<<<<<<< HEAD
     }
 }
 
@@ -81,8 +80,6 @@ DATABASES = {
         "PASSWORD": os.getenv('DBPASSWORD'),
         "HOST": os.getenv('DBHOST'),
         "PORT": os.getenv('DBPORT'),
-=======
->>>>>>> 108365f6ce2c870324e596620e9abe2ed00d796b
     }
 }
 
