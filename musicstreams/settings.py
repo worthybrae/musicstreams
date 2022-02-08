@@ -6,11 +6,7 @@ from django.core.management.utils import get_random_secret_key
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 #ENV variables
-os.environ['DBNAME'] = 'musicstreams'
-os.environ['DBUSER'] = 'viewer'
-os.environ['DBPASSWORD'] = 'fQzvNs9CWAiLgm1R'
-os.environ['DBHOST'] = 'musicstreams-do-user-9645939-0.b.db.ondigitalocean.com'
-os.environ['DBPORT'] = '25060'
+
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
