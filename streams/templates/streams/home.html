@@ -49,36 +49,38 @@
 
   </div>
   <div class="main-content">
-    <div class="welcome">
-      <h1>Welcome</h1>
-    </div>
-    <div class="search-bar">
-      <div class="search-background" id="searchbackground">
-        <input type="text" class="input-bar" id="mySearch" onclick="document.querySelector('#myMenu').classList.toggle('expand');document.querySelector('#mySearch').classList.toggle('highlight');document.querySelector('#searchbackground').classList.toggle('visible');" onkeyup="myFunction()" placeholder="Search an Album or Artist.." title="Type in a category">
+    <div class="search">
+      <div class="welcome">
+        <h1>Welcome</h1>
+      </div>
+      <div class="search-bar">
+        <div class="search-background" id="searchbackground">
+          <input type="text" class="input-bar" id="mySearch" onclick="document.querySelector('#myMenu').classList.toggle('expand');document.querySelector('#mySearch').classList.toggle('highlight');document.querySelector('#searchbackground').classList.toggle('visible');" onkeyup="myFunction()" placeholder="Search an Album or Artist.." title="Type in a category">
 
-        <div class="search-field" id="searchField">
-          <ul id="myMenu">
-            {% for album in all_albums %}
-            <li>
-              <a href="/{{ album.spotifyid }}/">
-                <div class="search-row">
-                  <div class="search-cover">
-                    <img src="{{ album.cover }}" alt="">
-                  </div>
-                  <div class="search-text">
-                    <div class="search-name">
-                      <h1>{{ album.name }}</h1>
+          <div class="search-field" id="searchField">
+            <ul id="myMenu">
+              {% for album in all_albums %}
+              <li>
+                <a href="/{{ album.spotifyid }}/">
+                  <div class="search-row">
+                    <div class="search-cover">
+                      <img src="{{ album.cover }}" alt="">
                     </div>
-                    <div class="search-artist">
-                      <h1>{{ album.artist }}</h1>
+                    <div class="search-text">
+                      <div class="search-name">
+                        <h1>{{ album.name }}</h1>
+                      </div>
+                      <div class="search-artist">
+                        <h1>{{ album.artist }}</h1>
+                      </div>
                     </div>
-                  </div>
 
-                </div>
-              </a>
-            </li>
-            {% endfor %}
-          </ul>
+                  </div>
+                </a>
+              </li>
+              {% endfor %}
+            </ul>
+          </div>
         </div>
       </div>
     </div>
