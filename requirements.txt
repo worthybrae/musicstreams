@@ -1,6 +1,8 @@
 asgiref==3.4.1
 backports.zoneinfo==0.2.1
 beautifulsoup4==4.10.0
+boto3==1.20.50
+botocore==1.23.50
 cffi==1.15.0
 click==8.0.3
 colorama==0.4.4
@@ -11,11 +13,13 @@ cycler==0.11.0
 dateparser==1.1.0
 Django==4.0
 django-environ==0.8.1
+django-storages==1.12.3
 easydev==0.12.0
 fitter==1.4.0
 fonttools==4.29.0
 GoogleNews==1.6.0
 gunicorn==20.1.0
+jmespath==0.10.0
 joblib==1.1.0
 kiwisolver==1.3.2
 matplotlib==3.5.1
@@ -33,6 +37,7 @@ python-dateutil==2.8.2
 pytz==2021.3
 pytz-deprecation-shim==0.1.0.post0
 regex==2021.11.10
+s3transfer==0.5.1
 scikit-learn==1.0.2
 scipy==1.7.3
 six==1.16.0
@@ -41,3 +46,4 @@ sqlparse==0.4.2
 threadpoolctl==3.1.0
 tzdata==2021.5
 tzlocal==4.1
+urllib3==1.26.8
