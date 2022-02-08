@@ -2,6 +2,7 @@ from pathlib import Path
 import os
 from django.core.management.utils import get_random_secret_key
 
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -27,6 +28,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'streams.apps.StreamsConfig',
+    'storages',
 ]
 
 MIDDLEWARE = [
@@ -65,14 +67,8 @@ WSGI_APPLICATION = 'musicstreams.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': BASE_DIR / 'db.mysql',
-    }
-}
 
-DATABASES = {
+DATABASES =  {
     "default": {
         "ENGINE": "django.db.backends.mysql",
         "NAME": os.getenv('DBNAME'),
@@ -82,18 +78,6 @@ DATABASES = {
         "PORT": os.getenv('DBPORT'),
     }
 }
-
-DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.mysql",
-        "NAME": os.getenv('DBNAME'),
-        "USER": os.getenv('DBUSER'),
-        "PASSWORD": os.getenv('DBPASSWORD'),
-        "HOST": os.getenv('DBHOST'),
-        "PORT": os.getenv('DBPORT'),
-    }
-}
-
 
 
 
@@ -133,26 +117,15 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
 
-USE_SPACES = os.getenv('USE_SPACES') == 'TRUE'
+STATIC_URL = '/static/'
 
-if USE_SPACES:
-    # settings
-    AWS_ACCESS_KEY_ID = os.getenv('AWS_KEY_ID')
-    AWS_SECRET_ACCESS_KEY = os.getenv('AWS_SECRET_KEY')
-    AWS_STORAGE_BUCKET_NAME = os.getenv('AWS_BUCKET_NAME')
-    AWS_DEFAULT_ACL = 'public-read'
-    AWS_S3_ENDPOINT_URL = 'https://nyc3.digitaloceanspaces.com'
-    AWS_S3_OBJECT_PARAMETERS = {'CacheControl': 'max-age=86400'}
-    # static settings
-    AWS_LOCATION = 'static'
-    STATIC_URL = f'https://{AWS_S3_ENDPOINT_URL}/{AWS_LOCATION}/'
-    STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
-else:
-    STATIC_URL = '/static/'
-    STATIC_ROOT = BASE_DIR / 'static'
+STATICFILES_DIRS = [
+    BASE_DIR / 'static',
+]
 
-STATICFILES_DIRS = (BASE_DIR / 'static',)
+STATIC_ROOT = STATIC_ROOT = BASE_DIR / "staticfiles-cdn"
 
+from .cdn.conf import *
 
 
 # Default primary key field type
