@@ -406,6 +406,7 @@ body {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  background-color: red;
   width: 100%;
 }
 
