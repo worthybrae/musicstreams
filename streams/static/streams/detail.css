@@ -295,7 +295,7 @@
 
 .col-item-body-alt {
   height: calc((100vh - 450px) / 2 - 50px);
-  width: calc((100vw - 200px) / 2 - 25px);
+  width: 100%;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -324,7 +324,7 @@
   flex-direction: row;
   width: 100%;
   justify-content: space-between;
-  height: 25%;
+  height: 20%;
 
 }
 
@@ -672,11 +672,15 @@
 
 .detail-bottom-container-streams {
 
-  min-width: 100%;
+  width: calc(100vw - 100px);
   height: calc(100vh - 350px);
-  padding: 50px;
   box-sizing: border-box;
   overflow: hidden;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 50px;
+
 
 }
 
@@ -691,12 +695,11 @@
 }
 
 .graph-section {
-  max-width: 70%;
+  width: calc(70% - 25px);
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  height: 100%;
-  flex: 1;
+  height: calc(100vh - 450px);
   overflow: visible;
   margin-right: 50px;
 
@@ -712,13 +715,14 @@
 }
 
 .graph-text {
-  max-width: 30%;
+  width: calc(30% - 25px);
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  height: 100%;
+  height: calc(100vh - 450px);
   flex: 1;
   overflow: visible;
+
 }
 
 .graph-text-body {
