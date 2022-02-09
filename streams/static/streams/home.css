@@ -94,7 +94,7 @@ body {
 
 .search {
   width: calc(100vw - 200px);
-  height: calc(47.5vh - 50px);
+  height: calc(45vh - 50px);
 }
 
 
@@ -181,7 +181,7 @@ body {
   align-items: center;
   justify-content: center;
   flex-wrap: wrap;
-  height: calc(50vh - 100px);
+  height: calc(45vh - 100px);
 
 
 
@@ -281,7 +281,7 @@ body {
 
 .content-container {
   width: calc(100vw - 200px);
-  height: calc(52.5vh - 50px);
+  height: calc(55vh - 50px);
 }
 
 .container-title {
@@ -298,7 +298,7 @@ body {
 
 .container-body {
   width: calc(100vw - 200px);
-  height: calc(52.5vh - 100px);
+  height: calc(55vh - 100px);
   overflow: visible;
   white-space: nowrap;
   display: flex;
@@ -314,9 +314,9 @@ body {
   color: rgba(255, 255, 255, .9);
 }
 .container-card {
-  height: calc(52.5vh - 100px);
-  max-height: calc(52.5vh - 100px);
-  width: calc((100vw - 200px) / 6.25);
+  height: calc(55vh - 100px);
+  max-height: calc(55vh - 100px);
+  width: calc((100vw - 200px) / 6);
   border-radius: 10px;
   display: flex;
   flex-direction: column;
