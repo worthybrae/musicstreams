@@ -397,17 +397,19 @@ body {
 
 .card-text-top {
   width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .card-text-top h1 {
   font-size: 15px;
   color: rgba(255, 255, 255, .9);
-  font-weight: bold;
+  font-weight: normal;
+  width: 100%;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  background-color: red;
-  width: 100%;
 }
 
 .card-text-bottom {
