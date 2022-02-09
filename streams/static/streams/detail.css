@@ -227,11 +227,14 @@
 }
 
 .detail-bottom-container-general {
-  min-width: 100%;
+  width: calc(100vw - 100px);
   height: calc(100vh - 350px);
   padding: 50px;
   box-sizing: border-box;
   overflow: hidden;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
 
 
 }
@@ -243,33 +246,31 @@
 }
 
 .detail-container-col {
-  height: 100%;
+  height: calc(100vh - 450px);
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  max-width: 50%;
-  padding-right: 25px;
-  flex: 1;
+  width: calc(50% - 25px);
+
 
 }
 
 .detail-container-col-item {
-  max-height: 100%;
+  height: calc((100vh - 450px) / 2 - 25px);
   display: flex;
   width: 100%;
   flex-wrap: wrap;
-  flex-direction: row;
   flex-direction: column;
   justify-content: space-between;
-
-
 
 
 }
 
 .col-item-title {
   width: 100%;
+  height: 50px;
   display: flex;
+
   align-items: flex-start;
   justify-content: flex-start;
 
@@ -284,16 +285,17 @@
 }
 
 .col-item-body {
-  width: 100%;
+  height: calc((100vh - 450px) / 2 - 75px);
+  width: calc((100vw - 200px) / 2 - 25px);
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
-  flex: 1;
+  justify-content: space-between;
   overflow: visible;
 }
 
 .col-item-body-alt {
-  width: 100%;
+  height: calc((100vh - 450px) / 2 - 50px);
+  width: calc((100vw - 200px) / 2 - 25px);
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -314,7 +316,7 @@
   flex-direction: row;
   width: 100%;
   justify-content: space-between;
-  height: 40%;
+  height: 43.75%;
 }
 
 .col-item-row-alt {
@@ -322,7 +324,7 @@
   flex-direction: row;
   width: 100%;
   justify-content: space-between;
-  height: 90px;
+  height: 25%;
 
 }
 
@@ -334,15 +336,7 @@
   max-height: 34%;
 }
 
-.col-item-row-spacer {
-  width: 100%;
-  height: 15px;
-}
 
-.col-item-row-spacer-mid {
-  width: 100%;
-  height: 25px;
-}
 
 .col-item-card {
   display: flex;
@@ -496,28 +490,22 @@
 }
 
 
-.container-spacer {
-  width: 100%;
-  height: 0%;
-}
 
 .detail-container-single {
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: center;
-  max-width: 50%;
-  padding-left: 25px;
-  flex: 1;
-  height: 100%;
+  width: calc(50% - 25px);
+  height: calc(100vh - 450px);
 }
 
 .detail-container-single-item {
   display: flex;
   width: 100%;
-  height: 100%;
   flex-direction: column;
-  flex: 1;
+  height: calc(100vh - 450px);
+
 }
 
 .mChart {
