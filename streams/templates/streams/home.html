@@ -107,7 +107,7 @@
               </div>
             </div>
             <div class='card-chart'>
-                <canvas id="cardchart{{ forloop.counter0 }}" height="70" width="250"></canvas>
+                <canvas id="cardchart{{ forloop.counter0 }}"></canvas>
                 <script>
                     var ctx = document.getElementById("cardchart" + {{ forloop.counter0 }}).getContext('2d');
                     var myChart = new Chart(ctx, {

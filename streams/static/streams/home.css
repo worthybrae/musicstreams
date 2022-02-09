@@ -386,6 +386,9 @@ body {
   flex-direction: column;
   justify-content: space-around;
   padding: 0px calc(100% * .1);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .card-chart {
@@ -393,6 +396,9 @@ body {
 }
 
 .card-text-top {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .card-text-top h1 {
@@ -402,6 +408,9 @@ body {
 }
 
 .card-text-bottom {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .card-text-bottom h1 {
