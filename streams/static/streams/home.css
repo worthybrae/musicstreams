@@ -94,7 +94,7 @@ body {
 
 .search {
   width: calc(100vw - 200px);
-  height: calc(50vh - 50px);
+  height: calc(47.5vh - 50px);
 }
 
 
@@ -156,7 +156,7 @@ body {
 }
 
 #myMenu.expand {
-  height: calc((50vh - 100px) * .5);
+  height: calc((47.5vh - 100px) * .5);
 }
 
 #myMenu li {
@@ -281,7 +281,7 @@ body {
 
 .content-container {
   width: calc(100vw - 200px);
-  height: calc(50vh - 50px);
+  height: calc(52.5vh - 50px);
 }
 
 .container-title {
@@ -298,7 +298,7 @@ body {
 
 .container-body {
   width: calc(100vw - 200px);
-  height: calc(50vh - 100px);
+  height: calc(52.5vh - 100px);
   overflow: visible;
   white-space: nowrap;
   display: flex;
@@ -314,13 +314,13 @@ body {
   color: rgba(255, 255, 255, .9);
 }
 .container-card {
-  height: calc(50vh - 100px);
+  height: calc(52.5vh - 100px);
+  max-height: calc(52.5vh - 100px);
   width: calc((100vw - 200px) / 6.5);
   border-radius: 10px;
   display: flex;
   flex-direction: column;
-
-  overflow: visible;
+  overflow: hidden;
   background: rgba(255, 255, 255, 0.15);
   transition-duration: .25s;
   box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
@@ -389,9 +389,7 @@ body {
 }
 
 .card-chart {
-  padding: 0;
-  margin: 0;
-  width: 100%;
+  padding: calc(100% * .1);
 }
 
 .card-text-top {
