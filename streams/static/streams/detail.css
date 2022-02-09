@@ -288,6 +288,7 @@
   height: calc((100vh - 450px) / 2 - 75px);
   width: calc((100vw - 200px) / 2 - 25px);
   display: flex;
+  flex: 1;
   flex-direction: column;
   justify-content: space-between;
   overflow: visible;
@@ -317,6 +318,8 @@
   width: 100%;
   justify-content: space-between;
   height: 43.75%;
+  max-height: 43.75%;
+  flex: 1;
 }
 
 .col-item-row-alt {

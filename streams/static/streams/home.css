@@ -396,13 +396,17 @@ body {
 }
 
 .card-text-top {
-
+  width: 100%;
 }
 
 .card-text-top h1 {
   font-size: 15px;
   color: rgba(255, 255, 255, .9);
   font-weight: bold;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 100%;
 }
 
 .card-text-bottom {
