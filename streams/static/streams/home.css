@@ -316,7 +316,7 @@ body {
 .container-card {
   height: calc(52.5vh - 100px);
   max-height: calc(52.5vh - 100px);
-  width: calc((100vw - 200px) / 6.5);
+  width: calc((100vw - 200px) / 6.25);
   border-radius: 10px;
   display: flex;
   flex-direction: column;
