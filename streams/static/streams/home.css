@@ -386,19 +386,17 @@ body {
   flex-direction: column;
   justify-content: space-around;
   padding: 0px calc(100% * .1);
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+
 }
 
 .card-chart {
   padding: calc(100% * .1);
+  width: 100%;
+
 }
 
 .card-text-top {
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+
 }
 
 .card-text-top h1 {
@@ -408,15 +406,16 @@ body {
 }
 
 .card-text-bottom {
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+
 }
 
 .card-text-bottom h1 {
   font-size: 15px;
   color: rgba(255, 255, 255, .9);
   font-weight: normal;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 
