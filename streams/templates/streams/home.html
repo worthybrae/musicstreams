@@ -106,8 +106,8 @@
                 <h1>{{ artistname }}</h1>
               </div>
             </div>
-            <div class='card-chart'>
-                <canvas id="cardchart{{ forloop.counter0 }}" height="70" width="250"></canvas>
+            <div class='card-chart' id='cardcont{{ forloop.counter0 }}'>
+              <canvas id="cardchart{{ forloop.counter0 }}" ></canvas>
                 <script>
                     var ctx = document.getElementById("cardchart" + {{ forloop.counter0 }}).getContext('2d');
                     var myChart = new Chart(ctx, {
@@ -122,6 +122,14 @@
                             }]
                         },
                         options: {
+                            layout: {
+                                padding: {
+                                    left: 0,
+                                    right: 0,
+                                    top: 0,
+                                    bottom: 0
+                                }
+                            },
                             maintainAspectRatio: false,
                             responsive: true,
                             elements: {
@@ -157,7 +165,7 @@
                         }
                     });
                 </script>
-              </div>
+            </div>
           </div>
         </a>
         {% endfor %}

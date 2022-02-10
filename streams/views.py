@@ -272,11 +272,17 @@ def Detailpage(request, album_spotify_id):
     if int(album_dict['runtime'][0]) != 0:
         total_hours = int(album_dict['runtime'][0])
         total_minutes = int(album_dict['runtime'][1])
-        album_dict['runtime'] = f'{total_hours:.0f} hr {total_minutes:.0f} min'
+        if total_minutes != 0:
+            album_dict['runtime'] = f'{total_hours:.0f} hr {total_minutes:.0f} min'
+        else:
+            album_dict['runtime'] = f'{total_hours:.0f} hr'
     else:
         total_minutes = int(album_dict['runtime'][1])
         total_seconds = float(album_dict['runtime'][2])
-        album_dict['runtime'] = f'{total_minutes:.0f} min {total_seconds:.0f} sec'
+        if total_seconds != 0:
+            album_dict['runtime'] = f'{total_minutes:.0f} min {total_seconds:.0f} sec'
+        else:
+            album_dict['runtime'] = f'{total_minutes:.0f} min'
     #Color Render
     urllib.request.urlretrieve(album.cover, "cover.png")
     color_thief = ColorThief('cover.png')
