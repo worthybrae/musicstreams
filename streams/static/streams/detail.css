@@ -713,7 +713,7 @@
   border: solid 1px rgba(255,255,255,.5);
   width: 100%;
   opacity: .4;
-  max-height: 1px;
+  height: 1px;
   background-color: transparent;
 
 }

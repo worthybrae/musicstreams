@@ -13,6 +13,90 @@ import math
 import random
 # Create your views here.
 
+def Chartspage(request):
+    albums = Albums.objects.filter(status='ACTIVE').order_by('-totalstreams')[:10]
+    rank = 1
+    r_choice = random.choice([1,2,3,4,5,6,7,8,9,10])
+    color_dict = {}
+    total_streams_list = []
+    streams_per_day_list = []
+    daily_growth_list = []
+    for album in albums:
+        cover = album.cover
+        id = album.spotifyid
+        name = album.name
+        artist = album.artist
+        day_0_streams = album.day0streams
+        total_streams = album.totalstreams
+        total_streams_str = f"{total_streams:,.0f}"
+        streams_dict = {}
+        for song in album.songs_set.all():
+            for songstream in song.songstreams_set.all().order_by('-daterecorded')[:2]:
+                if (songstream.daterecorded - album.releasedate).days not in streams_dict:
+                    streams_dict[(songstream.daterecorded - album.releasedate).days] = songstream.totalstreams
+                else:
+                    streams_dict[(songstream.daterecorded - album.releasedate).days] += songstream.totalstreams
+        streams_list = []
+        for key, value in streams_dict.items():
+            streams_list.append([key, value - day_0_streams])
+        streams_list.sort(key = lambda x: x[0], reverse = False)
+        if streams_list[1][0] == 0:
+            streams_per_day = 0
+            streams_per_day_str = f"N/A"
+        else:
+            streams_per_day = streams_list[1][1] / streams_list[1][0]
+            streams_per_day_str = f"{streams_per_day:,.0f}"
+        if streams_list[0][1] == 0:
+            daily_growth = 0
+            daily_growth_str = f"N/A"
+        else:
+            daily_growth = (streams_list[1][1] / streams_list[0][1] - 1) * 100
+            daily_growth_str = f"{daily_growth:,.1f}"
+        total_streams_list.append([id, cover, name, artist, total_streams, total_streams_str, streams_per_day, streams_per_day_str, daily_growth, daily_growth_str])
+        streams_per_day_list.append([id, cover, name, artist, total_streams, total_streams_str, streams_per_day, streams_per_day_str, daily_growth, daily_growth_str])
+        daily_growth_list.append([id, cover, name, artist, total_streams, total_streams_str, streams_per_day, streams_per_day_str, daily_growth, daily_growth_str])
+        if r_choice == rank:
+            urllib.request.urlretrieve(album.cover, "cover.png")
+            color_thief = ColorThief('cover.png')
+            palette = color_thief.get_palette(color_count=15)
+            best_color_match = {'distance': 0}
+            for c in palette[:2]:
+                for c2 in [x for x in palette if x != c]:
+                    color1 = np.asarray(tuple(c))
+                    color2 = np.asarray(tuple(c2))
+                    rm = 0.5*(color1[0]+color2[0])
+                    d = sum((2+rm,4,3-rm)*(color1-color2)**2)**0.5
+                    if d > best_color_match['distance']:
+                        best_color_match['color1'] = color1
+                        best_color_match['color2'] = color2
+                        best_color_match['distance'] = d
+                        best_color_match['color1gray'] = 0.2126*tuple(c)[0] + 0.7152*tuple(c)[1] + 0.0722*tuple(c)[2]
+                        best_color_match['color2gray'] = 0.2126*tuple(c2)[0] + 0.7152*tuple(c2)[1] + 0.0722*tuple(c2)[2]
+            if best_color_match['color1gray'] >= 200 and best_color_match['color2gray'] > 127:
+                best_color_match['colormain'] = (90,90,90)
+                best_color_match['coloralt'] = c2
+            elif best_color_match['color2gray'] >= 200 and best_color_match['color1gray'] > 127:
+                best_color_match['colormain'] = (90,90,90)
+                best_color_match['coloralt'] = c
+            elif best_color_match['color1gray'] >= best_color_match['color2gray']:
+                best_color_match['colormain'] = c2
+                best_color_match['coloralt'] = c
+            else:
+                best_color_match['colormain'] = c
+                best_color_match['coloralt'] = c2
+            color_dict['colormainr'] = best_color_match['coloralt'][0] - (255 - best_color_match['coloralt'][0]) * .5
+            color_dict['colormaing'] = best_color_match['coloralt'][1] - (255 - best_color_match['coloralt'][1]) * .5
+            color_dict['colormainb'] = best_color_match['coloralt'][2] - (255 - best_color_match['coloralt'][2]) * .5
+            color_dict['coloraltr'] = best_color_match['colormain'][0] - (255 - best_color_match['colormain'][0]) * .75
+            color_dict['coloraltg'] = best_color_match['colormain'][1] - (255 - best_color_match['colormain'][1]) * .75
+            color_dict['coloraltb'] = best_color_match['colormain'][2] - (255 - best_color_match['colormain'][2]) * .75
+        rank += 1
+    total_streams_list.sort(key = lambda x: x[4], reverse = True)
+    streams_per_day_list.sort(key = lambda x: x[6], reverse = True)
+    daily_growth_list.sort(key = lambda x: x[8], reverse = True)
+    return render(request, 'streams/charts.html', {'total_streams_list': total_streams_list, 'streams_per_day_list': streams_per_day_list, 'daily_growth_list': daily_growth_list, 'color_dict': color_dict})
+
+
 def Detailpage(request, album_spotify_id):
     album = Albums.objects.get(pk=album_spotify_id)
     album_dict = {}
@@ -326,7 +410,7 @@ def Detailpage(request, album_spotify_id):
 
 
 def Homepage(request):
-    all_albums = Albums.objects.filter(status='ACTIVE').order_by('-totalstreams')
+    all_albums = Albums.objects.filter(day1streams__gt=0).order_by('-totalstreams')
     top_growth = []
     albums = Albums.objects.filter(status='ACTIVE').order_by('-totalgrowth')[:5]
     rank = 1
@@ -474,8 +558,6 @@ def Performancepage(request):
             color_dict['coloraltb'] = best_color_match['colormain'][2] - (255 - best_color_match['colormain'][2]) * .75
         rank += 1
     return render(request, 'streams/performance.html', {'performance_dict': performance_dict, 'color_dict': color_dict})
-
-
 
 def Aboutpage(request):
     albums = Albums.objects.filter(status='ACTIVE').order_by('-totalgrowth')[:5]

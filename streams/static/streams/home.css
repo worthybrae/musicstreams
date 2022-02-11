@@ -160,7 +160,7 @@ body {
 }
 
 #myMenu.expand {
-  height: calc(((100vh - (100vw * .025)) * .4 - 50px) * .5);
+  height: calc(((100vh - (100vw * .025)) * .4 - ((((100vh - 100vw * .05) * .6 - 100vw * .0125) / 2 - 100vw * .005125) * .2)) * .75);
 }
 
 #myMenu li {
@@ -416,6 +416,8 @@ body {
   overflow: hidden;
   text-overflow: ellipsis;
 }
+
+
 
 .card-text-top h1 {
   font-size: calc(((((100vh - 100vw * .05) * .6 - 100vw * .0125) / 2 - 100vw * .005125) * .2) * .35);
