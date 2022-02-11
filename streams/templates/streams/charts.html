@@ -32,51 +32,53 @@
       <h1>Top Albums</h1>
     </div>
     <div class="chart-section">
-      <div class="chart-headers">
-        <div class="rank">
-          <h1>#</h1>
+      <div class="row-container" id="ts">
+        <div class="chart-headers">
+          <div class="rank" onclick='streams()'>
+            <h1>#</h1>
+          </div>
+          <div class="title" onclick='streams()'>
+            <h1>Title</h1>
+          </div>
+          <div class="total-streams" onclick='streams()'>
+            <h1>Streams</h1>
+          </div>
+          <div class="streams-per-day" onclick='streamsperday()'>
+            <h1>Streams / Day</h1>
+          </div>
+          <div class="daily-growth" onclick='dailygrowth()'>
+            <h1>24hr %</h1>
+          </div>
         </div>
-        <div class="title">
-          <h1>Title</h1>
-        </div>
-        <div class="total-streams">
-          <h1>Streams</h1>
-        </div>
-        <div class="streams-per-day">
-          <h1>Streams / Days</h1>
-        </div>
-        <div class="daily-growth">
-          <h1>24hr %</h1>
-        </div>
+        <hr class='s'>
+        {% for id, cover, name, artist, totalstreams, totalstreamsstr, streamsperday, streamsperdaystr, dailygrowth, dailygrowthstr in total_streams_list %}
+        <a href="/{{ id }}/">
+          <div class="chart-row">
+            <div class="rank-item">
+              <h1>{{ forloop.counter }}</h1>
+            </div>
+            <div class="title-item">
+              <div class="title-item-cover">
+                <img src="{{ cover }}" alt="">
+              </div>
+              <div class="title-item-text">
+                <h1>{{ name }}</h1>
+                <h2>{{ artist }}</h2>
+              </div>
+            </div>
+            <div class="total-streams-item">
+              <h1>{{ totalstreamsstr }}</h1>
+            </div>
+            <div class="streams-per-day-item">
+              <h1>{{ streamsperdaystr }}</h1>
+            </div>
+            <div class="daily-growth-item">
+              <h1>{{ dailygrowthstr }}%</h1>
+            </div>
+          </div>
+        </a>
+        {% endfor %}
       </div>
-      <hr class='s'>
-      {% for id, cover, name, artist, totalstreams, totalstreamsstr, streamsperday, streamsperdaystr, dailygrowth, dailygrowthstr in total_streams_list %}
-      <a href="/{{ id }}/">
-        <div class="chart-row">
-          <div class="rank-item">
-            <h1>{{ forloop.counter }}</h1>
-          </div>
-          <div class="title-item">
-            <div class="title-item-cover">
-              <img src="{{ cover }}" alt="">
-            </div>
-            <div class="title-item-text">
-              <h1>{{ name }}</h1>
-              <h2>{{ artist }}</h2>
-            </div>
-          </div>
-          <div class="total-streams-item">
-            <h1>{{ totalstreamsstr }}</h1>
-          </div>
-          <div class="streams-per-day-item">
-            <h1>{{ streamsperdaystr }}</h1>
-          </div>
-          <div class="daily-growth-item">
-            <h1>{{ dailygrowthstr }}%</h1>
-          </div>
-        </div>
-      </a>
-      {% endfor %}
     </div>
   </div>
   <script>
@@ -95,6 +97,8 @@
     var mainColor = "rgb(" + mre + ", " + mgr + ", " + mbl + ")";
     var subColor = "rgb(" + are + ", " + agr + ", " + abl + ")";
     document.querySelector('#fullBackground').style.backgroundImage = "linear-gradient(45deg, " + subColor + "," + mainColor + "90%)";
+
   </script>
+  
 </div>
 {% endblock content %}
