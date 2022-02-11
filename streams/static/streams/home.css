@@ -84,6 +84,8 @@ body {
   display: flex;
   flex-direction: column;
   position: absolute;
+  justify-content:space-between;
+  flex-grow: 1;
   top: 0%;
   left: 100px;
   height: 100vh;
@@ -95,6 +97,7 @@ body {
 .search {
   width: calc(100vw - 100px - (100vw * .05));
   height: calc((100vh - (100vw * .05)) * .4);
+  flex-grow: 1;
 }
 
 
@@ -102,7 +105,8 @@ body {
   width: calc(100vw - 100px - (100vw * .05));
   height: calc((((100vh - 100vw * .05) * .6 - 100vw * .0125) / 2 - 100vw * .005125) * .2);
   display: flex;
-  align-items: center;
+  flex-direction: row;
+  align-items: flex-start;
   justify-content: flex-start;
 
 
@@ -110,13 +114,13 @@ body {
 
 .welcome h1 {
   color: rgba(255, 255, 255, .9);
-  font-size: calc(((((100vh - 100vw * .05) * .6 - 100vw * .0125) / 2 - 100vw * .005125) * .2) * .75);
+  font-size: calc(((((100vh - 100vw * .05) * .6 - 100vw * .0125) / 2 - 100vw * .005125) * .2) * .6);
   font-weight: normal;
 }
 
 #mySearch {
   width: 100%;
-  font-size: 20px;
+  font-size: calc(((((100vh - 100vw * .05) * .6 - 100vw * .0125) / 2 - 100vw * .005125) * .2) * .4);
   padding: 15px;
   background: rgba(255, 255, 255, 0.0);
   border-top-style: hidden;
@@ -179,10 +183,9 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  flex-wrap: wrap;
+  flex: 1 0 0;
   width: calc(100vw - 100px - (100vw * .05));
-  height: calc(((100vh - (100vw * .05)) * .4) - ((((100vh - 100vw * .05) * .6 - 100vw * .0125) / 2 - 100vw * .005125) * .2));
-
+  height: calc(100% - ((((100vh - 100vw * .05) * .6 - 100vw * .0125) / 2 - 100vw * .005125) * .2));
 
 }
 
@@ -226,19 +229,19 @@ body {
 
 .input-bar::placeholder {
   font-family: 'Roboto', sans-serif;
-  font-size: 20px;
+  font-size: calc(((((100vh - 100vw * .05) * .6 - 100vw * .0125) / 2 - 100vw * .005125) * .2) * .4);
   color: rgba(255, 255, 255, .9);
   opacity: 1;
 }
 
 .input-bar {
   font-family: 'Roboto', sans-serif;
-  font-size: 20px;
+  font-size: calc(((((100vh - 100vw * .05) * .6 - 100vw * .0125) / 2 - 100vw * .005125) * .2) * .4);
 }
 
 .search-row h1 {
   font-family: 'Roboto', sans-serif;
-  font-size: 15px;
+  font-size: calc(((((100vh - 100vw * .05) * .6 - 100vw * .0125) / 2 - 100vw * .005125) * .2) * .4);
   font-weight: normal;
 }
 
@@ -264,7 +267,7 @@ body {
 
 .search-name h1 {
   text-align: left;
-  font-size: 15px;
+  font-size: calc(((((100vh - 100vw * .05) * .6 - 100vw * .0125) / 2 - 100vw * .005125) * .2) * .4);
   font-weight: bold;
 }
 
@@ -274,38 +277,42 @@ body {
 
 .search-artist h1 {
   text-align: right;
-  font-size: 15px;
+  font-size: calc(((((100vh - 100vw * .05) * .6 - 100vw * .0125) / 2 - 100vw * .005125) * .2) * .4);
   font-weight: normal;
 }
 
 .content-container {
   width: calc(100vw - 100px - (100vw * .05));
-  height: calc((100vh - (100vw * .05)) * .60);
+  max-height: calc((100vh - (100vw * .05)) * .60);
 
 }
 
 .container-title {
   width: calc(100vw - 100px - (100vw * .05));
   height: calc((((100vh - 100vw * .05) * .6 - 100vw * .0125) / 2 - 100vw * .005125) * .2);
-
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: flex-start;
 }
 
 .container-title h1 {
-  font-size: calc((((100vh - 100vw * .05) * .6 - 100vw * .0125) / 2 - 100vw * .005125) * .2 * .75);
+  font-size: calc((((100vh - 100vw * .05) * .6 - 100vw * .0125) / 2 - 100vw * .005125) * .2 * .6);
   color: rgba(255, 255, 255, .9);
   font-weight: normal;
 }
 
 .container-body {
   width: calc(100vw - 100px - (100vw * .05));
-  height: calc(((100vh - (100vw * .05)) * .60) - ((((100vh - 100vw * .05) * .6 - 100vw * .0125) / 2 - 100vw * .005125) * .2));
+  max-height: calc(((100vh - (100vw * .05)) * .60) - ((((100vh - 100vw * .05) * .6 - 100vw * .0125) / 2 - 100vw * .005125) * .2));
   overflow: visible;
   -ms-overflow-style: none;  /* IE and Edge */
   scrollbar-width: none;  /* Firefox */
   white-space: nowrap;
   display: flex;
   flex-direction: row;
-  align-items: flex-end;
+
+  align-items: flex-start;
   justify-content: space-between;
 }
 
@@ -317,11 +324,14 @@ body {
 }
 .container-card {
   width: calc((100vw - 100px - (100vw * .025 * 6)) / 5);
+  max-width: calc((((100vh - (100vw * .05)) * .60) - ((((100vh - 100vw * .05) * .6 - 100vw * .0125) / 2 - 100vw * .005125) * .2)) / 3 * 2);
   height: calc((100vw - 100px - (100vw * .025 * 6)) / 5 / 2 * 3);
+  max-height: calc(((100vh - (100vw * .05)) * .60) - ((((100vh - 100vw * .05) * .6 - 100vw * .0125) / 2 - 100vw * .005125) * .2));
   padding: calc(100vw * .0125);
   border-radius: 10px;
   display: flex;
   flex-direction: column;
+  justify-content: center;
   overflow: hidden;
   background: rgba(255, 255, 255, 0.15);
   transition-duration: .25s;
@@ -343,7 +353,9 @@ body {
 
 .card-cover {
   width: calc((100vw - 100px - (100vw * .025 * 6)) / 5 - (100vw * .025));
+  max-width: calc((((100vh - (100vw * .05)) * .60) - ((((100vh - 100vw * .05) * .6 - 100vw * .0125) / 2 - 100vw * .005125) * .2)) / 3 * 2 - (100vw * .025));
   height: calc((100vw - 100px - (100vw * .025 * 6)) / 5 - (100vw * .025));
+  max-height: calc((((100vh - (100vw * .05)) * .60) - ((((100vh - 100vw * .05) * .6 - 100vw * .0125) / 2 - 100vw * .005125) * .2)) / 3 * 2 - (100vw * .025));
   position: relative;
   display: flex;
   align-items: center;
@@ -381,6 +393,7 @@ body {
 
 .card-text {
   width: calc((100vw - 100px - (100vw * .025 * 6)) / 5 - (100vw * .025));
+  max-width: calc((((100vh - (100vw * .05)) * .60) - ((((100vh - 100vw * .05) * .6 - 100vw * .0125) / 2 - 100vw * .005125) * .2)) / 3 * 2 - (100vw * .025));
   height: calc((((100vw - 100px - (100vw * .025 * 6)) / 5 / 2 * 3) - ((100vw - 100px - (100vw * .025 * 6)) / 5 - (100vw * .025))) * .6);
   display: flex;
   flex-direction: column;
@@ -392,7 +405,7 @@ body {
 .card-chart {
   height: calc((((100vw - 100px - (100vw * .025 * 6)) / 5 / 2 * 3) - ((100vw - 100px - (100vw * .025 * 6)) / 5 - (100vw * .025))) * .4 - (100vw * .0125));
   width: calc((100vw - 100px - (100vw * .025 * 6)) / 5 - (100vw * .025));
-
+  max-width: calc((((100vh - (100vw * .05)) * .60) - ((((100vh - 100vw * .05) * .6 - 100vw * .0125) / 2 - 100vw * .005125) * .2)) / 3 * 2 - (100vw * .025));
 }
 
 
@@ -405,9 +418,9 @@ body {
 }
 
 .card-text-top h1 {
-  font-size: 15px;
+  font-size: calc(((((100vh - 100vw * .05) * .6 - 100vw * .0125) / 2 - 100vw * .005125) * .2) * .35);
   color: rgba(255, 255, 255, .9);
-  font-weight: normal;
+  font-weight: bold;
   width: 100%;
   white-space: nowrap;
   overflow: hidden;
@@ -419,7 +432,7 @@ body {
 }
 
 .card-text-bottom h1 {
-  font-size: 15px;
+  font-size: calc(((((100vh - 100vw * .05) * .6 - 100vw * .0125) / 2 - 100vw * .005125) * .2) * .35);
   color: rgba(255, 255, 255, .9);
   font-weight: normal;
   white-space: nowrap;

@@ -1,6 +1,6 @@
 {% block css %}
 {% load static %}
-<link rel="stylesheet" type="text/css" href="{% static 'streams/activity.css' %}"/>
+<link rel="stylesheet" type="text/css" href="{% static 'activity.css' %}"/>
 <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap" rel="stylesheet">
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -32,168 +32,206 @@
   </div>
   <div class="main-content">
     <div class="summary">
-
+      <div class="summary-title">
+        <h1>Snapshot</h1>
+      </div>
       <div class="summary-vals">
+        <div class="summary-val">
+          <h1>{{ performance_dict.dayscollected }}</h1>
+          <h2>days</h2>
+        </div>
+
         <div class="summary-val">
           <h1>{{ performance_dict.totalalbums }}</h1>
           <h2>albums</h2>
         </div>
+
         <div class="summary-val">
           <h1>{{ performance_dict.totalsongs }}</h1>
           <h2>songs</h2>
         </div>
+
         <div class="summary-val">
           <h1>{{ performance_dict.totalsongstreams }}</h1>
           <h2>stream counts</h2>
         </div>
-      </div>
-    </div>
-    <div class="visualization">
-      <div class="visualization-title">
-        <h1>Total Album Records</h1>
-      </div>
-      <div class="topChart">
-
-        <canvas id="releaseChart"></canvas>
-        <script>
-            var ctx = document.getElementById("releaseChart").getContext('2d');
-            var myChart = new Chart(ctx, {
-                type: 'line',
-                data: {
-                    labels: {{ performance_dict.releaselabels }},
-                    datasets: [{
-                        data: {{ performance_dict.releasedata }},
-                        backgroundColor: 'rgba(255, 255, 255, .5)',
-                        borderColor: 'rgba(255, 255, 255, .5)',
-                        borderWidth: 3
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: {
-                      legend: {
-                        display: false
-                      }
-                    },
-                    elements: {
-                        point:{
-                            radius: 0
-                        }
-                    },
-                    scales: {
-                        y: {
-                          grid: {
-                            display: false,
-                            drawBorder: false
-                          },
-                          ticks: {
-                            color: 'rgba(255, 255, 255, .75)',
-                            font: {
-                              family: "'Roboto', sans-serif",
-                              size: 15,
-
-                            },
-                            count: 5
-                          }
-                        },
-                        x: {
-                          title: {
-                            display: true,
-                            color: 'rgba(255, 255, 255, .75)',
-                            text: 'Days Since Start',
-                            font: {
-                              family: "'Roboto', sans-serif",
-                              size: 15
-                            }
-                          },
-                          grid: {
-                            display: false,
-                            drawBorder: false
-                          },
-                          ticks: {
-                            display: false
-                          }
-                        }
-                    }
-                }
-            });
-        </script>
-      </div>
-      <div class="visualization-title">
-        <h1>Total Streaming Records</h1>
-      </div>
-      <div class="bottomChart">
-
-        <canvas id="pointsChart"></canvas>
-        <script>
-            var ctx = document.getElementById("pointsChart").getContext('2d');
-            var myChart = new Chart(ctx, {
-                type: 'line',
-                data: {
-                    labels: {{ performance_dict.pointslabels }},
-                    datasets: [{
-                        data: {{ performance_dict.pointsdata }},
-                        backgroundColor: 'rgba(255, 255, 255, .5)',
-                        borderColor: 'rgba(255, 255, 255, .5)',
-                        borderWidth: 3
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: {
-                      legend: {
-                        display: false
-                      }
-                    },
-                    elements: {
-                        point:{
-                            radius: 0
-                        }
-                    },
-                    scales: {
-                        y: {
-                          grid: {
-                            display: false,
-                            drawBorder: false
-                          },
-                          ticks: {
-                            color: 'rgba(255, 255, 255, .75)',
-                            font: {
-                              family: "'Roboto', sans-serif",
-                              size: 15,
-
-                            },
-                            count: 5
-                          }
-                        },
-                        x: {
-                          title: {
-                            display: true,
-                            color: 'rgba(255, 255, 255, .75)',
-                            text: 'Days Since Start',
-                            font: {
-                              family: "'Roboto', sans-serif",
-                              size: 15
-                            }
-                          },
-                          grid: {
-                            display: false,
-                            drawBorder: false
-                          },
-                          ticks: {
-                            display: false
-                          }
-                        }
-                    }
-                }
-            });
-        </script>
-      </div>
 
       </div>
     </div>
+    <div class="visualizations">
+      <div class="visualization">
+        <div class="visualization-title">
+          <h1>Total Albums</h1>
+        </div>
+        <div class="topChart">
+
+          <canvas id="releaseChart"></canvas>
+          <script>
+              var ctx = document.getElementById("releaseChart").getContext('2d');
+              var myChart = new Chart(ctx, {
+                  type: 'line',
+                  data: {
+                      labels: {{ performance_dict.releaselabels }},
+                      datasets: [{
+                          data: {{ performance_dict.releasedata }},
+                          backgroundColor: 'rgba(255, 255, 255, .5)',
+                          borderColor: 'rgba(255, 255, 255, .5)',
+                          borderWidth: 3
+                      }]
+                  },
+                  options: {
+                      responsive: true,
+                      maintainAspectRatio: false,
+                      plugins: {
+                        legend: {
+                          display: false
+                        }
+                      },
+                      elements: {
+                          point:{
+                              radius: 0
+                          }
+                      },
+                      scales: {
+                          y: {
+                            grid: {
+                              display: false,
+                              drawBorder: false
+                            },
+                            ticks: {
+                              color: 'rgba(255, 255, 255, .75)',
+                              font: {
+                                family: "'Roboto', sans-serif",
+                                size: 15,
+
+                              },
+                              count: 5
+                            }
+                          },
+                          x: {
+                            title: {
+                              display: true,
+                              color: 'rgba(255, 255, 255, .75)',
+                              text: 'Days Since Start',
+                              font: {
+                                family: "'Roboto', sans-serif",
+                                size: 15
+                              }
+                            },
+                            grid: {
+                              display: false,
+                              drawBorder: false
+                            },
+                            ticks: {
+                              display: false
+
+                            }
+                          }
+                      }
+                  }
+              });
+          </script>
+        </div>
+      </div>
+      <div class="visualization">
+        <div class="visualization-title">
+          <h1>Total Stream Counts</h1>
+        </div>
+        <div class="topChart">
+
+          <canvas id="pointsChart"></canvas>
+          <script>
+              var ctx = document.getElementById("pointsChart").getContext('2d');
+              var myChart = new Chart(ctx, {
+                  type: 'line',
+                  data: {
+                      labels: {{ performance_dict.pointslabels }},
+                      datasets: [{
+                          data: {{ performance_dict.pointsdata }},
+                          backgroundColor: 'rgba(255, 255, 255, .5)',
+                          borderColor: 'rgba(255, 255, 255, .5)',
+                          borderWidth: 3
+                      }]
+                  },
+                  options: {
+                      responsive: true,
+                      maintainAspectRatio: false,
+                      plugins: {
+                        legend: {
+                          display: false
+                        }
+                      },
+                      elements: {
+                          point:{
+                              radius: 0
+                          }
+                      },
+                      scales: {
+                          y: {
+                            grid: {
+                              display: false,
+                              drawBorder: false
+                            },
+                            ticks: {
+                              color: 'rgba(255, 255, 255, .75)',
+                              font: {
+                                family: "'Roboto', sans-serif",
+                                size: 15,
+
+                              },
+                              count: 5
+                            }
+                          },
+                          x: {
+                            title: {
+                              display: true,
+                              color: 'rgba(255, 255, 255, .75)',
+                              text: 'Days Since Start',
+                              font: {
+                                family: "'Roboto', sans-serif",
+                                size: 15
+                              }
+                            },
+                            grid: {
+                              display: false,
+                              drawBorder: false
+                            },
+                            ticks: {
+                              color: 'rgba(255, 255, 255, .75)',
+                              font: {
+                                family: "'Roboto', sans-serif",
+                                size: 15,
+
+                              },
+                              display: false
+                            }
+                          }
+                      }
+                  }
+              });
+          </script>
+        </div>
+      </div>
+
+
+      </div>
+    </div>
+    <script>
+      var mr = "{{ color_dict.colormainr }}";
+      var mre = mr.toString();
+      var mg = "{{ color_dict.colormaing }}";
+      var mgr = mg.toString();
+      var mb = "{{ color_dict.colormainb }}";
+      var mbl = mb.toString();
+      var ar = "{{ color_dict.coloraltr }}";
+      var are = ar.toString();
+      var ag = "{{ color_dict.coloraltg }}";
+      var agr = ag.toString();
+      var ab = "{{ color_dict.coloraltb }}";
+      var abl = ab.toString();
+      var mainColor = "rgb(" + mre + ", " + mgr + ", " + mbl + ")";
+      var subColor = "rgb(" + are + ", " + agr + ", " + abl + ")";
+      document.querySelector('#fullBackground').style.backgroundImage = "linear-gradient(45deg, " + subColor + "," + mainColor + "90%)";
+    </script>
   </div>
-</div>
 {% endblock content %}

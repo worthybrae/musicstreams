@@ -35,72 +35,107 @@
 
   </div>
   <div class="main-content">
-    <div class="welcome">
-      <h1>FAQ</h1>
-    </div>
-    <div class="question-section">
+    <div class="about-container">
+      <div class="welcome">
+        <h1>FAQ</h1>
+      </div>
+      <div class="question-section">
+        <div class="question-item" onclick="a0click()">
+          <div class="question">
+            <h1>What is this?</h1>
+            <h2 id='plus0'>+</h2>
+          </div>
+          <div class="answer" id='a0'>
+            <p>We track the streaming data of albums from their first day of release until day 365. We do this in order to create increased transparency in the streaming industry and also shine light on how little musicians make from streaming. Furthermore, this site can be used to keep track of quickly growing songs and albums that aren't on the top billboard or spotify charts.</p>
+          </div>
+        </div>
 
-      <div class="question-item" onclick="a1click()">
-        <div class="question">
-          <h1>Where does the streaming data come from?</h1>
-          <h2 id='plus1'>+</h2>
+        <div class="question-item" onclick="a1click()">
+          <div class="question">
+            <h1>Where does the streaming data come from?</h1>
+            <h2 id='plus1'>+</h2>
+          </div>
+          <div class="answer" id='a1'>
+            <p>Streaming data is collected for albums every day using a proprietary collection and estimation model. The streaming data provided only captures streams recorded on Spotify.</p>
+          </div>
         </div>
-        <div class="answer" id='a1'>
-          <p>Streaming data is collected for albums every day using a proprietary collection and estimation model. The streaming data provided only captures streams recorded on Spotify.</p>
+        <div class="question-item" onclick="a2click()">
+          <div class="question">
+            <h1>How does this work?</h1>
+            <h2 id='plus2'>+</h2>
+          </div>
+          <div class="answer" id='a2'>
+            <p>When an album is released it is added to our collection of albums. We proceed to collect streaming data on each song in the album for the duration of a year. If an album has songs that were released before the full album, the streams prior to release are removed. This enables us to accurately track the growth of albums upon release without having singles create biased data.</p>
+          </div>
         </div>
-      </div>
-      <div class="question-item" onclick="a2click()">
-        <div class="question">
-          <h1>How does this work?</h1>
-          <h2 id='plus2'>+</h2>
+        <div class="question-item" onclick="a3click()">
+          <div class="question">
+            <h1>How is percentile calculated?</h1>
+            <h2 id='plus3'>+</h2>
+          </div>
+          <div class="answer" id='a3'>
+            <p>The total days since release for an album is calculated initially. Once found, a dataset is created with all of our other records that have the same days since release. Once the dataset is found, it is fitted to the most optimal distribution and percentile is calculated through a cumulative density function.</p>
+          </div>
         </div>
-        <div class="answer" id='a2'>
-          <p>When an album is released it is added to our collection of albums. We proceed to collect streaming data on each song in the album for the duration of a year. If an album has songs that were released before the full album, the streams prior to release are removed. This enables us to accurately track the growth of albums upon release without having singles create biased data.</p>
+        <div class="question-item" onclick="a4click()">
+          <div class="question">
+            <h1>How is revenue calculated?</h1>
+            <h2 id='plus4'>+</h2>
+          </div>
+          <div class="answer" id='a4'>
+            <p>There is no set amount that Spotify pays per stream. The best estimate that can be found on the internet comes from an independent label with a 350+ album catalog that generates around 1.5b annual streams. According to their most recent report, the average payout per stream from Spotify was $0.00348 which is what we use to estimate revenue.</p>
+          </div>
         </div>
-      </div>
-      <div class="question-item" onclick="a3click()">
-        <div class="question">
-          <h1>How is percentile calculated?</h1>
-          <h2 id='plus3'>+</h2>
+        <div class="question-item" onclick="a5click()">
+          <div class="question">
+            <h1>How is growth calculated?</h1>
+            <h2 id='plus5'>+</h2>
+          </div>
+          <div class="answer" id='a5'>
+            <p>Growth is calculated by dividing the total streams on day (n) by the total streams on day one.</p>
+          </div>
         </div>
-        <div class="answer" id='a3'>
-          <p>The total days since release for an album is calculated initially. Once found, a dataset is created with all of our other records that have the same days since release. Once the dataset is found, it is fitted to the most optimal distribution and percentile is calculated through a cumulative density function.</p>
-        </div>
-      </div>
-      <div class="question-item" onclick="a4click()">
-        <div class="question">
-          <h1>How is revenue calculated?</h1>
-          <h2 id='plus4'>+</h2>
-        </div>
-        <div class="answer" id='a4'>
-          <p>There is no set amount that Spotify pays per stream. The best estimate that can be found on the internet comes from an independent label with a 350+ album catalog that generates around 1.5b annual streams. According to their most recent report, the average payout per stream from Spotify was $0.00348 which is what we use to estimate revenue.</p>
-        </div>
-      </div>
-      <div class="question-item" onclick="a5click()">
-        <div class="question">
-          <h1>How is growth calculated?</h1>
-          <h2 id='plus5'>+</h2>
-        </div>
-        <div class="answer" id='a5'>
-          <p>Growth is calculated by dividing the total streams on day (n) by the total streams on day one.</p>
-        </div>
-      </div>
-      <div class="question-item" onclick="a6click()">
-        <div class="question">
-          <h1>Any other questions?</h1>
-          <h2 id='plus6'>+</h2>
-        </div>
-        <div class="answer" id='a6'>
-          <p>Shoot us an email: info@musicplace.io</p>
+        <div class="question-item" onclick="a6click()">
+          <div class="question">
+            <h1>Any other questions?</h1>
+            <h2 id='plus6'>+</h2>
+          </div>
+          <div class="answer" id='a6'>
+            <p>Shoot us an email: info@musicplace.io</p>
+          </div>
         </div>
       </div>
     </div>
-
   </div>
   <script type="text/javascript">
+    function a0click() {
+      document.querySelector('#a0').style.maxHeight = '100%';
+      document.querySelector('#a0').style.paddingTop = '10px';
+      document.querySelector('#a1').style.maxHeight = '0px';
+      document.querySelector('#a1').style.paddingTop = '0px';
+      document.querySelector('#a2').style.maxHeight = '0px';
+      document.querySelector('#a2').style.paddingTop = '0px';
+      document.querySelector('#a3').style.maxHeight = '0px';
+      document.querySelector('#a3').style.paddingTop = '0px';
+      document.querySelector('#a4').style.maxHeight = '0px';
+      document.querySelector('#a4').style.paddingTop = '0px';
+      document.querySelector('#a5').style.maxHeight = '0px';
+      document.querySelector('#a5').style.paddingTop = '0px';
+      document.querySelector('#a6').style.maxHeight = '0px';
+      document.querySelector('#a6').style.paddingTop = '0px';
+      document.querySelector('#plus0').style.display = 'none';
+      document.querySelector('#plus1').style.display = 'flex';
+      document.querySelector('#plus2').style.display = 'flex';
+      document.querySelector('#plus3').style.display = 'flex';
+      document.querySelector('#plus4').style.display = 'flex';
+      document.querySelector('#plus5').style.display = 'flex';
+      document.querySelector('#plus6').style.display = 'flex';
+    };
     function a1click() {
       document.querySelector('#a1').style.maxHeight = '100%';
       document.querySelector('#a1').style.paddingTop = '10px';
+      document.querySelector('#a0').style.maxHeight = '0px';
+      document.querySelector('#a0').style.paddingTop = '0px';
       document.querySelector('#a2').style.maxHeight = '0px';
       document.querySelector('#a2').style.paddingTop = '0px';
       document.querySelector('#a3').style.maxHeight = '0px';
@@ -112,6 +147,7 @@
       document.querySelector('#a6').style.maxHeight = '0px';
       document.querySelector('#a6').style.paddingTop = '0px';
       document.querySelector('#plus1').style.display = 'none';
+      document.querySelector('#plus0').style.display = 'flex';
       document.querySelector('#plus2').style.display = 'flex';
       document.querySelector('#plus3').style.display = 'flex';
       document.querySelector('#plus4').style.display = 'flex';
@@ -121,6 +157,8 @@
     function a2click() {
       document.querySelector('#a2').style.maxHeight = '100%';
       document.querySelector('#a2').style.paddingTop = '10px';
+      document.querySelector('#a0').style.maxHeight = '0px';
+      document.querySelector('#a0').style.paddingTop = '0px';
       document.querySelector('#a1').style.maxHeight = '0px';
       document.querySelector('#a1').style.paddingTop = '0px';
       document.querySelector('#a3').style.maxHeight = '0px';
@@ -132,6 +170,7 @@
       document.querySelector('#a6').style.maxHeight = '0px';
       document.querySelector('#a6').style.paddingTop = '0px';
       document.querySelector('#plus2').style.display = 'none';
+      document.querySelector('#plus0').style.display = 'flex';
       document.querySelector('#plus1').style.display = 'flex';
       document.querySelector('#plus3').style.display = 'flex';
       document.querySelector('#plus4').style.display = 'flex';
@@ -141,6 +180,8 @@
     function a3click() {
       document.querySelector('#a3').style.maxHeight = '100%';
       document.querySelector('#a3').style.paddingTop = '10px';
+      document.querySelector('#a0').style.maxHeight = '0px';
+      document.querySelector('#a0').style.paddingTop = '0px';
       document.querySelector('#a1').style.maxHeight = '0px';
       document.querySelector('#a1').style.paddingTop = '0px';
       document.querySelector('#a2').style.maxHeight = '0px';
@@ -152,6 +193,7 @@
       document.querySelector('#a6').style.maxHeight = '0px';
       document.querySelector('#a6').style.paddingTop = '0px';
       document.querySelector('#plus3').style.display = 'none';
+      document.querySelector('#plus0').style.display = 'flex';
       document.querySelector('#plus1').style.display = 'flex';
       document.querySelector('#plus2').style.display = 'flex';
       document.querySelector('#plus4').style.display = 'flex';
@@ -161,6 +203,8 @@
     function a4click() {
       document.querySelector('#a4').style.maxHeight = '100%';
       document.querySelector('#a4').style.paddingTop = '10px';
+      document.querySelector('#a0').style.maxHeight = '0px';
+      document.querySelector('#a0').style.paddingTop = '0px';
       document.querySelector('#a1').style.maxHeight = '0px';
       document.querySelector('#a1').style.paddingTop = '0px';
       document.querySelector('#a2').style.maxHeight = '0px';
@@ -172,6 +216,7 @@
       document.querySelector('#a6').style.maxHeight = '0px';
       document.querySelector('#a6').style.paddingTop = '0px';
       document.querySelector('#plus4').style.display = 'none';
+      document.querySelector('#plus0').style.display = 'flex';
       document.querySelector('#plus1').style.display = 'flex';
       document.querySelector('#plus2').style.display = 'flex';
       document.querySelector('#plus3').style.display = 'flex';
@@ -181,6 +226,8 @@
     function a5click() {
       document.querySelector('#a5').style.maxHeight = '100%';
       document.querySelector('#a5').style.paddingTop = '10px';
+      document.querySelector('#a0').style.maxHeight = '0px';
+      document.querySelector('#a0').style.paddingTop = '0px';
       document.querySelector('#a1').style.maxHeight = '0px';
       document.querySelector('#a1').style.paddingTop = '0px';
       document.querySelector('#a2').style.maxHeight = '0px';
@@ -192,6 +239,7 @@
       document.querySelector('#a6').style.maxHeight = '0px';
       document.querySelector('#a6').style.paddingTop = '0px';
       document.querySelector('#plus5').style.display = 'none';
+      document.querySelector('#plus0').style.display = 'flex';
       document.querySelector('#plus1').style.display = 'flex';
       document.querySelector('#plus2').style.display = 'flex';
       document.querySelector('#plus3').style.display = 'flex';
@@ -201,6 +249,8 @@
     function a6click() {
       document.querySelector('#a6').style.maxHeight = '100%';
       document.querySelector('#a6').style.paddingTop = '10px';
+      document.querySelector('#a0').style.maxHeight = '0px';
+      document.querySelector('#a0').style.paddingTop = '0px';
       document.querySelector('#a1').style.maxHeight = '0px';
       document.querySelector('#a1').style.paddingTop = '0px';
       document.querySelector('#a2').style.maxHeight = '0px';
@@ -212,6 +262,7 @@
       document.querySelector('#a5').style.maxHeight = '0px';
       document.querySelector('#a5').style.paddingTop = '0px';
       document.querySelector('#plus6').style.display = 'none';
+      document.querySelector('#plus0').style.display = 'flex';
       document.querySelector('#plus1').style.display = 'flex';
       document.querySelector('#plus2').style.display = 'flex';
       document.querySelector('#plus3').style.display = 'flex';
@@ -219,6 +270,23 @@
       document.querySelector('#plus5').style.display = 'flex';
     };
 
+  </script>
+  <script>
+    var mr = "{{ color_dict.colormainr }}";
+    var mre = mr.toString();
+    var mg = "{{ color_dict.colormaing }}";
+    var mgr = mg.toString();
+    var mb = "{{ color_dict.colormainb }}";
+    var mbl = mb.toString();
+    var ar = "{{ color_dict.coloraltr }}";
+    var are = ar.toString();
+    var ag = "{{ color_dict.coloraltg }}";
+    var agr = ag.toString();
+    var ab = "{{ color_dict.coloraltb }}";
+    var abl = ab.toString();
+    var mainColor = "rgb(" + mre + ", " + mgr + ", " + mbl + ")";
+    var subColor = "rgb(" + are + ", " + agr + ", " + abl + ")";
+    document.querySelector('#fullBackground').style.backgroundImage = "linear-gradient(45deg, " + subColor + "," + mainColor + "90%)";
   </script>
 </div>
 {% endblock content %}

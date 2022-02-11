@@ -283,12 +283,13 @@
   width: 100%;
   height: calc((((100vh - 100vw * .05) * .6 - 100vw * .0125) / 2 - 100vw * .005125) * .2);
   display: flex;
+  flex-direction: row;
   align-items: flex-start;
   justify-content: flex-start;
 }
 
 .col-item-title h1 {
-  font-size: calc((((100vh - 100vw * .05) * .6 - 100vw * .0125) / 2 - 100vw * .005125) * .2 * .75);
+  font-size: calc((((100vh - 100vw * .05) * .6 - 100vw * .0125) / 2 - 100vw * .005125) * .2 * .6);
   font-weight: bold;
   color: rgba(255, 255, 255, .9);
 }
@@ -431,7 +432,8 @@
 .graph-text-item-text {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  align-items: center;
+  justify-content: center;
   height: calc((((100vh - 100vw * .05) * .6 - 100vw * .0125) / 2 - 100vw * .005125) * .8 / 2 - 100vw * .005125);
 }
 
@@ -445,7 +447,6 @@
 
 .graph-text-value {
   width: 100%;
-  height: calc(((((100vh - 100vw * .05) * .6 - 100vw * .0125) / 2 - 100vw * .005125) * .8 / 2 - 100vw * .005125) / 2 - 100vw * .0005125125);
   display: flex;
   align-items: flex-end;
   justify-content: flex-start;
@@ -458,7 +459,6 @@
 }
 
 .graph-text-label {
-  height: calc(((((100vh - 100vw * .05) * .6 - 100vw * .0125) / 2 - 100vw * .005125) * .8 / 2 - 100vw * .005125) / 2 - 100vw * .0005125125);
   width: 100%;
   display: flex;
   align-items: flex-start;
@@ -621,8 +621,8 @@
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  flex-wrap: wrap;
   align-items: center;
-  margin-bottom: 5px;
 
 }
 
@@ -641,7 +641,7 @@
 }
 
 .detail-bottom-card-headers h1 {
-  font-size: 15px;
+  font-size: calc((((((100vh - 100vw * .05) * .6 - 100vw * .0125) / 2 - 100vw * .005125) * .8 / 2 - 100vw * .005125) / 2 - 100vw * .0005125125) * .4);
   color: rgba(255, 255, 255, .9);
   font-weight: lighter;
 }
@@ -683,9 +683,13 @@
 .detail-bottom-row-container {
   width: 100%;
   max-height: 100%;
-  overflow: auto;
+  overflow: scroll;
+  -ms-overflow-style: none;  /* Internet Explorer 10+ */
+  scrollbar-width: none;
+}
 
-
+.detail-bottom-row-container::-webkit-scrollbar {
+  display: none;
 }
 
 .detail-bottom-row-item {
@@ -699,7 +703,7 @@
 }
 
 .detail-bottom-row-item h1{
-  font-size: 15px;
+  font-size: calc((((((100vh - 100vw * .05) * .6 - 100vw * .0125) / 2 - 100vw * .005125) * .8 / 2 - 100vw * .005125) / 2 - 100vw * .0005125125) * .4);
   color: rgba(255, 255, 255, .9);
   font-weight: lighter;
 }
@@ -711,6 +715,7 @@
   opacity: .4;
   max-height: 1px;
   background-color: transparent;
+
 }
 
 .detail-bottom-container-streams {

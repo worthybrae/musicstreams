@@ -355,7 +355,6 @@ def Homepage(request):
         dsr_list = list(range(1, len(dates_list[1:])+1))
         total_streams = numerize.numerize(album.totalstreams, 0)
         top_growth.append([rank, album_spotify_id, album_name, artist_name, cover_art, streams_list, dsr_list, total_streams])
-        rank += 1
         if r_choice == rank:
             urllib.request.urlretrieve(album.cover, "cover.png")
             color_thief = ColorThief('cover.png')
@@ -391,6 +390,7 @@ def Homepage(request):
             color_dict['coloraltr'] = best_color_match['colormain'][0] - (255 - best_color_match['colormain'][0]) * .75
             color_dict['coloraltg'] = best_color_match['colormain'][1] - (255 - best_color_match['colormain'][1]) * .75
             color_dict['coloraltb'] = best_color_match['colormain'][2] - (255 - best_color_match['colormain'][2]) * .75
+        rank += 1
     return render(request, 'streams/home.html', {'top_growth': top_growth, 'all_albums': all_albums, 'color_dict': color_dict})
 
 def Performancepage(request):
@@ -423,6 +423,7 @@ def Performancepage(request):
 
     performance_dict['pointsdata'] = []
     performance_dict['pointslabels'] = []
+
     old_value = 0
     for key, value in points_data.items():
         performance_dict['pointsdata'].append(value + old_value)
@@ -430,10 +431,92 @@ def Performancepage(request):
         old_value = value + old_value
     performance_dict['pointsdata'].sort()
     performance_dict['pointslabels'].sort()
-
-    return render(request, 'streams/performance.html', {'performance_dict': performance_dict})
+    performance_dict['dayscollected'] = max(performance_dict['pointslabels'])
+    albums = Albums.objects.filter(status='ACTIVE').order_by('-totalgrowth')[:5]
+    rank = 1
+    r_choice = random.choice([1,2,3,4,5])
+    color_dict = {}
+    for album in albums:
+        if r_choice == rank:
+            urllib.request.urlretrieve(album.cover, "cover.png")
+            color_thief = ColorThief('cover.png')
+            palette = color_thief.get_palette(color_count=15)
+            best_color_match = {'distance': 0}
+            for c in palette[:2]:
+                for c2 in [x for x in palette if x != c]:
+                    color1 = np.asarray(tuple(c))
+                    color2 = np.asarray(tuple(c2))
+                    rm = 0.5*(color1[0]+color2[0])
+                    d = sum((2+rm,4,3-rm)*(color1-color2)**2)**0.5
+                    if d > best_color_match['distance']:
+                        best_color_match['color1'] = color1
+                        best_color_match['color2'] = color2
+                        best_color_match['distance'] = d
+                        best_color_match['color1gray'] = 0.2126*tuple(c)[0] + 0.7152*tuple(c)[1] + 0.0722*tuple(c)[2]
+                        best_color_match['color2gray'] = 0.2126*tuple(c2)[0] + 0.7152*tuple(c2)[1] + 0.0722*tuple(c2)[2]
+            if best_color_match['color1gray'] >= 200 and best_color_match['color2gray'] > 127:
+                best_color_match['colormain'] = (90,90,90)
+                best_color_match['coloralt'] = c2
+            elif best_color_match['color2gray'] >= 200 and best_color_match['color1gray'] > 127:
+                best_color_match['colormain'] = (90,90,90)
+                best_color_match['coloralt'] = c
+            elif best_color_match['color1gray'] >= best_color_match['color2gray']:
+                best_color_match['colormain'] = c2
+                best_color_match['coloralt'] = c
+            else:
+                best_color_match['colormain'] = c
+                best_color_match['coloralt'] = c2
+            color_dict['colormainr'] = best_color_match['coloralt'][0] - (255 - best_color_match['coloralt'][0]) * .5
+            color_dict['colormaing'] = best_color_match['coloralt'][1] - (255 - best_color_match['coloralt'][1]) * .5
+            color_dict['colormainb'] = best_color_match['coloralt'][2] - (255 - best_color_match['coloralt'][2]) * .5
+            color_dict['coloraltr'] = best_color_match['colormain'][0] - (255 - best_color_match['colormain'][0]) * .75
+            color_dict['coloraltg'] = best_color_match['colormain'][1] - (255 - best_color_match['colormain'][1]) * .75
+            color_dict['coloraltb'] = best_color_match['colormain'][2] - (255 - best_color_match['colormain'][2]) * .75
+        rank += 1
+    return render(request, 'streams/performance.html', {'performance_dict': performance_dict, 'color_dict': color_dict})
 
 
 
 def Aboutpage(request):
-    return render(request, 'streams/about.html')
+    albums = Albums.objects.filter(status='ACTIVE').order_by('-totalgrowth')[:5]
+    rank = 1
+    r_choice = random.choice([1,2,3,4,5])
+    color_dict = {}
+    for album in albums:
+        if r_choice == rank:
+            urllib.request.urlretrieve(album.cover, "cover.png")
+            color_thief = ColorThief('cover.png')
+            palette = color_thief.get_palette(color_count=15)
+            best_color_match = {'distance': 0}
+            for c in palette[:2]:
+                for c2 in [x for x in palette if x != c]:
+                    color1 = np.asarray(tuple(c))
+                    color2 = np.asarray(tuple(c2))
+                    rm = 0.5*(color1[0]+color2[0])
+                    d = sum((2+rm,4,3-rm)*(color1-color2)**2)**0.5
+                    if d > best_color_match['distance']:
+                        best_color_match['color1'] = color1
+                        best_color_match['color2'] = color2
+                        best_color_match['distance'] = d
+                        best_color_match['color1gray'] = 0.2126*tuple(c)[0] + 0.7152*tuple(c)[1] + 0.0722*tuple(c)[2]
+                        best_color_match['color2gray'] = 0.2126*tuple(c2)[0] + 0.7152*tuple(c2)[1] + 0.0722*tuple(c2)[2]
+            if best_color_match['color1gray'] >= 200 and best_color_match['color2gray'] > 127:
+                best_color_match['colormain'] = (90,90,90)
+                best_color_match['coloralt'] = c2
+            elif best_color_match['color2gray'] >= 200 and best_color_match['color1gray'] > 127:
+                best_color_match['colormain'] = (90,90,90)
+                best_color_match['coloralt'] = c
+            elif best_color_match['color1gray'] >= best_color_match['color2gray']:
+                best_color_match['colormain'] = c2
+                best_color_match['coloralt'] = c
+            else:
+                best_color_match['colormain'] = c
+                best_color_match['coloralt'] = c2
+            color_dict['colormainr'] = best_color_match['coloralt'][0] - (255 - best_color_match['coloralt'][0]) * .5
+            color_dict['colormaing'] = best_color_match['coloralt'][1] - (255 - best_color_match['coloralt'][1]) * .5
+            color_dict['colormainb'] = best_color_match['coloralt'][2] - (255 - best_color_match['coloralt'][2]) * .5
+            color_dict['coloraltr'] = best_color_match['colormain'][0] - (255 - best_color_match['colormain'][0]) * .75
+            color_dict['coloraltg'] = best_color_match['colormain'][1] - (255 - best_color_match['colormain'][1]) * .75
+            color_dict['coloraltb'] = best_color_match['colormain'][2] - (255 - best_color_match['colormain'][2]) * .75
+        rank += 1
+    return render(request, 'streams/about.html', {'color_dict': color_dict})
