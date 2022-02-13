@@ -113,7 +113,10 @@ def Detailpage(request, album_spotify_id):
     album_dict['totalstreams'] = album.totalstreams
     album_dict['totalrevenue'] = album.totalstreams * .00348
     album_dict['totalrevenue'] = f"${album_dict['totalrevenue']:,.0f}"
-    album_dict['totalgrowth'] = f"{album.totalgrowth:,.0f}%"
+    if album.totalgrowth == 0:
+        album_dict['totalgrowth'] = f"N/A"
+    else:
+        album_dict['totalgrowth'] = f"{album.totalgrowth:,.0f}%"
     album_dict['maxstreams'] = []
     valence_list = []
     energy_list = []
@@ -148,7 +151,7 @@ def Detailpage(request, album_spotify_id):
             song_total_growth_int = (optimized_ss_list[len(optimized_ss_list)-1] / optimized_ss_list[0] - 1) * 100
             song_total_growth = f"{song_total_growth_int:,.0f}%"
         else:
-            song_total_growth = '0%'
+            song_total_growth = 'N/A'
             song_total_growth_int = 0
         orderlist.append([songorder, songname, album.artist, song_total_streams, song_total_growth, song_total_revenue, song_total_streams_int, song_total_revenue_int, song_total_growth_int])
         playslist.append([songorder, songname, album.artist, song_total_streams, song_total_growth, song_total_revenue, song_total_streams_int, song_total_revenue_int, song_total_growth_int])
@@ -244,7 +247,7 @@ def Detailpage(request, album_spotify_id):
     fillprobs = []
     nofillprobs = []
     probs = []
-    cond_streams = np.linspace(dist_min, dist_max, 1000)
+    cond_streams = np.linspace(dist_min, dist_max, 5000)
     album_dict['totalstreamsint'] = album.totalstreams
     for i in cond_streams:
         streams.append(i)
