@@ -247,7 +247,7 @@ def Detailpage(request, album_spotify_id):
     fillprobs = []
     nofillprobs = []
     probs = []
-    cond_streams = np.linspace(dist_min, dist_max, 5000)
+    cond_streams = np.linspace(dist_min, dist_max, 2000)
     album_dict['totalstreamsint'] = album.totalstreams
     for i in cond_streams:
         streams.append(i)
