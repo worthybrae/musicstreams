@@ -264,22 +264,34 @@ body {
 
 .search-name {
   padding-left: 20px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .search-name h1 {
   text-align: left;
   font-size: calc((100vh * .4 - 100vw * .1) * .2 * .25);
   font-weight: normal;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .search-artist {
   padding-left: 20px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .search-artist h1 {
   text-align: right;
   font-size: calc((100vh * .4 - 100vw * .1) * .2 * .25);
   font-weight: normal;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .content-container {
@@ -396,7 +408,7 @@ body {
   flex-direction: column;
   justify-content: center;
   padding: calc(100vw * .0125) 0px;
-  width: calc((100vh * .6 - (100vh * .4 * .15) - (100vw * .2)) / 3 * 2);
+  width: calc((100vh * .5 - (100vh * .4 * .15) - (100vw * .2)) / 3 * 2);
   flex-grow: 1
 }
 
@@ -408,7 +420,7 @@ body {
 
 
 .card-text-top {
-  width: 100%;
+  width: calc((100vh * .5 - (100vh * .4 * .15) - (100vw * .2)) / 3 * 2);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -427,7 +439,7 @@ body {
 }
 
 .card-text-bottom {
-  width: 100%;
+  width: calc((100vh * .5 - (100vh * .4 * .15) - (100vw * .2)) / 3 * 2);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;

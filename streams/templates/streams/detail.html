@@ -1,1231 +1,1241 @@
 {% block css %}
 {% load static %}
-<link rel="stylesheet" type="text/css" href="{% static 'detail.css' %}"/>
+<link rel="stylesheet" media="screen and (min-width: 1000px)" href="{% static 'detail.css' %}" />
 <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/mathjs@8.0.1/lib/browser/math.js"  crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/chartjs-plugin-annotation/1.3.0/chartjs-plugin-annotation.min.js"></script>
+<link rel="stylesheet" media="screen and (max-width: 1000px)" href="{% static 'detail-mobile.css' %}" />
 {% endblock %}
 {% block content %}
-<div class="home-container" id="fullBackground">
-  <div class="sidebar-left">
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>{{ album_dict.name }}</title>
+  </head>
+  <body>
+    <div class="home-container" id="fullBackground">
+      <div class="sidebar-left">
 
-    <div class="sidebar-icon-container-top">
-      <a href="{% url 'Homepage' %}" class='sidebar-link'>
-        <img class="sidebar-icon" src="{% static 'streams/home.svg' %}" alt="">
-      </a>
-    </div>
+        <div class="sidebar-icon-container-top">
+          <a href="{% url 'Homepage' %}" class='sidebar-link'>
+            <img class="sidebar-icon" src="{% static 'streams/home.svg' %}" alt="">
+          </a>
+        </div>
 
 
 
-    <div class="sidebar-icon-container">
-      <a href="{% url 'Chartspage' %}" class="sidebar-link">
-        <img class="sidebar-icon" src="{% static 'streams/bar-chart.svg' %}" alt="">
-      </a>
-    </div>
+        <div class="sidebar-icon-container">
+          <a href="{% url 'Chartspage' %}" class="sidebar-link">
+            <img class="sidebar-icon" src="{% static 'streams/bar-chart.svg' %}" alt="">
+          </a>
+        </div>
 
-    <div class="sidebar-icon-container">
-      <a href="{% url 'Performancepage' %}" class='sidebar-link'>
-        <img class="sidebar-icon" src="{% static 'streams/activity.svg' %}" alt="">
-      </a>
-    </div>
+        <div class="sidebar-icon-container">
+          <a href="{% url 'Performancepage' %}" class='sidebar-link'>
+            <img class="sidebar-icon" src="{% static 'streams/activity.svg' %}" alt="">
+          </a>
+        </div>
 
-    <div class="sidebar-icon-container">
-      <a href="{% url 'Aboutpage' %}" class='sidebar-link'>
-        <img class="sidebar-icon" src="{% static 'streams/help-circle.svg' %}" alt="">
-      </a>
-    </div>
+        <div class="sidebar-icon-container">
+          <a href="{% url 'Aboutpage' %}" class='sidebar-link'>
+            <img class="sidebar-icon" src="{% static 'streams/help-circle.svg' %}" alt="">
+          </a>
+        </div>
 
-  </div>
-  <div class="main-content" id="maincontent">
-    <div class="detail-top-card">
-      <div class="detail-top-card-cover">
-        <img src="{{ album_dict.cover }}" alt="">
       </div>
-      <div class="detail-top-card-text">
-        <div class="detail-top-card-text-container">
-          <div class="detail-top-card-text-top">
-            <h1>{{ album_dict.name }}</h1>
+      <div class="main-content" id="maincontent">
+        <div class="detail-top-card">
+          <div class="detail-top-card-cover">
+            <img src="{{ album_dict.cover }}" alt="">
           </div>
-          <div class="detail-top-card-text-bottom">
-            <div class="detail-top-card-text-bottom-container">
-              <h1 class="top-card-main">{{ album_dict.artist }}&nbsp</h1>
-              <h1 class="top-card-alt"> ∘ {{ album_dict.releasedate}} ∘ {{ album_dict.totalsongs}} songs ∘ {{ album_dict.runtime }}</h1>
+          <div class="detail-top-card-text">
+            <div class="detail-top-card-text-container">
+              <div class="detail-top-card-text-top">
+                <h1>{{ album_dict.name }}</h1>
+              </div>
+              <div class="detail-top-card-text-bottom">
+                <div class="detail-top-card-text-bottom-container">
+                  <h1 class="top-card-main">{{ album_dict.artist }}&nbsp</h1>
+                  <h1 class="top-card-alt"> ∘ {{ album_dict.releasedate}} ∘ {{ album_dict.totalsongs}} songs ∘ {{ album_dict.runtime }}</h1>
+                </div>
+                <div class="detail-space-bar">
+                  <div class="detail-item" id="general" onclick="general()">
+                    <h1>General</h1>
+                  </div>
+                  <div class="detail-item-spacer"></div>
+                  <div class="detail-item" id="songs" onclick="songs()">
+                    <h1>Songs</h1>
+                  </div>
+                  <div class="detail-item-spacer"></div>
+                  <div class="detail-item" id="streams" onclick="streams()">
+                    <h1>Streams</h1>
+                  </div>
+                  <div class="detail-item-spacer"></div>
+                  <div class="detail-item" id="revenue" onclick="revenue()">
+                    <h1>Revenue</h1>
+                  </div>
+                  <div class="detail-item-spacer"></div>
+                  <div class="detail-item" id="growth" onclick="growth()">
+                    <h1>Growth</h1>
+                  </div>
+                </div>
+              </div>
             </div>
-            <div class="detail-space-bar">
-              <div class="detail-item" id="general" onclick="general()">
-                <h1>General</h1>
+          </div>
+
+        </div>
+
+        <div class="detail-bottom-holder">
+          <div class="detail-bottom-container-general" id="generalSection">
+            <div class="detail-container-col">
+              <div class="detail-container-col-item">
+                <div class="col-item-title">
+                  <h1>Stats</h1>
+                </div>
+                <div class="col-item-body">
+                  <div class="col-item-row">
+                    <div class="col-item-card">
+                      <div class="graph-text-item-icon">
+                        <div class="graph-text-item-circle">
+                          <img src="{% static 'streams/disc.svg' %}" alt="">
+                        </div>
+                      </div>
+                      <div class="graph-text-item-text">
+                        <div class="graph-text-value">
+                          <h1>{{ album_dict.totalstreams }}</h1>
+                        </div>
+                        <div class="graph-text-label">
+                          <h1>Total Streams</h1>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-item-card">
+                      <div class="graph-text-item-icon">
+                        <div class="graph-text-item-circle">
+                          <img src="{% static 'streams/arrow-up-right.svg' %}" alt="">
+                        </div>
+                      </div>
+                      <div class="graph-text-item-text">
+                        <div class="graph-text-value">
+                          <h1>{{ album_dict.totalgrowth }}</h1>
+                        </div>
+                        <div class="graph-text-label">
+                          <h1>Total Growth</h1>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-item-row">
+                    <div class="col-item-card">
+                      <div class="graph-text-item-icon">
+                        <div class="graph-text-item-circle">
+                          <img src="{% static 'streams/dollar-sign.svg' %}" alt="">
+                        </div>
+                      </div>
+                      <div class="graph-text-item-text">
+                        <div class="graph-text-value">
+                          <h1>{{ album_dict.totalrevenue }}</h1>
+                        </div>
+                        <div class="graph-text-label">
+                          <h1>Total Revenue</h1>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-item-card">
+                      <div class="graph-text-item-icon">
+                        <div class="graph-text-item-circle">
+                          <img src="{% static 'streams/bar-chart-2.svg' %}" alt="">
+                        </div>
+                      </div>
+                      <div class="graph-text-item-text">
+                        <div class="graph-text-value">
+                          <h1 id='percentile'>{{ album_dict.percentilelabel }}</h1>
+                        </div>
+                        <div class="graph-text-label">
+                          <h1>Percentile</h1>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+
               </div>
-              <div class="detail-item-spacer"></div>
-              <div class="detail-item" id="songs" onclick="songs()">
-                <h1>Songs</h1>
+
+
+              <div class="detail-container-col-item">
+                <div class="col-item-title">
+                  <h1>Sound</h1>
+                </div>
+                <div class="col-item-body">
+                  <div class="col-item-row-long">
+                    <div class="col-item-card-long">
+                      <div class="statistics-bar-container">
+                        <div class="first-bar-label">
+                          <h1>Sad</h1>
+                        </div>
+                        <div class="statistics-bar" id="mvalence">
+                          <div class="statistics-progress" id="valence">
+                          </div>
+                        </div>
+                        <div class="second-bar-label">
+                          <h1>Happy</h1>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-item-row-long">
+                    <div class="col-item-card-long">
+                      <div class="statistics-bar-container">
+                        <div class="first-bar-label">
+                          <h1>Sitting</h1>
+                        </div>
+                        <div class="statistics-bar" id="mdanceability">
+                          <div class="statistics-progress" id="danceability">
+                          </div>
+                        </div>
+                        <div class="second-bar-label">
+                          <h1>Dancing</h1>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-item-row-long">
+                    <div class="col-item-card-long">
+                      <div class="statistics-bar-container">
+                        <div class="first-bar-label">
+                          <h1>Relaxed</h1>
+                        </div>
+                        <div class="statistics-bar" id="menergy">
+                          <div class="statistics-progress" id="energy">
+                          </div>
+                        </div>
+                        <div class="second-bar-label">
+                          <h1>Crazy</h1>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
-              <div class="detail-item-spacer"></div>
-              <div class="detail-item" id="streams" onclick="streams()">
+            </div>
+            <div class="detail-container-single">
+              <div class="detail-container-single-item">
+                <div class="col-item-title">
+                  <h1>Percentile</h1>
+                </div>
+                <div class="mChart">
+                  <canvas id="qChart"></canvas>
+                  <script>
+                      var mr = "{{ album_dict.colormainr }}";
+                      var mre = mr.toString();
+                      var mg = "{{ album_dict.colormaing }}";
+                      var mgr = mg.toString();
+                      var mb = "{{ album_dict.colormainb }}";
+                      var mbl = mb.toString();
+                      var ar = "{{ album_dict.coloraltr }}";
+                      var are = ar.toString();
+                      var ag = "{{ album_dict.coloraltg }}";
+                      var agr = ag.toString();
+                      var ab = "{{ album_dict.coloraltb }}";
+                      var abl = ab.toString();
+                      var xtitle = 'Streams After ' + {{ album_dict.dsr}} + ' Days';
+                      var mainColor = "rgb(" + mre + ", " + mgr + ", " + mbl + ")";
+                      var subColor = "rgb(" + are + ", " + agr + ", " + abl + ")";
+                      var ctx = document.getElementById("qChart").getContext('2d');
+                      var myChart = new Chart(ctx, {
+                          type: 'line',
+                          data: {
+                              labels: {{ album_dict.streamsbysonglabels }},
+                              datasets: [{
+                                  data: {{ album_dict.streamsbysongdatafill}},
+                                  backgroundColor: 'rgba(255, 255, 255, .15)',
+                                  borderColor: 'rgba(255, 255, 255, .0)',
+                                  fill: true
+                              }, {
+                                  data: {{ album_dict.streamsbysongdatanofill}},
+                                  backgroundColor: 'rgba(255, 255, 255, .15)',
+                                  borderColor: 'rgba(255, 255, 255, .0)',
+                                  fill: false
+                              }, {
+                                  data: {{ album_dict.streamsbysongdata}},
+                                  backgroundColor: 'rgba(255, 255, 255, .0)',
+                                  borderColor: 'rgba(255, 255, 255, .15)',
+                                  fill: false
+                              }
+
+
+                              ]
+
+                          },
+                          options: {
+                              responsive: true,
+                              maintainAspectRatio: false,
+                              elements: {
+                                point:{
+                                    radius: 0
+                                }
+                              },
+
+                              plugins: {
+                                legend: {
+                                  display: false
+                                },
+                                autocolors: false,
+                                annotation: {
+                                  annotations: {
+                                    line1: {
+                                      type: 'line',
+                                      xMin: {{ album_dict.totalstreamsint }},
+                                      xMax: {{ album_dict.totalstreamsint }},
+                                      borderColor: 'rgba(255, 255, 255, .5)',
+                                      borderWidth: 2,
+                                      borderRadius: 2
+                                    },
+                                    line2: {
+                                      type: 'line',
+                                      scaleID: 'x-axis-0',
+                                      yMin: {{ album_dict.toplabel }},
+                                      yMax: {{ album_dict.toplabel }},
+                                      xMin: 0,
+                                      xMax: {{ album_dict.toplabelval }},
+                                      borderDash: [10,10],
+                                      borderColor: 'rgba(255, 255, 255, .15)',
+                                      borderWidth: 2,
+                                    },
+                                    line3: {
+                                      type: 'line',
+                                      scaleID: 'x-axis-0',
+                                      yMin: {{ album_dict.upplabel }},
+                                      yMax: {{ album_dict.upplabel }},
+                                      xMin: 0,
+                                      xMax: {{ album_dict.upplabelval }},
+                                      borderDash: [10,10],
+                                      borderColor: 'rgba(255, 255, 255, .15)',
+                                      borderWidth: 2,
+                                    },
+                                    line4: {
+                                      type: 'line',
+                                      scaleID: 'x-axis-0',
+                                      yMin: {{ album_dict.uppmidlabel }},
+                                      yMax: {{ album_dict.uppmidlabel }},
+                                      xMin: 0,
+                                      xMax: {{ album_dict.uppmidlabelval }},
+                                      borderDash: [10,10],
+                                      borderColor: 'rgba(255, 255, 255, .15)',
+                                      borderWidth: 2,
+                                    },
+
+                                    line5: {
+                                      type: 'line',
+                                      scaleID: 'x-axis-0',
+                                      yMin: {{ album_dict.lowmidlabel }},
+                                      yMax: {{ album_dict.lowmidlabel }},
+                                      xMin: 0,
+                                      xMax: {{ album_dict.lowmidlabelval }},
+                                      borderDash: [10,10],
+                                      borderColor: 'rgba(255, 255, 255, .15)',
+                                      borderWidth: 2,
+                                    },
+                                    line6: {
+                                      type: 'line',
+                                      scaleID: 'x-axis-0',
+                                      yMin: {{ album_dict.lowlabel }},
+                                      yMax: {{ album_dict.lowlabel }},
+                                      xMin: 0,
+                                      xMax: {{ album_dict.lowlabelval }},
+                                      borderDash: [10,10],
+                                      borderColor: 'rgba(255, 255, 255, .15)',
+                                      borderWidth: 2,
+                                    },
+                                    line7: {
+                                      type: 'line',
+                                      scaleID: 'x-axis-0',
+                                      yMin: {{ album_dict.bottomlabel }},
+                                      yMax: {{ album_dict.bottomlabel }},
+                                      xMin: 0,
+                                      xMax: {{ album_dict.bottomlabelval }},
+                                      borderDash: [10,10],
+                                      borderColor: 'rgba(255, 255, 255, .15)',
+                                      borderWidth: 2,
+                                    }
+                                  }
+                                }
+
+                              },
+                              scales: {
+                                  y: {
+                                    afterBuildTicks: axis => axis.ticks = [{{ album_dict.bottomlabel }}, {{ album_dict.lowlabel }}, {{ album_dict.lowmidlabel }}, {{ album_dict.uppmidlabel }}, {{ album_dict.upplabel }}, {{ album_dict.toplabel }}].map(v => ({ value: v })),
+                                    title: {
+                                      display: false,
+                                      color: 'rgba(255, 255, 255, .75)',
+                                      text: 'Percentile',
+                                      font: {
+                                        family: "'Roboto', sans-serif",
+                                        size: 15
+                                      }
+                                    },
+                                    grid: {
+                                      display: false,
+                                      drawBorder: false
+                                    },
+                                    ticks: {
+                                      display: true,
+                                      color: 'rgba(255, 255, 255, .75)',
+                                      font: {
+                                        family: "'Roboto', sans-serif",
+                                        size: 15,
+
+                                      },
+                                      count: 5,
+                                      callback: function(value, index, ticks) {
+                                        var j = Math.round(value) % 10,
+                                            k = Math.round(value) % 100;
+                                        if (j == 1 && k != 11) {
+                                            return Math.round(value) + "st";
+                                        }
+                                        if (j == 2 && k != 12) {
+                                            return Math.round(value) + "nd";
+                                        }
+                                        if (j == 3 && k != 13) {
+                                            return Math.round(value) + "rd";
+                                        }
+                                        return Math.round(value) + "th";
+
+                                      }
+                                    }
+                                  },
+                                  x: {
+                                    afterBuildTicks: axis => axis.ticks = [10000, 100000, 1000000, 10000000].map(v => ({ value: v })),
+                                    type: 'logarithmic',
+                                    title: {
+                                      display: true,
+                                      color: 'rgba(255, 255, 255, .75)',
+                                      text: xtitle,
+                                      font: {
+                                        family: "'Roboto', sans-serif",
+                                        size: 15
+                                      }
+                                    },
+                                    grid: {
+                                      display: false,
+                                      drawBorder: false
+                                    },
+                                    ticks: {
+                                      display: true,
+                                      color: 'rgba(255, 255, 255, .75)',
+                                      font: {
+                                        family: "'Roboto', sans-serif",
+                                        size: 15,
+
+                                      },
+                                      beginAtZero: true,
+                                      autoSkip: true,
+                                      maxRotation: 0,
+                                      minRotation: 0,
+
+                                    }
+
+                                  }
+                              }
+                          },
+
+                      });
+                  </script>
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+
+          <div class="detail-bottom-container-songs" id="songsSection">
+            <div class="detail-bottom-card" id='orderSection'>
+              <div class="detail-bottom-card-headers">
+                <div class="detail-bottom-card-order">
+                  <h1 onclick="order()">#</h1>
+                </div>
+                <div class="detail-bottom-card-title">
+                  <h1 onclick="order()">Title</h1>
+                </div>
+                <div class="detail-bottom-card-plays">
+                  <h1 onclick="plays()">Plays</h1>
+                </div>
+                <div class="detail-bottom-card-revenue">
+                  <h1 onclick="plays()">Revenue</h1>
+                </div>
+                <div class="detail-bottom-card-growth">
+                  <h1 onclick="gro()">Growth</h1>
+                </div>
+                <div class="detail-bottom-card-right-spacer">
+
+                </div>
+              </div>
+              <hr class='s'>
+              <div class="detail-bottom-row-container">
+                {% for order, songname, songartist, songplays, songgrowth, songrevenue, sval, rval, gval in album_dict.orderlist %}
+                <div class="detail-bottom-row-item">
+
+                  <div class="detail-bottom-card-order">
+                    <h1>{{ order }}</h1>
+                  </div>
+                  <div class="detail-bottom-card-title">
+                    <h1>{{ songname }}</h1>
+                  </div>
+                  <div class="detail-bottom-card-plays">
+                    <h1>{{ songplays }}</h1>
+                  </div>
+                  <div class="detail-bottom-card-revenue">
+                    <h1>{{ songrevenue }}</h1>
+                  </div>
+                  <div class="detail-bottom-card-growth">
+                    <h1>{{ songgrowth }}</h1>
+                  </div>
+                  <div class="detail-bottom-card-right-spacer">
+
+                  </div>
+
+                </div>
+                {% endfor %}
+              </div>
+            </div>
+            <div class="detail-bottom-card" id='playsSection'>
+              <div class="detail-bottom-card-headers">
+                <div class="detail-bottom-card-order">
+                  <h1 onclick="order()">#</h1>
+                </div>
+                <div class="detail-bottom-card-title">
+                  <h1 onclick="order()">Title</h1>
+                </div>
+                <div class="detail-bottom-card-plays">
+                  <h1 onclick="plays()">Plays</h1>
+                </div>
+                <div class="detail-bottom-card-revenue">
+                  <h1 onclick="plays()">Revenue</h1>
+                </div>
+                <div class="detail-bottom-card-growth">
+                  <h1 onclick="gro()">Growth</h1>
+                </div>
+                <div class="detail-bottom-card-right-spacer">
+
+                </div>
+
+              </div>
+              <hr class='s'>
+              <div class="detail-bottom-row-container">
+
+                {% for order, songname, songartist, songplays, songgrowth, songrevenue, sval, rval, gval in album_dict.playslist %}
+                <div class="detail-bottom-row-item">
+
+                  <div class="detail-bottom-card-order">
+                    <h1>{{ order }}</h1>
+                  </div>
+                  <div class="detail-bottom-card-title">
+                    <h1>{{ songname }}</h1>
+                  </div>
+                  <div class="detail-bottom-card-plays">
+                    <h1>{{ songplays }}</h1>
+                  </div>
+                  <div class="detail-bottom-card-revenue">
+                    <h1>{{ songrevenue }}</h1>
+                  </div>
+                  <div class="detail-bottom-card-growth">
+                    <h1>{{ songgrowth }}</h1>
+                  </div>
+                  <div class="detail-bottom-card-right-spacer">
+
+                  </div>
+
+                </div>
+                {% endfor %}
+              </div>
+            </div>
+            <div class="detail-bottom-card" id='groSection'>
+              <div class="detail-bottom-card-headers">
+                <div class="detail-bottom-card-order">
+                  <h1 onclick="order()">#</h1>
+                </div>
+                <div class="detail-bottom-card-title">
+                  <h1 onclick="order()">Title</h1>
+                </div>
+                <div class="detail-bottom-card-plays">
+                  <h1 onclick="plays()">Plays</h1>
+                </div>
+                <div class="detail-bottom-card-revenue">
+                  <h1 onclick="plays()">Revenue</h1>
+                </div>
+                <div class="detail-bottom-card-growth">
+                  <h1 onclick="gro()">Growth</h1>
+                </div>
+                <div class="detail-bottom-card-right-spacer">
+
+                </div>
+              </div>
+              <hr class='s'>
+              <div class="detail-bottom-row-container">
+                {% for order, songname, songartist, songplays, songgrowth, songrevenue, sval, rval, gval in album_dict.grolist %}
+                <div class="detail-bottom-row-item">
+
+                  <div class="detail-bottom-card-order">
+                    <h1>{{ order }}</h1>
+                  </div>
+                  <div class="detail-bottom-card-title">
+                    <h1>{{ songname }}</h1>
+                  </div>
+                  <div class="detail-bottom-card-plays">
+                    <h1>{{ songplays }}</h1>
+                  </div>
+                  <div class="detail-bottom-card-revenue">
+                    <h1>{{ songrevenue }}</h1>
+                  </div>
+                  <div class="detail-bottom-card-growth">
+                    <h1>{{ songgrowth }}</h1>
+                  </div>
+                  <div class="detail-bottom-card-right-spacer">
+
+                  </div>
+
+                </div>
+                {% endfor %}
+              </div>
+            </div>
+          </div>
+
+
+
+
+
+          <div class="detail-bottom-container-streams" id="streamsSection">
+            <div class="graph-section" id='streamsgraph'>
+              <div class="col-item-title">
                 <h1>Streams</h1>
               </div>
-              <div class="detail-item-spacer"></div>
-              <div class="detail-item" id="revenue" onclick="revenue()">
+              <div class="mChart">
+                <canvas id="mChart"></canvas>
+                <script>
+                    var ctx = document.getElementById("mChart").getContext('2d');
+                    var myChart = new Chart(ctx, {
+                        type: 'line',
+                        data: {
+                            labels: {{ album_dict.totalstreamslabels }},
+                            datasets: [{
+                                data: {{ album_dict.totalstreamsdata }},
+                                backgroundColor: 'rgba(255, 255, 255, .5)',
+                                borderColor: 'rgba(255, 255, 255, .5)',
+                                borderWidth: 3
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            maintainAspectRatio: false,
+                            plugins: {
+                              legend: {
+                                display: false
+                              }
+                            },
+                            scales: {
+                                y: {
+                                  grid: {
+                                    display: false,
+                                    drawBorder: false
+                                  },
+                                  ticks: {
+                                    color: 'rgba(255, 255, 255, .75)',
+                                    font: {
+                                      family: "'Roboto', sans-serif",
+                                      size: 15,
+
+                                    },
+                                    count: 5
+                                  }
+                                },
+                                x: {
+                                  title: {
+                                    display: true,
+                                    color: 'rgba(255, 255, 255, .75)',
+                                    text: 'Days Since Release',
+                                    font: {
+                                      family: "'Roboto', sans-serif",
+                                      size: 15
+                                    }
+                                  },
+                                  grid: {
+                                    display: false,
+                                    drawBorder: false
+                                  },
+                                  ticks: {
+                                    display: false
+                                  }
+                                }
+                            }
+                        }
+                    });
+                </script>
+              </div>
+            </div>
+
+            <div class="graph-text">
+              <div class="col-item-title">
+                <h1>Stats</h1>
+              </div>
+              <div class="col-item-body-alt">
+                <div class="col-item-row-alt">
+                  <div class="col-item-card-alt">
+                    <div class="graph-text-item-icon-alt">
+                      <div class="graph-text-item-circle-alt">
+                        <img src="{% static 'streams/disc.svg' %}" alt="">
+                      </div>
+                    </div>
+                    <div class="graph-text-item-text-alt">
+                      <div class="graph-text-value">
+                        <h1>{{ album_dict.totalstreams }}</h1>
+                      </div>
+                      <div class="graph-text-label">
+                        <h1>Total Streams</h1>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-item-row-alt">
+                  <div class="col-item-card-alt">
+                    <div class="graph-text-item-icon-alt">
+                      <div class="graph-text-item-circle-alt">
+                        <img src="{% static 'streams/clock.svg' %}" alt="">
+                      </div>
+                    </div>
+                    <div class="graph-text-item-text-alt">
+                      <div class="graph-text-value">
+                        <h1>{{ album_dict.avgdailystreams }}</h1>
+                      </div>
+                      <div class="graph-text-label">
+                        <h1>Average Daily Streams</h1>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-item-row-alt">
+                  <div class="col-item-card-alt">
+                    <div class="graph-text-item-icon-alt">
+                      <div class="graph-text-item-circle-alt">
+                        <img src="{% static 'streams/music.svg' %}" alt="">
+                      </div>
+                    </div>
+                    <div class="graph-text-item-text-alt">
+                      <div class="graph-text-value">
+                        <h1>{{ album_dict.avgstreams }}</h1>
+                      </div>
+                      <div class="graph-text-label">
+                        <h1>Average Streams Per Song</h1>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-item-row-alt">
+                  <div class="col-item-card-alt">
+                    <div class="graph-text-item-icon-alt">
+                      <div class="graph-text-item-circle-alt">
+                        <img src="{% static 'streams/refresh-cw.svg' %}" alt="">
+                      </div>
+                    </div>
+                    <div class="graph-text-item-text-alt">
+                      <div class="graph-text-value">
+                        <h1>{{ album_dict.covstreams }}</h1>
+                      </div>
+                      <div class="graph-text-label">
+                        <h1>Streams Per Song CoV</h1>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+          <div class="detail-bottom-container-revenue" id="revenueSection">
+            <div class="graph-section" id='streamsgraph'>
+              <div class="col-item-title">
                 <h1>Revenue</h1>
               </div>
-              <div class="detail-item-spacer"></div>
-              <div class="detail-item" id="growth" onclick="growth()">
+              <div class="col-item-row-spacer"></div>
+              <div class="mChart">
+                <canvas id="rChart"></canvas>
+                <script>
+                    var ctx = document.getElementById("rChart").getContext('2d');
+                    var myChart = new Chart(ctx, {
+                        type: 'line',
+                        data: {
+                            labels: {{ album_dict.totalstreamslabels }},
+                            datasets: [{
+                                data: {{ album_dict.totalrevenuedata }},
+                                backgroundColor: 'rgba(255, 255, 255, .5)',
+                                borderColor: 'rgba(255, 255, 255, .5)',
+                                borderWidth: 3
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            maintainAspectRatio: false,
+                            plugins: {
+                              legend: {
+                                display: false
+                              }
+                            },
+                            scales: {
+                                y: {
+                                  grid: {
+                                    display: false,
+                                    drawBorder: false
+                                  },
+                                  ticks: {
+                                    color: 'rgba(255, 255, 255, .75)',
+                                    font: {
+                                      family: "'Roboto', sans-serif",
+                                      size: 15,
+
+                                    },
+                                    count: 5,
+                                    callback: function(value, index, ticks) {
+                                      return "$" + value.toLocaleString('en-US');
+
+                                    }
+                                  }
+                                },
+                                x: {
+                                  title: {
+                                    display: true,
+                                    color: 'rgba(255, 255, 255, .75)',
+                                    text: 'Days Since Release',
+                                    font: {
+                                      family: "'Roboto', sans-serif",
+                                      size: 15
+                                    }
+                                  },
+                                  grid: {
+                                    display: false,
+                                    drawBorder: false
+                                  },
+                                  ticks: {
+                                    display: false
+                                  }
+                                }
+                            }
+                        }
+                    });
+                </script>
+              </div>
+            </div>
+
+            <div class="graph-text">
+              <div class="col-item-title">
+                <h1>Stats</h1>
+              </div>
+              <div class="col-item-row-spacer"></div>
+              <div class="col-item-body-alt">
+                <div class="col-item-row-alt">
+                  <div class="col-item-card-alt">
+                    <div class="graph-text-item-icon-alt">
+                      <div class="graph-text-item-circle-alt">
+                        <img src="{% static 'streams/dollar-sign.svg' %}" alt="">
+                      </div>
+                    </div>
+                    <div class="graph-text-item-text-alt">
+                      <div class="graph-text-value">
+                        <h1>{{ album_dict.totalrevenue }}</h1>
+                      </div>
+                      <div class="graph-text-label">
+                        <h1>Total Revenue</h1>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-item-row-alt">
+                  <div class="col-item-card-alt">
+                    <div class="graph-text-item-icon-alt">
+                      <div class="graph-text-item-circle-alt">
+                        <img src="{% static 'streams/clock.svg' %}" alt="">
+                      </div>
+                    </div>
+                    <div class="graph-text-item-text-alt">
+                      <div class="graph-text-value">
+                        <h1>{{ album_dict.avgdailyrevenue }}</h1>
+                      </div>
+                      <div class="graph-text-label">
+                        <h1>Average Daily Revenue</h1>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-item-row-alt">
+                  <div class="col-item-card-alt">
+                    <div class="graph-text-item-icon-alt">
+                      <div class="graph-text-item-circle-alt">
+                        <img src="{% static 'streams/music.svg' %}" alt="">
+                      </div>
+                    </div>
+                    <div class="graph-text-item-text-alt">
+                      <div class="graph-text-value">
+                        <h1>{{ album_dict.avgrevenue }}</h1>
+                      </div>
+                      <div class="graph-text-label">
+                        <h1>Average Revenue Per Song</h1>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-item-row-alt">
+                  <div class="col-item-card-alt">
+                    <div class="graph-text-item-icon-alt">
+                      <div class="graph-text-item-circle-alt">
+                        <img src="{% static 'streams/refresh-cw.svg' %}" alt="">
+                      </div>
+                    </div>
+                    <div class="graph-text-item-text-alt">
+                      <div class="graph-text-value">
+                        <h1>{{ album_dict.covstreams }}</h1>
+                      </div>
+                      <div class="graph-text-label">
+                        <h1>Revenue Per Song CoV</h1>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+          <div class="detail-bottom-container-revenue" id="growthSection">
+            <div class="graph-section">
+              <div class="col-item-title">
                 <h1>Growth</h1>
               </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-    </div>
-
-    <div class="detail-bottom-holder">
-      <div class="detail-bottom-container-general" id="generalSection">
-        <div class="detail-container-col">
-          <div class="detail-container-col-item">
-            <div class="col-item-title">
-              <h1>Stats</h1>
-            </div>
-            <div class="col-item-body">
-              <div class="col-item-row">
-                <div class="col-item-card">
-                  <div class="graph-text-item-icon">
-                    <div class="graph-text-item-circle">
-                      <img src="{% static 'streams/disc.svg' %}" alt="">
-                    </div>
-                  </div>
-                  <div class="graph-text-item-text">
-                    <div class="graph-text-value">
-                      <h1>{{ album_dict.totalstreams }}</h1>
-                    </div>
-                    <div class="graph-text-label">
-                      <h1>Total Streams</h1>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-item-card">
-                  <div class="graph-text-item-icon">
-                    <div class="graph-text-item-circle">
-                      <img src="{% static 'streams/arrow-up-right.svg' %}" alt="">
-                    </div>
-                  </div>
-                  <div class="graph-text-item-text">
-                    <div class="graph-text-value">
-                      <h1>{{ album_dict.totalgrowth }}</h1>
-                    </div>
-                    <div class="graph-text-label">
-                      <h1>Total Growth</h1>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="col-item-row">
-                <div class="col-item-card">
-                  <div class="graph-text-item-icon">
-                    <div class="graph-text-item-circle">
-                      <img src="{% static 'streams/dollar-sign.svg' %}" alt="">
-                    </div>
-                  </div>
-                  <div class="graph-text-item-text">
-                    <div class="graph-text-value">
-                      <h1>{{ album_dict.totalrevenue }}</h1>
-                    </div>
-                    <div class="graph-text-label">
-                      <h1>Total Revenue</h1>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-item-card">
-                  <div class="graph-text-item-icon">
-                    <div class="graph-text-item-circle">
-                      <img src="{% static 'streams/bar-chart-2.svg' %}" alt="">
-                    </div>
-                  </div>
-                  <div class="graph-text-item-text">
-                    <div class="graph-text-value">
-                      <h1 id='percentile'>{{ album_dict.percentilelabel }}</h1>
-                    </div>
-                    <div class="graph-text-label">
-                      <h1>Percentile</h1>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-            </div>
-
-          </div>
-
-
-          <div class="detail-container-col-item">
-            <div class="col-item-title">
-              <h1>Sound</h1>
-            </div>
-            <div class="col-item-body">
-              <div class="col-item-row-long">
-                <div class="col-item-card-long">
-                  <div class="statistics-bar-container">
-                    <div class="first-bar-label">
-                      <h1>Sad</h1>
-                    </div>
-                    <div class="statistics-bar" id="mvalence">
-                      <div class="statistics-progress" id="valence">
-                      </div>
-                    </div>
-                    <div class="second-bar-label">
-                      <h1>Happy</h1>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div class="col-item-row-long">
-                <div class="col-item-card-long">
-                  <div class="statistics-bar-container">
-                    <div class="first-bar-label">
-                      <h1>Sitting</h1>
-                    </div>
-                    <div class="statistics-bar" id="mdanceability">
-                      <div class="statistics-progress" id="danceability">
-                      </div>
-                    </div>
-                    <div class="second-bar-label">
-                      <h1>Dancing</h1>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div class="col-item-row-long">
-                <div class="col-item-card-long">
-                  <div class="statistics-bar-container">
-                    <div class="first-bar-label">
-                      <h1>Relaxed</h1>
-                    </div>
-                    <div class="statistics-bar" id="menergy">
-                      <div class="statistics-progress" id="energy">
-                      </div>
-                    </div>
-                    <div class="second-bar-label">
-                      <h1>Crazy</h1>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="detail-container-single">
-          <div class="detail-container-single-item">
-            <div class="col-item-title">
-              <h1>Percentile</h1>
-            </div>
-            <div class="mChart">
-              <canvas id="qChart"></canvas>
-              <script>
-                  var mr = "{{ album_dict.colormainr }}";
-                  var mre = mr.toString();
-                  var mg = "{{ album_dict.colormaing }}";
-                  var mgr = mg.toString();
-                  var mb = "{{ album_dict.colormainb }}";
-                  var mbl = mb.toString();
-                  var ar = "{{ album_dict.coloraltr }}";
-                  var are = ar.toString();
-                  var ag = "{{ album_dict.coloraltg }}";
-                  var agr = ag.toString();
-                  var ab = "{{ album_dict.coloraltb }}";
-                  var abl = ab.toString();
-                  var xtitle = 'Streams After ' + {{ album_dict.dsr}} + ' Days';
-                  var mainColor = "rgb(" + mre + ", " + mgr + ", " + mbl + ")";
-                  var subColor = "rgb(" + are + ", " + agr + ", " + abl + ")";
-                  var ctx = document.getElementById("qChart").getContext('2d');
-                  var myChart = new Chart(ctx, {
-                      type: 'line',
-                      data: {
-                          labels: {{ album_dict.streamsbysonglabels }},
-                          datasets: [{
-                              data: {{ album_dict.streamsbysongdatafill}},
-                              backgroundColor: 'rgba(255, 255, 255, .15)',
-                              borderColor: 'rgba(255, 255, 255, .0)',
-                              fill: true
-                          }, {
-                              data: {{ album_dict.streamsbysongdatanofill}},
-                              backgroundColor: 'rgba(255, 255, 255, .15)',
-                              borderColor: 'rgba(255, 255, 255, .0)',
-                              fill: false
-                          }, {
-                              data: {{ album_dict.streamsbysongdata}},
-                              backgroundColor: 'rgba(255, 255, 255, .0)',
-                              borderColor: 'rgba(255, 255, 255, .15)',
-                              fill: false
-                          }
-
-
-                          ]
-
-                      },
-                      options: {
-                          responsive: true,
-                          maintainAspectRatio: false,
-                          elements: {
-                            point:{
-                                radius: 0
-                            }
-                          },
-
-                          plugins: {
-                            legend: {
-                              display: false
-                            },
-                            autocolors: false,
-                            annotation: {
-                              annotations: {
-                                line1: {
-                                  type: 'line',
-                                  xMin: {{ album_dict.totalstreamsint }},
-                                  xMax: {{ album_dict.totalstreamsint }},
-                                  borderColor: 'rgba(255, 255, 255, .5)',
-                                  borderWidth: 2,
-                                  borderRadius: 2
-                                },
-                                line2: {
-                                  type: 'line',
-                                  scaleID: 'x-axis-0',
-                                  yMin: {{ album_dict.toplabel }},
-                                  yMax: {{ album_dict.toplabel }},
-                                  xMin: 0,
-                                  xMax: {{ album_dict.toplabelval }},
-                                  borderDash: [10,10],
-                                  borderColor: 'rgba(255, 255, 255, .15)',
-                                  borderWidth: 2,
-                                },
-                                line3: {
-                                  type: 'line',
-                                  scaleID: 'x-axis-0',
-                                  yMin: {{ album_dict.upplabel }},
-                                  yMax: {{ album_dict.upplabel }},
-                                  xMin: 0,
-                                  xMax: {{ album_dict.upplabelval }},
-                                  borderDash: [10,10],
-                                  borderColor: 'rgba(255, 255, 255, .15)',
-                                  borderWidth: 2,
-                                },
-                                line4: {
-                                  type: 'line',
-                                  scaleID: 'x-axis-0',
-                                  yMin: {{ album_dict.uppmidlabel }},
-                                  yMax: {{ album_dict.uppmidlabel }},
-                                  xMin: 0,
-                                  xMax: {{ album_dict.uppmidlabelval }},
-                                  borderDash: [10,10],
-                                  borderColor: 'rgba(255, 255, 255, .15)',
-                                  borderWidth: 2,
-                                },
-
-                                line5: {
-                                  type: 'line',
-                                  scaleID: 'x-axis-0',
-                                  yMin: {{ album_dict.lowmidlabel }},
-                                  yMax: {{ album_dict.lowmidlabel }},
-                                  xMin: 0,
-                                  xMax: {{ album_dict.lowmidlabelval }},
-                                  borderDash: [10,10],
-                                  borderColor: 'rgba(255, 255, 255, .15)',
-                                  borderWidth: 2,
-                                },
-                                line6: {
-                                  type: 'line',
-                                  scaleID: 'x-axis-0',
-                                  yMin: {{ album_dict.lowlabel }},
-                                  yMax: {{ album_dict.lowlabel }},
-                                  xMin: 0,
-                                  xMax: {{ album_dict.lowlabelval }},
-                                  borderDash: [10,10],
-                                  borderColor: 'rgba(255, 255, 255, .15)',
-                                  borderWidth: 2,
-                                },
-                                line7: {
-                                  type: 'line',
-                                  scaleID: 'x-axis-0',
-                                  yMin: {{ album_dict.bottomlabel }},
-                                  yMax: {{ album_dict.bottomlabel }},
-                                  xMin: 0,
-                                  xMax: {{ album_dict.bottomlabelval }},
-                                  borderDash: [10,10],
-                                  borderColor: 'rgba(255, 255, 255, .15)',
-                                  borderWidth: 2,
-                                }
+              <div class="col-item-row-spacer"></div>
+              <div class="mChart">
+                <canvas id="gChart"></canvas>
+                <script>
+                    var ctx = document.getElementById("gChart").getContext('2d');
+                    var myChart = new Chart(ctx, {
+                        type: 'line',
+                        data: {
+                            labels: {{ album_dict.totalgrowthlabels }},
+                            datasets: [{
+                                data: {{ album_dict.totalgrowthdata }},
+                                backgroundColor: 'rgba(255, 255, 255, .5)',
+                                borderColor: 'rgba(255, 255, 255, .5)',
+                                borderWidth: 3
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            maintainAspectRatio: false,
+                            plugins: {
+                              legend: {
+                                display: false
                               }
-                            }
-
-                          },
-                          scales: {
-                              y: {
-                                afterBuildTicks: axis => axis.ticks = [{{ album_dict.bottomlabel }}, {{ album_dict.lowlabel }}, {{ album_dict.lowmidlabel }}, {{ album_dict.uppmidlabel }}, {{ album_dict.upplabel }}, {{ album_dict.toplabel }}].map(v => ({ value: v })),
-                                title: {
-                                  display: false,
-                                  color: 'rgba(255, 255, 255, .75)',
-                                  text: 'Percentile',
-                                  font: {
-                                    family: "'Roboto', sans-serif",
-                                    size: 15
-                                  }
-                                },
-                                grid: {
-                                  display: false,
-                                  drawBorder: false
-                                },
-                                ticks: {
-                                  display: true,
-                                  color: 'rgba(255, 255, 255, .75)',
-                                  font: {
-                                    family: "'Roboto', sans-serif",
-                                    size: 15,
-
+                            },
+                            scales: {
+                                y: {
+                                  grid: {
+                                    display: false,
+                                    drawBorder: false
                                   },
-                                  count: 5,
-                                  callback: function(value, index, ticks) {
-                                    var j = Math.round(value) % 10,
-                                        k = Math.round(value) % 100;
-                                    if (j == 1 && k != 11) {
-                                        return Math.round(value) + "st";
-                                    }
-                                    if (j == 2 && k != 12) {
-                                        return Math.round(value) + "nd";
-                                    }
-                                    if (j == 3 && k != 13) {
-                                        return Math.round(value) + "rd";
-                                    }
-                                    return Math.round(value) + "th";
+                                  ticks: {
+                                    color: 'rgba(255, 255, 255, .75)',
+                                    font: {
+                                      family: "'Roboto', sans-serif",
+                                      size: 15,
 
-                                  }
-                                }
-                              },
-                              x: {
-                                afterBuildTicks: axis => axis.ticks = [10000, 100000, 1000000, 10000000].map(v => ({ value: v })),
-                                type: 'logarithmic',
-                                title: {
-                                  display: true,
-                                  color: 'rgba(255, 255, 255, .75)',
-                                  text: xtitle,
-                                  font: {
-                                    family: "'Roboto', sans-serif",
-                                    size: 15
+                                    },
+                                    count: 5,
+                                    callback: function(value, index, ticks) {
+                                      return value.toLocaleString('en-US') + '%';
+
+                                    }
                                   }
                                 },
-                                grid: {
-                                  display: false,
-                                  drawBorder: false
-                                },
-                                ticks: {
-                                  display: true,
-                                  color: 'rgba(255, 255, 255, .75)',
-                                  font: {
-                                    family: "'Roboto', sans-serif",
-                                    size: 15,
-
+                                x: {
+                                  title: {
+                                    display: true,
+                                    color: 'rgba(255, 255, 255, .75)',
+                                    text: 'Days Since Release',
+                                    font: {
+                                      family: "'Roboto', sans-serif",
+                                      size: 15
+                                    }
                                   },
-                                  beginAtZero: true,
-                                  autoSkip: true,
-                                  maxRotation: 0,
-                                  minRotation: 0,
-
+                                  grid: {
+                                    display: false,
+                                    drawBorder: false
+                                  },
+                                  ticks: {
+                                    display: false
+                                  }
                                 }
-
-                              }
-                          }
-                      },
-
-                  });
-              </script>
-            </div>
-          </div>
-        </div>
-      </div>
-
-
-
-      <div class="detail-bottom-container-songs" id="songsSection">
-        <div class="detail-bottom-card" id='orderSection'>
-          <div class="detail-bottom-card-headers">
-            <div class="detail-bottom-card-order">
-              <h1 onclick="order()">#</h1>
-            </div>
-            <div class="detail-bottom-card-title">
-              <h1 onclick="order()">Title</h1>
-            </div>
-            <div class="detail-bottom-card-plays">
-              <h1 onclick="plays()">Plays</h1>
-            </div>
-            <div class="detail-bottom-card-revenue">
-              <h1 onclick="plays()">Revenue</h1>
-            </div>
-            <div class="detail-bottom-card-growth">
-              <h1 onclick="gro()">Growth</h1>
-            </div>
-            <div class="detail-bottom-card-right-spacer">
-
-            </div>
-          </div>
-          <hr class='s'>
-          <div class="detail-bottom-row-container">
-            {% for order, songname, songartist, songplays, songgrowth, songrevenue, sval, rval, gval in album_dict.orderlist %}
-            <div class="detail-bottom-row-item">
-
-              <div class="detail-bottom-card-order">
-                <h1>{{ order }}</h1>
-              </div>
-              <div class="detail-bottom-card-title">
-                <h1>{{ songname }}</h1>
-              </div>
-              <div class="detail-bottom-card-plays">
-                <h1>{{ songplays }}</h1>
-              </div>
-              <div class="detail-bottom-card-revenue">
-                <h1>{{ songrevenue }}</h1>
-              </div>
-              <div class="detail-bottom-card-growth">
-                <h1>{{ songgrowth }}</h1>
-              </div>
-              <div class="detail-bottom-card-right-spacer">
-
-              </div>
-
-            </div>
-            {% endfor %}
-          </div>
-        </div>
-        <div class="detail-bottom-card" id='playsSection'>
-          <div class="detail-bottom-card-headers">
-            <div class="detail-bottom-card-order">
-              <h1 onclick="order()">#</h1>
-            </div>
-            <div class="detail-bottom-card-title">
-              <h1 onclick="order()">Title</h1>
-            </div>
-            <div class="detail-bottom-card-plays">
-              <h1 onclick="plays()">Plays</h1>
-            </div>
-            <div class="detail-bottom-card-revenue">
-              <h1 onclick="plays()">Revenue</h1>
-            </div>
-            <div class="detail-bottom-card-growth">
-              <h1 onclick="gro()">Growth</h1>
-            </div>
-            <div class="detail-bottom-card-right-spacer">
-
-            </div>
-
-          </div>
-          <hr class='s'>
-          <div class="detail-bottom-row-container">
-
-            {% for order, songname, songartist, songplays, songgrowth, songrevenue, sval, rval, gval in album_dict.playslist %}
-            <div class="detail-bottom-row-item">
-
-              <div class="detail-bottom-card-order">
-                <h1>{{ order }}</h1>
-              </div>
-              <div class="detail-bottom-card-title">
-                <h1>{{ songname }}</h1>
-              </div>
-              <div class="detail-bottom-card-plays">
-                <h1>{{ songplays }}</h1>
-              </div>
-              <div class="detail-bottom-card-revenue">
-                <h1>{{ songrevenue }}</h1>
-              </div>
-              <div class="detail-bottom-card-growth">
-                <h1>{{ songgrowth }}</h1>
-              </div>
-              <div class="detail-bottom-card-right-spacer">
-
-              </div>
-
-            </div>
-            {% endfor %}
-          </div>
-        </div>
-        <div class="detail-bottom-card" id='groSection'>
-          <div class="detail-bottom-card-headers">
-            <div class="detail-bottom-card-order">
-              <h1 onclick="order()">#</h1>
-            </div>
-            <div class="detail-bottom-card-title">
-              <h1 onclick="order()">Title</h1>
-            </div>
-            <div class="detail-bottom-card-plays">
-              <h1 onclick="plays()">Plays</h1>
-            </div>
-            <div class="detail-bottom-card-revenue">
-              <h1 onclick="plays()">Revenue</h1>
-            </div>
-            <div class="detail-bottom-card-growth">
-              <h1 onclick="gro()">Growth</h1>
-            </div>
-            <div class="detail-bottom-card-right-spacer">
-
-            </div>
-          </div>
-          <hr class='s'>
-          <div class="detail-bottom-row-container">
-            {% for order, songname, songartist, songplays, songgrowth, songrevenue, sval, rval, gval in album_dict.grolist %}
-            <div class="detail-bottom-row-item">
-
-              <div class="detail-bottom-card-order">
-                <h1>{{ order }}</h1>
-              </div>
-              <div class="detail-bottom-card-title">
-                <h1>{{ songname }}</h1>
-              </div>
-              <div class="detail-bottom-card-plays">
-                <h1>{{ songplays }}</h1>
-              </div>
-              <div class="detail-bottom-card-revenue">
-                <h1>{{ songrevenue }}</h1>
-              </div>
-              <div class="detail-bottom-card-growth">
-                <h1>{{ songgrowth }}</h1>
-              </div>
-              <div class="detail-bottom-card-right-spacer">
-
-              </div>
-
-            </div>
-            {% endfor %}
-          </div>
-        </div>
-      </div>
-
-
-
-
-
-      <div class="detail-bottom-container-streams" id="streamsSection">
-        <div class="graph-section" id='streamsgraph'>
-          <div class="col-item-title">
-            <h1>Streams</h1>
-          </div>
-          <div class="mChart">
-            <canvas id="mChart"></canvas>
-            <script>
-                var ctx = document.getElementById("mChart").getContext('2d');
-                var myChart = new Chart(ctx, {
-                    type: 'line',
-                    data: {
-                        labels: {{ album_dict.totalstreamslabels }},
-                        datasets: [{
-                            data: {{ album_dict.totalstreamsdata }},
-                            backgroundColor: 'rgba(255, 255, 255, .5)',
-                            borderColor: 'rgba(255, 255, 255, .5)',
-                            borderWidth: 3
-                        }]
-                    },
-                    options: {
-                        responsive: true,
-                        maintainAspectRatio: false,
-                        plugins: {
-                          legend: {
-                            display: false
-                          }
-                        },
-                        scales: {
-                            y: {
-                              grid: {
-                                display: false,
-                                drawBorder: false
-                              },
-                              ticks: {
-                                color: 'rgba(255, 255, 255, .75)',
-                                font: {
-                                  family: "'Roboto', sans-serif",
-                                  size: 15,
-
-                                },
-                                count: 5
-                              }
-                            },
-                            x: {
-                              title: {
-                                display: true,
-                                color: 'rgba(255, 255, 255, .75)',
-                                text: 'Days Since Release',
-                                font: {
-                                  family: "'Roboto', sans-serif",
-                                  size: 15
-                                }
-                              },
-                              grid: {
-                                display: false,
-                                drawBorder: false
-                              },
-                              ticks: {
-                                display: false
-                              }
                             }
                         }
-                    }
-                });
-            </script>
+                    });
+                </script>
+              </div>
+            </div>
+
+            <div class="graph-text">
+              <div class="col-item-title">
+                <h1>Stats</h1>
+              </div>
+              <div class="col-item-body-alt">
+                <div class="col-item-row-alt">
+                  <div class="col-item-card-alt">
+                    <div class="graph-text-item-icon-alt">
+                      <div class="graph-text-item-circle-alt">
+                        <img src="{% static 'streams/dollar-sign.svg' %}" alt="">
+                      </div>
+                    </div>
+                    <div class="graph-text-item-text-alt">
+                      <div class="graph-text-value">
+                        <h1>{{ album_dict.totalgrowth }}</h1>
+                      </div>
+                      <div class="graph-text-label">
+                        <h1>Total Growth</h1>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-item-row-alt">
+                  <div class="col-item-card-alt">
+                    <div class="graph-text-item-icon-alt">
+                      <div class="graph-text-item-circle-alt">
+                        <img src="{% static 'streams/clock.svg' %}" alt="">
+                      </div>
+                    </div>
+                    <div class="graph-text-item-text-alt">
+                      <div class="graph-text-value">
+                        <h1>{{ album_dict.avgdailygrowth }}</h1>
+                      </div>
+                      <div class="graph-text-label">
+                        <h1>Average Daily Growth</h1>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-item-row-alt">
+                  <div class="col-item-card-alt">
+                    <div class="graph-text-item-icon-alt">
+                      <div class="graph-text-item-circle-alt">
+                        <img src="{% static 'streams/music.svg' %}" alt="">
+                      </div>
+                    </div>
+                    <div class="graph-text-item-text-alt">
+                      <div class="graph-text-value">
+                        <h1>{{ album_dict.avggrowth }}</h1>
+                      </div>
+                      <div class="graph-text-label">
+                        <h1>Average Growth Per Song</h1>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-item-row-alt">
+                  <div class="col-item-card-alt">
+                    <div class="graph-text-item-icon-alt">
+                      <div class="graph-text-item-circle-alt">
+                        <img src="{% static 'streams/refresh-cw.svg' %}" alt="">
+                      </div>
+                    </div>
+                    <div class="graph-text-item-text-alt">
+                      <div class="graph-text-value">
+                        <h1>{{ album_dict.covgrowth }}</h1>
+                      </div>
+                      <div class="graph-text-label">
+                        <h1>Growth Per Song CoV</h1>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
           </div>
+
+
+
+
+
+
         </div>
 
-        <div class="graph-text">
-          <div class="col-item-title">
-            <h1>Stats</h1>
-          </div>
-          <div class="col-item-body-alt">
-            <div class="col-item-row-alt">
-              <div class="col-item-card-alt">
-                <div class="graph-text-item-icon-alt">
-                  <div class="graph-text-item-circle-alt">
-                    <img src="{% static 'streams/disc.svg' %}" alt="">
-                  </div>
-                </div>
-                <div class="graph-text-item-text-alt">
-                  <div class="graph-text-value">
-                    <h1>{{ album_dict.totalstreams }}</h1>
-                  </div>
-                  <div class="graph-text-label">
-                    <h1>Total Streams</h1>
-                  </div>
-                </div>
-              </div>
-            </div>
 
-            <div class="col-item-row-alt">
-              <div class="col-item-card-alt">
-                <div class="graph-text-item-icon-alt">
-                  <div class="graph-text-item-circle-alt">
-                    <img src="{% static 'streams/clock.svg' %}" alt="">
-                  </div>
-                </div>
-                <div class="graph-text-item-text-alt">
-                  <div class="graph-text-value">
-                    <h1>{{ album_dict.avgdailystreams }}</h1>
-                  </div>
-                  <div class="graph-text-label">
-                    <h1>Average Daily Streams</h1>
-                  </div>
-                </div>
-              </div>
-            </div>
 
-            <div class="col-item-row-alt">
-              <div class="col-item-card-alt">
-                <div class="graph-text-item-icon-alt">
-                  <div class="graph-text-item-circle-alt">
-                    <img src="{% static 'streams/music.svg' %}" alt="">
-                  </div>
-                </div>
-                <div class="graph-text-item-text-alt">
-                  <div class="graph-text-value">
-                    <h1>{{ album_dict.avgstreams }}</h1>
-                  </div>
-                  <div class="graph-text-label">
-                    <h1>Average Streams Per Song</h1>
-                  </div>
-                </div>
-              </div>
-            </div>
 
-            <div class="col-item-row-alt">
-              <div class="col-item-card-alt">
-                <div class="graph-text-item-icon-alt">
-                  <div class="graph-text-item-circle-alt">
-                    <img src="{% static 'streams/refresh-cw.svg' %}" alt="">
-                  </div>
-                </div>
-                <div class="graph-text-item-text-alt">
-                  <div class="graph-text-value">
-                    <h1>{{ album_dict.covstreams }}</h1>
-                  </div>
-                  <div class="graph-text-label">
-                    <h1>Streams Per Song CoV</h1>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
 
-        </div>
+
+
+
+
+
+
       </div>
-      <div class="detail-bottom-container-revenue" id="revenueSection">
-        <div class="graph-section" id='streamsgraph'>
-          <div class="col-item-title">
-            <h1>Revenue</h1>
-          </div>
-          <div class="col-item-row-spacer"></div>
-          <div class="mChart">
-            <canvas id="rChart"></canvas>
-            <script>
-                var ctx = document.getElementById("rChart").getContext('2d');
-                var myChart = new Chart(ctx, {
-                    type: 'line',
-                    data: {
-                        labels: {{ album_dict.totalstreamslabels }},
-                        datasets: [{
-                            data: {{ album_dict.totalrevenuedata }},
-                            backgroundColor: 'rgba(255, 255, 255, .5)',
-                            borderColor: 'rgba(255, 255, 255, .5)',
-                            borderWidth: 3
-                        }]
-                    },
-                    options: {
-                        responsive: true,
-                        maintainAspectRatio: false,
-                        plugins: {
-                          legend: {
-                            display: false
-                          }
-                        },
-                        scales: {
-                            y: {
-                              grid: {
-                                display: false,
-                                drawBorder: false
-                              },
-                              ticks: {
-                                color: 'rgba(255, 255, 255, .75)',
-                                font: {
-                                  family: "'Roboto', sans-serif",
-                                  size: 15,
+      <script type="text/javascript">
+        const pbvalence = document.getElementById('valence');
+        const pbenergy = document.getElementById('energy');
+        const pbdanceability = document.getElementById('danceability');
+        let valence = "{{ album_dict.valence }}";
+        let energy = "{{ album_dict.energy }}";
+        let danceability = "{{ album_dict.danceability }}";
+        pbvalence.style.width = `${(valence)}%`;
+        pbenergy.style.width = `${(energy)}%`;
+        pbdanceability.style.width = `${(danceability)}%`;
+        var mr = "{{ album_dict.colormainr }}";
+        var mre = mr.toString();
+        var mg = "{{ album_dict.colormaing }}";
+        var mgr = mg.toString();
+        var mb = "{{ album_dict.colormainb }}";
+        var mbl = mb.toString();
+        var ar = "{{ album_dict.coloraltr }}";
+        var are = ar.toString();
+        var ag = "{{ album_dict.coloraltg }}";
+        var agr = ag.toString();
+        var ab = "{{ album_dict.coloraltb }}";
+        var abl = ab.toString();
+        var mainColor = "rgb(" + mre + ", " + mgr + ", " + mbl + ")";
+        var subColor = "rgb(" + are + ", " + agr + ", " + abl + ")";
+        document.querySelector('#fullBackground').style.backgroundImage = "linear-gradient(45deg, " + subColor + "," + mainColor + "90%)";
+        document.querySelector('#general').style.borderColor = 'rgba(255, 255, 255, .75)';
+        document.querySelector('#generalSection').style.display = 'flex';
+        document.querySelector('#songsSection').style.display = 'none';
+        document.querySelector('#streamsSection').style.display = 'none';
+        document.querySelector('#revenueSection').style.display = 'none';
+        document.querySelector('#growthSection').style.display = 'none';
+        document.querySelector('#orderSection').style.display = 'none';
+        document.querySelector('#playsSection').style.display = 'none';
+        document.querySelector('#groSection').style.display = 'none';
+      </script>
 
-                                },
-                                count: 5,
-                                callback: function(value, index, ticks) {
-                                  return "$" + value.toLocaleString('en-US');
+      <script type="text/javascript">
+        function streams() {
+          document.querySelector('#streams').style.borderColor = 'rgba(255, 255, 255, .75)';
+          document.querySelector('#general').style.borderColor = 'transparent';
+          document.querySelector('#songs').style.borderColor = 'transparent';
+          document.querySelector('#revenue').style.borderColor = 'transparent';
+          document.querySelector('#growth').style.borderColor = 'transparent';
+          document.querySelector('#streamsSection').style.display = 'flex';
+          document.querySelector('#songsSection').style.display = 'none';
+          document.querySelector('#generalSection').style.display = 'none';
+          document.querySelector('#revenueSection').style.display = 'none';
+          document.querySelector('#growthSection').style.display = 'none';
+          document.querySelector('#orderSection').style.display = 'none';
+          document.querySelector('#playsSection').style.display = 'none';
+          document.querySelector('#groSection').style.display = 'none';
 
-                                }
-                              }
-                            },
-                            x: {
-                              title: {
-                                display: true,
-                                color: 'rgba(255, 255, 255, .75)',
-                                text: 'Days Since Release',
-                                font: {
-                                  family: "'Roboto', sans-serif",
-                                  size: 15
-                                }
-                              },
-                              grid: {
-                                display: false,
-                                drawBorder: false
-                              },
-                              ticks: {
-                                display: false
-                              }
-                            }
-                        }
-                    }
-                });
-            </script>
-          </div>
-        </div>
 
-        <div class="graph-text">
-          <div class="col-item-title">
-            <h1>Stats</h1>
-          </div>
-          <div class="col-item-row-spacer"></div>
-          <div class="col-item-body-alt">
-            <div class="col-item-row-alt">
-              <div class="col-item-card-alt">
-                <div class="graph-text-item-icon-alt">
-                  <div class="graph-text-item-circle-alt">
-                    <img src="{% static 'streams/dollar-sign.svg' %}" alt="">
-                  </div>
-                </div>
-                <div class="graph-text-item-text-alt">
-                  <div class="graph-text-value">
-                    <h1>{{ album_dict.totalrevenue }}</h1>
-                  </div>
-                  <div class="graph-text-label">
-                    <h1>Total Revenue</h1>
-                  </div>
-                </div>
-              </div>
-            </div>
 
-            <div class="col-item-row-alt">
-              <div class="col-item-card-alt">
-                <div class="graph-text-item-icon-alt">
-                  <div class="graph-text-item-circle-alt">
-                    <img src="{% static 'streams/clock.svg' %}" alt="">
-                  </div>
-                </div>
-                <div class="graph-text-item-text-alt">
-                  <div class="graph-text-value">
-                    <h1>{{ album_dict.avgdailyrevenue }}</h1>
-                  </div>
-                  <div class="graph-text-label">
-                    <h1>Average Daily Revenue</h1>
-                  </div>
-                </div>
-              </div>
-            </div>
+        };
+        function songs() {
+          document.querySelector('#streams').style.borderColor = 'transparent';
+          document.querySelector('#general').style.borderColor = 'transparent';
+          document.querySelector('#songs').style.borderColor = 'rgba(255, 255, 255, .75)';
+          document.querySelector('#revenue').style.borderColor = 'transparent';
+          document.querySelector('#growth').style.borderColor = 'transparent';
+          document.querySelector('#streamsSection').style.display = 'none';
+          document.querySelector('#songsSection').style.display = 'flex';
+          document.querySelector('#generalSection').style.display = 'none';
+          document.querySelector('#revenueSection').style.display = 'none';
+          document.querySelector('#growthSection').style.display = 'none';
+          document.querySelector('#orderSection').style.display = 'flex';
+          document.querySelector('#playsSection').style.display = 'none';
+          document.querySelector('#groSection').style.display = 'none';
 
-            <div class="col-item-row-alt">
-              <div class="col-item-card-alt">
-                <div class="graph-text-item-icon-alt">
-                  <div class="graph-text-item-circle-alt">
-                    <img src="{% static 'streams/music.svg' %}" alt="">
-                  </div>
-                </div>
-                <div class="graph-text-item-text-alt">
-                  <div class="graph-text-value">
-                    <h1>{{ album_dict.avgrevenue }}</h1>
-                  </div>
-                  <div class="graph-text-label">
-                    <h1>Average Revenue Per Song</h1>
-                  </div>
-                </div>
-              </div>
-            </div>
 
-            <div class="col-item-row-alt">
-              <div class="col-item-card-alt">
-                <div class="graph-text-item-icon-alt">
-                  <div class="graph-text-item-circle-alt">
-                    <img src="{% static 'streams/refresh-cw.svg' %}" alt="">
-                  </div>
-                </div>
-                <div class="graph-text-item-text-alt">
-                  <div class="graph-text-value">
-                    <h1>{{ album_dict.covstreams }}</h1>
-                  </div>
-                  <div class="graph-text-label">
-                    <h1>Revenue Per Song CoV</h1>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+        };
+        function revenue() {
+          document.querySelector('#streams').style.borderColor = 'transparent';
+          document.querySelector('#general').style.borderColor = 'transparent';
+          document.querySelector('#songs').style.borderColor = 'transparent';
+          document.querySelector('#revenue').style.borderColor = 'rgba(255, 255, 255, .75)';
+          document.querySelector('#growth').style.borderColor = 'transparent';
+          document.querySelector('#streamsSection').style.display = 'none';
+          document.querySelector('#songsSection').style.display = 'none';
+          document.querySelector('#generalSection').style.display = 'none';
+          document.querySelector('#revenueSection').style.display = 'flex';
+          document.querySelector('#growthSection').style.display = 'none';
+          document.querySelector('#orderSection').style.display = 'none';
+          document.querySelector('#playsSection').style.display = 'none';
+          document.querySelector('#groSection').style.display = 'none';
 
-        </div>
-      </div>
-      <div class="detail-bottom-container-revenue" id="growthSection">
-        <div class="graph-section">
-          <div class="col-item-title">
-            <h1>Growth</h1>
-          </div>
-          <div class="col-item-row-spacer"></div>
-          <div class="mChart">
-            <canvas id="gChart"></canvas>
-            <script>
-                var ctx = document.getElementById("gChart").getContext('2d');
-                var myChart = new Chart(ctx, {
-                    type: 'line',
-                    data: {
-                        labels: {{ album_dict.totalgrowthlabels }},
-                        datasets: [{
-                            data: {{ album_dict.totalgrowthdata }},
-                            backgroundColor: 'rgba(255, 255, 255, .5)',
-                            borderColor: 'rgba(255, 255, 255, .5)',
-                            borderWidth: 3
-                        }]
-                    },
-                    options: {
-                        responsive: true,
-                        maintainAspectRatio: false,
-                        plugins: {
-                          legend: {
-                            display: false
-                          }
-                        },
-                        scales: {
-                            y: {
-                              grid: {
-                                display: false,
-                                drawBorder: false
-                              },
-                              ticks: {
-                                color: 'rgba(255, 255, 255, .75)',
-                                font: {
-                                  family: "'Roboto', sans-serif",
-                                  size: 15,
 
-                                },
-                                count: 5,
-                                callback: function(value, index, ticks) {
-                                  return value.toLocaleString('en-US') + '%';
 
-                                }
-                              }
-                            },
-                            x: {
-                              title: {
-                                display: true,
-                                color: 'rgba(255, 255, 255, .75)',
-                                text: 'Days Since Release',
-                                font: {
-                                  family: "'Roboto', sans-serif",
-                                  size: 15
-                                }
-                              },
-                              grid: {
-                                display: false,
-                                drawBorder: false
-                              },
-                              ticks: {
-                                display: false
-                              }
-                            }
-                        }
-                    }
-                });
-            </script>
-          </div>
-        </div>
+        };
+        function growth() {
+          document.querySelector('#streams').style.borderColor = 'transparent';
+          document.querySelector('#general').style.borderColor = 'transparent';
+          document.querySelector('#songs').style.borderColor = 'transparent';
+          document.querySelector('#revenue').style.borderColor = 'transparent';
+          document.querySelector('#growth').style.borderColor = 'rgba(255, 255, 255, .75)';
+          document.querySelector('#streamsSection').style.display = 'none';
+          document.querySelector('#songsSection').style.display = 'none';
+          document.querySelector('#generalSection').style.display = 'none';
+          document.querySelector('#revenueSection').style.display = 'none';
+          document.querySelector('#growthSection').style.display = 'flex';
+          document.querySelector('#orderSection').style.display = 'none';
+          document.querySelector('#playsSection').style.display = 'none';
+          document.querySelector('#groSection').style.display = 'none';
 
-        <div class="graph-text">
-          <div class="col-item-title">
-            <h1>Stats</h1>
-          </div>
-          <div class="col-item-body-alt">
-            <div class="col-item-row-alt">
-              <div class="col-item-card-alt">
-                <div class="graph-text-item-icon-alt">
-                  <div class="graph-text-item-circle-alt">
-                    <img src="{% static 'streams/dollar-sign.svg' %}" alt="">
-                  </div>
-                </div>
-                <div class="graph-text-item-text-alt">
-                  <div class="graph-text-value">
-                    <h1>{{ album_dict.totalgrowth }}</h1>
-                  </div>
-                  <div class="graph-text-label">
-                    <h1>Total Growth</h1>
-                  </div>
-                </div>
-              </div>
-            </div>
 
-            <div class="col-item-row-alt">
-              <div class="col-item-card-alt">
-                <div class="graph-text-item-icon-alt">
-                  <div class="graph-text-item-circle-alt">
-                    <img src="{% static 'streams/clock.svg' %}" alt="">
-                  </div>
-                </div>
-                <div class="graph-text-item-text-alt">
-                  <div class="graph-text-value">
-                    <h1>{{ album_dict.avgdailygrowth }}</h1>
-                  </div>
-                  <div class="graph-text-label">
-                    <h1>Average Daily Growth</h1>
-                  </div>
-                </div>
-              </div>
-            </div>
 
-            <div class="col-item-row-alt">
-              <div class="col-item-card-alt">
-                <div class="graph-text-item-icon-alt">
-                  <div class="graph-text-item-circle-alt">
-                    <img src="{% static 'streams/music.svg' %}" alt="">
-                  </div>
-                </div>
-                <div class="graph-text-item-text-alt">
-                  <div class="graph-text-value">
-                    <h1>{{ album_dict.avggrowth }}</h1>
-                  </div>
-                  <div class="graph-text-label">
-                    <h1>Average Growth Per Song</h1>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="col-item-row-alt">
-              <div class="col-item-card-alt">
-                <div class="graph-text-item-icon-alt">
-                  <div class="graph-text-item-circle-alt">
-                    <img src="{% static 'streams/refresh-cw.svg' %}" alt="">
-                  </div>
-                </div>
-                <div class="graph-text-item-text-alt">
-                  <div class="graph-text-value">
-                    <h1>{{ album_dict.covgrowth }}</h1>
-                  </div>
-                  <div class="graph-text-label">
-                    <h1>Growth Per Song CoV</h1>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-        </div>
-      </div>
+        };
+        function general() {
+          document.querySelector('#streams').style.borderColor = 'transparent';
+          document.querySelector('#general').style.borderColor = 'rgba(255, 255, 255, .75)';
+          document.querySelector('#songs').style.borderColor = 'transparent';
+          document.querySelector('#revenue').style.borderColor = 'transparent';
+          document.querySelector('#growth').style.borderColor = 'transparent';
+          document.querySelector('#generalSection').style.display = 'flex';
+          document.querySelector('#songsSection').style.display = 'none';
+          document.querySelector('#streamsSection').style.display = 'none';
+          document.querySelector('#revenueSection').style.display = 'none';
+          document.querySelector('#growthSection').style.display = 'none';
+          document.querySelector('#orderSection').style.display = 'none';
+          document.querySelector('#playsSection').style.display = 'none';
+          document.querySelector('#groSection').style.display = 'none';
 
 
 
 
+        };
+
+        function order() {
+          document.querySelector('#orderSection').style.display = 'flex';
+          document.querySelector('#playsSection').style.display = 'none';
+          document.querySelector('#groSection').style.display = 'none';
+
+        };
+        function plays() {
+          document.querySelector('#orderSection').style.display = 'none';
+          document.querySelector('#playsSection').style.display = 'flex';
+          document.querySelector('#groSection').style.display = 'none';
 
 
+        };
+        function gro() {
+          document.querySelector('#orderSection').style.display = 'none';
+          document.querySelector('#playsSection').style.display = 'none';
+          document.querySelector('#groSection').style.display = 'flex';
+
+        };
+
+      </script>
     </div>
-
-
-
-
-
-
-
-
-
-
-
-  </div>
-  <script type="text/javascript">
-    const pbvalence = document.getElementById('valence');
-    const pbenergy = document.getElementById('energy');
-    const pbdanceability = document.getElementById('danceability');
-    let valence = "{{ album_dict.valence }}";
-    let energy = "{{ album_dict.energy }}";
-    let danceability = "{{ album_dict.danceability }}";
-    pbvalence.style.width = `${(valence)}%`;
-    pbenergy.style.width = `${(energy)}%`;
-    pbdanceability.style.width = `${(danceability)}%`;
-    var mr = "{{ album_dict.colormainr }}";
-    var mre = mr.toString();
-    var mg = "{{ album_dict.colormaing }}";
-    var mgr = mg.toString();
-    var mb = "{{ album_dict.colormainb }}";
-    var mbl = mb.toString();
-    var ar = "{{ album_dict.coloraltr }}";
-    var are = ar.toString();
-    var ag = "{{ album_dict.coloraltg }}";
-    var agr = ag.toString();
-    var ab = "{{ album_dict.coloraltb }}";
-    var abl = ab.toString();
-    var mainColor = "rgb(" + mre + ", " + mgr + ", " + mbl + ")";
-    var subColor = "rgb(" + are + ", " + agr + ", " + abl + ")";
-    document.querySelector('#fullBackground').style.backgroundImage = "linear-gradient(45deg, " + subColor + "," + mainColor + "90%)";
-    document.querySelector('#general').style.borderColor = 'rgba(255, 255, 255, .75)';
-    document.querySelector('#generalSection').style.display = 'flex';
-    document.querySelector('#songsSection').style.display = 'none';
-    document.querySelector('#streamsSection').style.display = 'none';
-    document.querySelector('#revenueSection').style.display = 'none';
-    document.querySelector('#growthSection').style.display = 'none';
-    document.querySelector('#orderSection').style.display = 'none';
-    document.querySelector('#playsSection').style.display = 'none';
-    document.querySelector('#groSection').style.display = 'none';
-  </script>
-
-  <script type="text/javascript">
-    function streams() {
-      document.querySelector('#streams').style.borderColor = 'rgba(255, 255, 255, .75)';
-      document.querySelector('#general').style.borderColor = 'transparent';
-      document.querySelector('#songs').style.borderColor = 'transparent';
-      document.querySelector('#revenue').style.borderColor = 'transparent';
-      document.querySelector('#growth').style.borderColor = 'transparent';
-      document.querySelector('#streamsSection').style.display = 'flex';
-      document.querySelector('#songsSection').style.display = 'none';
-      document.querySelector('#generalSection').style.display = 'none';
-      document.querySelector('#revenueSection').style.display = 'none';
-      document.querySelector('#growthSection').style.display = 'none';
-      document.querySelector('#orderSection').style.display = 'none';
-      document.querySelector('#playsSection').style.display = 'none';
-      document.querySelector('#groSection').style.display = 'none';
-
-
-
-    };
-    function songs() {
-      document.querySelector('#streams').style.borderColor = 'transparent';
-      document.querySelector('#general').style.borderColor = 'transparent';
-      document.querySelector('#songs').style.borderColor = 'rgba(255, 255, 255, .75)';
-      document.querySelector('#revenue').style.borderColor = 'transparent';
-      document.querySelector('#growth').style.borderColor = 'transparent';
-      document.querySelector('#streamsSection').style.display = 'none';
-      document.querySelector('#songsSection').style.display = 'flex';
-      document.querySelector('#generalSection').style.display = 'none';
-      document.querySelector('#revenueSection').style.display = 'none';
-      document.querySelector('#growthSection').style.display = 'none';
-      document.querySelector('#orderSection').style.display = 'flex';
-      document.querySelector('#playsSection').style.display = 'none';
-      document.querySelector('#groSection').style.display = 'none';
-
-
-    };
-    function revenue() {
-      document.querySelector('#streams').style.borderColor = 'transparent';
-      document.querySelector('#general').style.borderColor = 'transparent';
-      document.querySelector('#songs').style.borderColor = 'transparent';
-      document.querySelector('#revenue').style.borderColor = 'rgba(255, 255, 255, .75)';
-      document.querySelector('#growth').style.borderColor = 'transparent';
-      document.querySelector('#streamsSection').style.display = 'none';
-      document.querySelector('#songsSection').style.display = 'none';
-      document.querySelector('#generalSection').style.display = 'none';
-      document.querySelector('#revenueSection').style.display = 'flex';
-      document.querySelector('#growthSection').style.display = 'none';
-      document.querySelector('#orderSection').style.display = 'none';
-      document.querySelector('#playsSection').style.display = 'none';
-      document.querySelector('#groSection').style.display = 'none';
-
-
-
-    };
-    function growth() {
-      document.querySelector('#streams').style.borderColor = 'transparent';
-      document.querySelector('#general').style.borderColor = 'transparent';
-      document.querySelector('#songs').style.borderColor = 'transparent';
-      document.querySelector('#revenue').style.borderColor = 'transparent';
-      document.querySelector('#growth').style.borderColor = 'rgba(255, 255, 255, .75)';
-      document.querySelector('#streamsSection').style.display = 'none';
-      document.querySelector('#songsSection').style.display = 'none';
-      document.querySelector('#generalSection').style.display = 'none';
-      document.querySelector('#revenueSection').style.display = 'none';
-      document.querySelector('#growthSection').style.display = 'flex';
-      document.querySelector('#orderSection').style.display = 'none';
-      document.querySelector('#playsSection').style.display = 'none';
-      document.querySelector('#groSection').style.display = 'none';
-
-
-
-    };
-    function general() {
-      document.querySelector('#streams').style.borderColor = 'transparent';
-      document.querySelector('#general').style.borderColor = 'rgba(255, 255, 255, .75)';
-      document.querySelector('#songs').style.borderColor = 'transparent';
-      document.querySelector('#revenue').style.borderColor = 'transparent';
-      document.querySelector('#growth').style.borderColor = 'transparent';
-      document.querySelector('#generalSection').style.display = 'flex';
-      document.querySelector('#songsSection').style.display = 'none';
-      document.querySelector('#streamsSection').style.display = 'none';
-      document.querySelector('#revenueSection').style.display = 'none';
-      document.querySelector('#growthSection').style.display = 'none';
-      document.querySelector('#orderSection').style.display = 'none';
-      document.querySelector('#playsSection').style.display = 'none';
-      document.querySelector('#groSection').style.display = 'none';
-
-
-
-
-    };
-
-    function order() {
-      document.querySelector('#orderSection').style.display = 'flex';
-      document.querySelector('#playsSection').style.display = 'none';
-      document.querySelector('#groSection').style.display = 'none';
-
-    };
-    function plays() {
-      document.querySelector('#orderSection').style.display = 'none';
-      document.querySelector('#playsSection').style.display = 'flex';
-      document.querySelector('#groSection').style.display = 'none';
-
-
-    };
-    function gro() {
-      document.querySelector('#orderSection').style.display = 'none';
-      document.querySelector('#playsSection').style.display = 'none';
-      document.querySelector('#groSection').style.display = 'flex';
-
-    };
-
-  </script>
-</div>
+  </body>
+</html>
 {% endblock content %}

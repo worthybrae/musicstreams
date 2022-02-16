@@ -4,101 +4,110 @@
 <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap" rel="stylesheet">
 {% endblock %}
 {% block content %}
-<div class="home-container" id="fullBackground">
-  <div class="sidebar-left">
-    <div class="sidebar-icon-container-top">
-      <a href="{% url 'Homepage' %}" class='sidebar-link'>
-        <img class="sidebar-icon" src="{% static 'streams/home.svg' %}" alt="">
-      </a>
-    </div>
-    <div class="sidebar-icon-container">
-      <a href="{% url 'Chartspage' %}" class='sidebar-link'>
-        <img class="sidebar-icon" src="{% static 'streams/bar-chart.svg' %}" alt="">
-      </a>
-    </div>
-    <div class="sidebar-icon-container">
-      <a href="{% url 'Performancepage' %}" class='sidebar-link'>
-        <img class="sidebar-icon" src="{% static 'streams/activity.svg' %}" alt="">
-      </a>
-    </div>
-    <div class="sidebar-icon-container-bottom">
-      <a href="{% url 'Aboutpage' %}" class='sidebar-link'>
-        <img class="sidebar-icon" src="{% static 'streams/help-circle.svg' %}" alt="">
-      </a>
-    </div>
-  </div>
-  <div class="main-content">
-    <div class="welcome">
-      <h1>Top Albums</h1>
-    </div>
-    <div class="chart-section">
-      <div class="row-container" id="ts">
-        <div class="chart-headers">
-          <div class="rank" onclick='streams()'>
-            <h1>#</h1>
-          </div>
-          <div class="title" onclick='streams()'>
-            <h1>Title</h1>
-          </div>
-          <div class="total-streams" onclick='streams()'>
-            <h1>Streams</h1>
-          </div>
-          <div class="streams-per-day" onclick='streamsperday()'>
-            <h1>Streams / Day</h1>
-          </div>
-          <div class="daily-growth" onclick='dailygrowth()'>
-            <h1>24hr %</h1>
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Charts</title>
+  </head>
+  <body>
+    <div class="home-container" id="fullBackground">
+      <div class="sidebar-left">
+        <div class="sidebar-icon-container-top">
+          <a href="{% url 'Homepage' %}" class='sidebar-link'>
+            <img class="sidebar-icon" src="{% static 'streams/home.svg' %}" alt="">
+          </a>
+        </div>
+        <div class="sidebar-icon-container">
+          <a href="{% url 'Chartspage' %}" class='sidebar-link'>
+            <img class="sidebar-icon" src="{% static 'streams/bar-chart.svg' %}" alt="">
+          </a>
+        </div>
+        <div class="sidebar-icon-container">
+          <a href="{% url 'Performancepage' %}" class='sidebar-link'>
+            <img class="sidebar-icon" src="{% static 'streams/activity.svg' %}" alt="">
+          </a>
+        </div>
+        <div class="sidebar-icon-container-bottom">
+          <a href="{% url 'Aboutpage' %}" class='sidebar-link'>
+            <img class="sidebar-icon" src="{% static 'streams/help-circle.svg' %}" alt="">
+          </a>
+        </div>
+      </div>
+      <div class="main-content">
+        <div class="welcome">
+          <h1>Top Albums</h1>
+        </div>
+        <div class="chart-section">
+          <div class="row-container" id="ts">
+            <div class="chart-headers">
+              <div class="rank" onclick='streams()'>
+                <h1>#</h1>
+              </div>
+              <div class="title" onclick='streams()'>
+                <h1>Title</h1>
+              </div>
+              <div class="total-streams" onclick='streams()'>
+                <h1>Streams</h1>
+              </div>
+              <div class="streams-per-day" onclick='streamsperday()'>
+                <h1>Streams / Day</h1>
+              </div>
+              <div class="daily-growth" onclick='dailygrowth()'>
+                <h1>24hr %</h1>
+              </div>
+            </div>
+            <hr class='s'>
+            {% for id, cover, name, artist, totalstreams, totalstreamsstr, streamsperday, streamsperdaystr, dailygrowth, dailygrowthstr in total_streams_list %}
+            <a href="/{{ id }}/">
+              <div class="chart-row">
+                <div class="rank-item">
+                  <h1>{{ forloop.counter }}</h1>
+                </div>
+                <div class="title-item">
+                  <div class="title-item-cover">
+                    <img src="{{ cover }}" alt="">
+                  </div>
+                  <div class="title-item-text">
+                    <h1>{{ name }}</h1>
+                    <h2>{{ artist }}</h2>
+                  </div>
+                </div>
+                <div class="total-streams-item">
+                  <h1>{{ totalstreamsstr }}</h1>
+                </div>
+                <div class="streams-per-day-item">
+                  <h1>{{ streamsperdaystr }}</h1>
+                </div>
+                <div class="daily-growth-item">
+                  <h1>{{ dailygrowthstr }}%</h1>
+                </div>
+              </div>
+            </a>
+            {% endfor %}
           </div>
         </div>
-        <hr class='s'>
-        {% for id, cover, name, artist, totalstreams, totalstreamsstr, streamsperday, streamsperdaystr, dailygrowth, dailygrowthstr in total_streams_list %}
-        <a href="/{{ id }}/">
-          <div class="chart-row">
-            <div class="rank-item">
-              <h1>{{ forloop.counter }}</h1>
-            </div>
-            <div class="title-item">
-              <div class="title-item-cover">
-                <img src="{{ cover }}" alt="">
-              </div>
-              <div class="title-item-text">
-                <h1>{{ name }}</h1>
-                <h2>{{ artist }}</h2>
-              </div>
-            </div>
-            <div class="total-streams-item">
-              <h1>{{ totalstreamsstr }}</h1>
-            </div>
-            <div class="streams-per-day-item">
-              <h1>{{ streamsperdaystr }}</h1>
-            </div>
-            <div class="daily-growth-item">
-              <h1>{{ dailygrowthstr }}%</h1>
-            </div>
-          </div>
-        </a>
-        {% endfor %}
       </div>
-    </div>
-  </div>
-  <script>
-    var mr = "{{ color_dict.colormainr }}";
-    var mre = mr.toString();
-    var mg = "{{ color_dict.colormaing }}";
-    var mgr = mg.toString();
-    var mb = "{{ color_dict.colormainb }}";
-    var mbl = mb.toString();
-    var ar = "{{ color_dict.coloraltr }}";
-    var are = ar.toString();
-    var ag = "{{ color_dict.coloraltg }}";
-    var agr = ag.toString();
-    var ab = "{{ color_dict.coloraltb }}";
-    var abl = ab.toString();
-    var mainColor = "rgb(" + mre + ", " + mgr + ", " + mbl + ")";
-    var subColor = "rgb(" + are + ", " + agr + ", " + abl + ")";
-    document.querySelector('#fullBackground').style.backgroundImage = "linear-gradient(45deg, " + subColor + "," + mainColor + "90%)";
+      <script>
+        var mr = "{{ color_dict.colormainr }}";
+        var mre = mr.toString();
+        var mg = "{{ color_dict.colormaing }}";
+        var mgr = mg.toString();
+        var mb = "{{ color_dict.colormainb }}";
+        var mbl = mb.toString();
+        var ar = "{{ color_dict.coloraltr }}";
+        var are = ar.toString();
+        var ag = "{{ color_dict.coloraltg }}";
+        var agr = ag.toString();
+        var ab = "{{ color_dict.coloraltb }}";
+        var abl = ab.toString();
+        var mainColor = "rgb(" + mre + ", " + mgr + ", " + mbl + ")";
+        var subColor = "rgb(" + are + ", " + agr + ", " + abl + ")";
+        document.querySelector('#fullBackground').style.backgroundImage = "linear-gradient(45deg, " + subColor + "," + mainColor + "90%)";
 
-  </script>
-  
-</div>
+      </script>
+
+    </div>
+  </body>
+</html>
 {% endblock content %}
