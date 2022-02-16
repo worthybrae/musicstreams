@@ -1,6 +1,6 @@
 /* NAVIGATION BAR */
 body {
-  background-image: linear-gradient(45deg, black, gray);
+  background-color: white;
 }
 
 
@@ -9,6 +9,9 @@ body {
   font-family: 'Roboto', sans-serif;
   height: 100vh;
   width: 100vw;
+  overflow: visible;
+  background-color: purple;
+  flex-grow: 1;
 
 }
 
@@ -86,24 +89,27 @@ body {
   flex-direction: column;
   position: absolute;
   justify-content:space-between;
-  flex-grow: 1;
   top: 0%;
   left: 0%;
   height: 100vh;
-  padding: calc(100vw * .05);
   overflow: visible;
+  padding: 0px;
+  margin: 0px;
+  background-color: blue;
 
 }
 
 .search {
-  width: calc(100vw - (100vw * .1));
-  height: calc((100vh - (100vw * .1)) * .4);
+  width: calc(100vw);
+  height: calc(100vh * .4);
+  background-color: green;
+  padding: calc(100vw * .05) calc(100vw * .05) 0px calc(100vw * .05);
 }
 
 
 .welcome {
-  width: calc(100vw - (100vw * .1));
-  height: calc(((100vh - (100vw * .1)) * .4 - (100vw * .05)) * .2);
+  width: calc(100vw);
+  height: calc((100vh * .4 - 100vw * .1) * .2);
   display: flex;
   flex-direction: row;
   align-items: flex-start;
@@ -186,7 +192,7 @@ body {
   justify-content: center;
   align-items: center;
   width: calc(100vw - (100vw * .1));
-  height: calc(((100vh - (100vw * .1)) * .4 - (100vw * .05)) * .8);
+  height: calc((100vh * .4 - 100vw * .1) * .8);
 
 
 }
@@ -270,18 +276,21 @@ body {
 }
 
 .content-container {
-  width: calc(100vw - (100vw * .1));
-  height: calc((100vh - (100vw * .1)) * .6);
+  width: calc(100vw);
+  height: calc(100vh * .6);
+  overflow: visible;
+  background-color: red;
 
 }
 
 .container-title {
-  width: calc(100vw - (100vw * .1));
-  height: calc(((100vh - (100vw * .1)) * .4 - (100vw * .05)) * .2);
+  width: calc(100vw);
+  height: calc((100vh * .4 - 100vw * .1) * .2);
   display: flex;
   flex-direction: row;
   align-items: flex-start;
   justify-content: flex-start;
+  padding: 0px calc(100vw * .05);
 }
 
 .container-title h1 {
@@ -291,17 +300,19 @@ body {
 }
 
 .container-body {
-  width: calc(100vw - (100vw * .1));
-  height: calc((100vh - (100vw * .1)) * .6 - (((100vh - (100vw * .1)) * .4 - (100vw * .05)) * .2));
-  overflow: visible;
+  width: calc(100vw);
+  height: calc(100vh * .6 - ((100vh * .4 - 100vw * .1) * .2));
+  overflow: auto;
   -ms-overflow-style: none;  /* IE and Edge */
   scrollbar-width: none;  /* Firefox */
   white-space: nowrap;
   display: flex;
   flex-direction: row;
-
+  padding: 0px calc(100vw * .05) calc(100vw * .05) calc(100vw * .075);
   align-items: flex-start;
   justify-content: flex-start;
+  background-color: red;
+  flex-grow: 1;
 }
 
 .container-body a {
@@ -310,19 +321,18 @@ body {
 }
 
 .container-card {
-  width: calc(((100vh - (100vw * .1)) * .6 - (((100vh - (100vw * .1)) * .4 - (100vw * .05)) * .2)) / 3 * 2);
-  height: calc((100vh - (100vw * .1)) * .6 - (((100vh - (100vw * .1)) * .4 - (100vw * .05)) * .2));
-  padding: calc(100vw * .05);
+  width: calc((100vh * .6 - ((100vh * .4 - 100vw * .1) * .2)) / 3 * 2);
+  height: calc(100vh * .6 - ((100vh * .4 - 100vw * .1) * .2));
   margin-right: calc(100vw * .05);
   border-radius: 10px;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  overflow: hidden;
+  overflow: visible;
   background: rgba(255, 255, 255, 0.15);
   transition-duration: .25s;
   box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
-  margin-left:
+  padding: calc(100vw * .05);
 
 }
 
@@ -339,8 +349,8 @@ body {
 }
 
 .card-cover {
-  width: calc(((100vh - (100vw * .1)) * .6 - (((100vh - (100vw * .1)) * .4 - (100vw * .05)) * .2)) / 3 * 2 - (100vw * .1));
-  height: calc(((100vh - (100vw * .1)) * .6 - (((100vh - (100vw * .1)) * .4 - (100vw * .05)) * .2)) / 3 * 2 - (100vw * .1));
+  width: calc((100vh * .6 - ((100vh * .4 - 100vw * .1) * .2)) - (100vw * .2));
+  height: calc((100vh * .6 - ((100vh * .4 - 100vw * .1) * .2)) - (100vw * .2));
   position: relative;
   display: flex;
   align-items: center;
@@ -351,13 +361,13 @@ body {
 
 .card-streams-circle {
   position: absolute;
-  bottom: calc(100vw * .005125);
-  right: calc(100vw * .005125);
+  bottom: calc(100vw * .025);
+  right: calc(100vw * .025);
   background-color: green;
   opacity: .95;
   border-radius: 50%;
-  width: calc((100vw - 100px - (100vw * .025 * 6)) / 5 * .25);
-  height: calc((100vw - 100px - (100vw * .025 * 6)) / 5 * .25);
+  width: calc((((100vh - (100vw * .1)) * .6 - (((100vh - (100vw * .1)) * .4 - (100vw * .05)) * .2)) / 3 * 2 - (100vw * .1)) * .35);
+  height: calc((((100vh - (100vw * .1)) * .6 - (((100vh - (100vw * .1)) * .4 - (100vw * .05)) * .2)) / 3 * 2 - (100vw * .1)) * .35);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -365,7 +375,7 @@ body {
 }
 
 .card-streams-circle h1 {
-  font-size: calc((100vw - 100px - (100vw * .025 * 6)) / 5 * .25 * .25);
+  font-size: calc((((100vh - (100vw * .1)) * .6 - (((100vh - (100vw * .1)) * .4 - (100vw * .05)) * .2)) / 3 * 2 - (100vw * .1)) * .35 * .25);
   color: rgba(255, 255, 255, .9);
   font-weight: bold;
 }
@@ -377,18 +387,18 @@ body {
 }
 
 .card-text {
-  height: calc((((100vh - (100vw * .1)) * .6 - (((100vh - (100vw * .1)) * .4 - (100vw * .05)) * .2)) - (((100vh - (100vw * .1)) * .6 - (((100vh - (100vw * .1)) * .4 - (100vw * .05)) * .2)) / 3 * 2 - (100vw * .1))) * .6);
+  height: calc((((100vh - (100vw * .1)) * .6 - (((100vh - (100vw * .1)) * .4 - (100vw * .05)) * .2)) - (((100vh - (100vw * .1)) * .6 - (((100vh - (100vw * .1)) * .4 - (100vw * .05)) * .2)) / 3 * 2 - (100vw * .1))));
   width: calc(((100vh - (100vw * .1)) * .6 - (((100vh - (100vw * .1)) * .4 - (100vw * .05)) * .2)) / 3 * 2 - (100vw * .1));
   display: flex;
   flex-direction: column;
-  justify-content: space-around;
+  justify-content: flex-start;
   padding: calc(100vw * .025) 0px;
-  background-color: blue;
+  background-color: red;
 }
 
 .card-chart {
-  height: calc((((100vh - (100vw * .1)) * .6 - (((100vh - (100vw * .1)) * .4 - (100vw * .05)) * .2)) - (((100vh - (100vw * .1)) * .6 - (((100vh - (100vw * .1)) * .4 - (100vw * .05)) * .2)) / 3 * 2 - (100vw * .1))) * .4);
-  width: calc(((100vh - (100vw * .1)) * .6 - (((100vh - (100vw * .1)) * .4 - (100vw * .05)) * .2)) / 3 * 2 - (100vw * .1));
+  height: 0px;
+  overflow: hidden;
 }
 
 
