@@ -295,7 +295,8 @@
 }
 
 .col-item-title {
-  width: calc(100vw - (100vw * .1));
+  width: calc(100vw - (100vw * .15));
+  margin: 0px calc(100vw * .025);
   height: 100px;
   flex-direction: row;
   align-items: flex-start;
@@ -343,8 +344,9 @@
 
 .col-item-row {
   display: flex;
-  flex-direction: column;
   width: calc(100vw - (100vw * .1));
+  flex-direction: column;
+  align-items: center;
   justify-content: space-between;
   height: 225px;
 }
@@ -371,8 +373,10 @@
 .col-item-card {
   display: flex;
   flex-direction: row;
-  width: calc(100vw - (100vw * .1));
+  width: calc(100vw - (100vw * .15));
+  margin: 0px calc(100vw * .025);
   height: 100px;
+  overflow: visible;
   align-items: center;
   justify-content: flex-start;
   background-color: rgba(255, 255, 255, .15);
@@ -397,7 +401,8 @@
 .col-item-card-long {
   display: flex;
   flex-direction: row;
-  width: calc(100vw - (100vw * .1));
+  width: calc(100vw - (100vw * .15));
+  margin: 0px calc(100vw * .025);
   height: 100px;
   align-items: center;
   background-color: rgba(255, 255, 255, .15);
@@ -457,8 +462,8 @@
   flex-direction: row;
   align-items: center;
   justify-content: flex-start;
-  height: calc(((100vh - (100vw * .15) - ((((100vh - 100vw * .01) * .4 - 100vw * .01) / 2) + (((100vh - 100vw * .01) * .4 - 100vw * .01) / 2 * .3) + (((100vh - 100vw * .01) * .4 - 100vw * .01) / 2 * .7 * .2))) / 2 - (100vw * .025)) * .79 / 2 / 2 - (100vw * .025));
-  width: calc((100vw - (100vw * .1)) - (((100vh - (100vw * .15) - ((((100vh - 100vw * .01) * .4 - 100vw * .01) / 2) + (((100vh - 100vw * .01) * .4 - 100vw * .01) / 2 * .3) + (((100vh - 100vw * .01) * .4 - 100vw * .01) / 2 * .7 * .2))) / 2 - (100vw * .025)) * .79 / 2 / 2 - (100vw * .025)));
+  height: 100px;
+  width: calc(100% - 100px - (100vw * .05));
 
 }
 
@@ -563,7 +568,8 @@
   justify-content: center;
   width: calc(100vw - (100vw * .1));
   overflow: visible;
-  height: 600px;
+  height: 625px;
+  padding-bottom: 25px;
 
 }
 
@@ -577,7 +583,8 @@
 
 .mChart {
   display: flex;
-  width: 100%;
+  width: calc(100% - (100vw * .05));
+  margin: 0px calc(100vw * .025);
   height: 500;
   background-color: rgba(255, 255, 255, .15);
   box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
