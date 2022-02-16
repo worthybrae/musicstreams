@@ -169,7 +169,7 @@ body {
 }
 
 #myMenu.expand {
-  height: calc(100vh * .5);
+  height: calc(100vh * .5 * .8);
 }
 
 #myMenu li {
