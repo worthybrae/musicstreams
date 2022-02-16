@@ -303,6 +303,15 @@
   overflow: visible;
 }
 
+.col-item-body-long {
+  height: calc((((100vh - 100vw * .05) * .6 - 100vw * .0125) / 2 - 100vw * .005125) * .8);
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  overflow: visible;
+}
+
 .col-item-body-alt {
   height: calc(((100vh - 100vw * .05) * .6 - 100vw * .0125) - ((((100vh - 100vw * .05) * .6 - 100vw * .0125) / 2 - 100vw * .005125) * .2));
 
