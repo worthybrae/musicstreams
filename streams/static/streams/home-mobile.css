@@ -407,7 +407,7 @@ body {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding: calc(100vw * .0125) 0px;
+  align-items: center;
   width: calc((100vh * .5 - (100vh * .4 * .15) - (100vw * .2)) / 3 * 2);
   flex-grow: 1
 }
