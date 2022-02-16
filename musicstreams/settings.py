@@ -1,13 +1,13 @@
 from pathlib import Path
 import os
 from django.core.management.utils import get_random_secret_key
-import environ
+#import environ
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-env = environ.Env()
-environ.Env.read_env()
+#env = environ.Env()
+#environ.Env.read_env()
 #ENV variables
 
 # Quick-start development settings - unsuitable for production
@@ -17,7 +17,7 @@ environ.Env.read_env()
 SECRET_KEY = os.getenv("DJANGO_SECRET_KEY", get_random_secret_key())
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.getenv("DEBUG", "False") == "True"
+DEBUG = os.getenv('DEBUG')
 
 ALLOWED_HOSTS = ['127.0.0.1','localhost','musicstreams-bea5l.ondigitalocean.app', 'spotifystreams.io']
 # Application definition
