@@ -9,7 +9,6 @@ body {
   font-family: 'Roboto', sans-serif;
   height: 100vh;
   width: 100vw;
-  background-color: purple;
 
 }
 
@@ -169,7 +168,7 @@ body {
 }
 
 #myMenu.expand {
-  height: calc(100vh * .5 * .8);
+  height: calc(100vh * .5 * .65);
 }
 
 #myMenu li {
@@ -344,7 +343,7 @@ body {
   border-radius: 10px;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;  background-color: red;
+  justify-content: space-between;
   overflow: hidden;
   background: rgba(255, 255, 255, 0.15);
   transition-duration: .25s;
@@ -391,9 +390,9 @@ body {
 }
 
 .card-streams-circle h1 {
-  font-size: calc((100vh * .4 - 100vw * .1) * .2 * .3);
+  font-size: calc((100vh * .4 - 100vw * .1) * .2 * .25);
   color: rgba(255, 255, 255, .9);
-  font-weight: bold;
+  font-weight: normal;
 }
 
 .card-cover img {
@@ -403,13 +402,14 @@ body {
 }
 
 .card-text {
-  height: calc((100vh * .5 - (100vh * .4 * .15)) - (100vw * .05) - ((100vh * .5 - (100vh * .4 * .15) - (100vw * .2)) / 3 * 2 * .35));
+  height: calc(((100vh * .5 - (100vh * .4 * .15)) - (100vw * .05) - ((100vh * .5 - (100vh * .4 * .15) - (100vw * .2)) / 3 * 2 * .35)) - (100vw * .1));
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
   width: calc((100vh * .5 - (100vh * .4 * .15) - (100vw * .2)) / 3 * 2);
-  flex-grow: 1
+  padding: calc(100vw * .05) 0px 0px 0px;
+  margin: 0;
 }
 
 .card-chart {
@@ -424,6 +424,7 @@ body {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+
 }
 
 
