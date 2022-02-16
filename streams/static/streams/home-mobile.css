@@ -403,7 +403,7 @@ body {
 }
 
 .card-text {
-  height: calc((100vh * .6 - (100vh * .4 * .15)) - (100vw * .05) - ((100vh * .6 - (100vh * .4 * .15) - (100vw * .2)) / 3 * 2 * .35));
+  height: calc((100vh * .5 - (100vh * .4 * .15)) - (100vw * .05) - ((100vh * .5 - (100vh * .4 * .15) - (100vw * .2)) / 3 * 2 * .35));
   display: flex;
   flex-direction: column;
   justify-content: center;
