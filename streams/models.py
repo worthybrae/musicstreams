@@ -29,6 +29,7 @@ class Albums(models.Model):
     day0streams = models.BigIntegerField(blank=True, null=True)
     day1streams = models.BigIntegerField(blank=True, null=True)
     totalgrowth = models.FloatField(blank=True, null=True)
+    streamsperday = models.IntegerField(db_column='streamsPerDay')  # Field name made lowercase.
 
     class Meta:
         managed = False
@@ -177,6 +178,11 @@ class Songs(models.Model):
     tempo = models.FloatField(blank=True, null=True)
     timesignature = models.IntegerField(db_column='timeSignature', blank=True, null=True)  # Field name made lowercase.
     valence = models.FloatField(blank=True, null=True)
+    totalstreams = models.BigIntegerField()
+    day0streams = models.BigIntegerField()
+    day1streams = models.BigIntegerField()
+    totalgrowth = models.FloatField()
+    streamsperday = models.IntegerField(db_column='streamsPerDay')  # Field name made lowercase.
 
     class Meta:
         managed = False
