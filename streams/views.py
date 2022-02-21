@@ -247,7 +247,7 @@ def Detailpage(request, album_spotify_id):
     fillprobs = []
     nofillprobs = []
     probs = []
-    cond_streams = np.linspace(dist_min, dist_max, 2000)
+    cond_streams = np.linspace(dist_min, dist_max, 1000)
     album_dict['totalstreamsint'] = album.totalstreams
     for i in cond_streams:
         streams.append(i)
@@ -413,9 +413,9 @@ def Detailpage(request, album_spotify_id):
 
 
 def Homepage(request):
-    all_albums = Albums.objects.filter(day1streams__gt=0).order_by('-totalstreams')
+    all_albums = Albums.objects.filter(day1streams__gt=0).order_by('-streamsperday')
     top_growth = []
-    albums = Albums.objects.filter(status='ACTIVE').order_by('-totalgrowth')[:5]
+    albums = Albums.objects.filter(status='ACTIVE').order_by('-streamsperday')[:5]
     rank = 1
     r_choice = random.choice([1,2,3,4,5])
     color_dict = {}

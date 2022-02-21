@@ -22,7 +22,7 @@
 
       gtag('config', 'G-ZTD9CQERCF');
     </script>
-    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22256%22 height=%22256%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 rx=%2250%22 fill=%22%239b9b9b%22></rect><text x=%2250%%22 y=%2250%%22 dominant-baseline=%22central%22 text-anchor=%22middle%22 font-size=%2280%22>〽️</text></svg>" />
+    <link rel="shortcut icon" type="image/png" href="{% static 'favicon.svg' %}"/>
   </head>
   <body>
     <div class="home-container" id="fullBackground">
@@ -303,7 +303,7 @@
                                       xMin: {{ album_dict.totalstreamsint }},
                                       xMax: {{ album_dict.totalstreamsint }},
                                       borderColor: 'rgba(255, 255, 255, .5)',
-                                      borderWidth: 3,
+                                      borderWidth: 2,
                                       borderRadius: 3
                                     },
                                     line2: {
@@ -315,7 +315,7 @@
                                       xMax: {{ album_dict.toplabelval }},
                                       borderDash: [10,10],
                                       borderColor: 'rgba(255, 255, 255, .15)',
-                                      borderWidth: 3,
+                                      borderWidth: 2,
                                     },
                                     line3: {
                                       type: 'line',
@@ -326,7 +326,7 @@
                                       xMax: {{ album_dict.upplabelval }},
                                       borderDash: [10,10],
                                       borderColor: 'rgba(255, 255, 255, .15)',
-                                      borderWidth: 3,
+                                      borderWidth: 2,
                                     },
                                     line4: {
                                       type: 'line',
@@ -337,7 +337,7 @@
                                       xMax: {{ album_dict.uppmidlabelval }},
                                       borderDash: [10,10],
                                       borderColor: 'rgba(255, 255, 255, .15)',
-                                      borderWidth: 3,
+                                      borderWidth: 2,
                                     },
 
                                     line5: {
@@ -349,7 +349,7 @@
                                       xMax: {{ album_dict.lowmidlabelval }},
                                       borderDash: [10,10],
                                       borderColor: 'rgba(255, 255, 255, .15)',
-                                      borderWidth: 3,
+                                      borderWidth: 2,
                                     },
                                     line6: {
                                       type: 'line',
@@ -360,7 +360,7 @@
                                       xMax: {{ album_dict.lowlabelval }},
                                       borderDash: [10,10],
                                       borderColor: 'rgba(255, 255, 255, .15)',
-                                      borderWidth: 3,
+                                      borderWidth: 2,
                                     },
                                     line7: {
                                       type: 'line',
@@ -371,7 +371,7 @@
                                       xMax: {{ album_dict.bottomlabelval }},
                                       borderDash: [10,10],
                                       borderColor: 'rgba(255, 255, 255, .15)',
-                                      borderWidth: 3,
+                                      borderWidth: 2,
                                     }
                                   }
                                 }
@@ -386,7 +386,7 @@
                                       text: 'Percentile',
                                       font: {
                                         family: "'Roboto', sans-serif",
-                                        size: 20
+                                        size: 15,
                                       }
                                     },
                                     grid: {
@@ -398,7 +398,7 @@
                                       color: 'rgba(255, 255, 255, .75)',
                                       font: {
                                         family: "'Roboto', sans-serif",
-                                        size: 20,
+                                        size: 15,
 
                                       },
                                       count: 5,
@@ -428,7 +428,7 @@
                                       text: xtitle,
                                       font: {
                                         family: "'Roboto', sans-serif",
-                                        size: 20
+                                        size: 15,
                                       }
                                     },
                                     grid: {
@@ -440,7 +440,7 @@
                                       color: 'rgba(255, 255, 255, .75)',
                                       font: {
                                         family: "'Roboto', sans-serif",
-                                        size: 20,
+                                        size: 15,
 
                                       },
                                       beginAtZero: true,
@@ -657,7 +657,7 @@
                                     color: 'rgba(255, 255, 255, .75)',
                                     font: {
                                       family: "'Roboto', sans-serif",
-                                      size: 20,
+                                      size: 15,
 
                                     },
                                     count: 5
@@ -670,7 +670,7 @@
                                     text: 'Days Since Release',
                                     font: {
                                       family: "'Roboto', sans-serif",
-                                      size: 20
+                                      size: 15,
                                     }
                                   },
                                   grid: {
@@ -807,7 +807,7 @@
                                     color: 'rgba(255, 255, 255, .75)',
                                     font: {
                                       family: "'Roboto', sans-serif",
-                                      size: 20,
+                                      size: 15,
 
                                     },
                                     count: 5,
@@ -824,7 +824,7 @@
                                     text: 'Days Since Release',
                                     font: {
                                       family: "'Roboto', sans-serif",
-                                      size: 20
+                                      size: 15,
                                     }
                                   },
                                   grid: {
@@ -962,7 +962,7 @@
                                     color: 'rgba(255, 255, 255, .75)',
                                     font: {
                                       family: "'Roboto', sans-serif",
-                                      size: 20,
+                                      size: 15,
 
                                     },
                                     count: 5,
@@ -979,7 +979,7 @@
                                     text: 'Days Since Release',
                                     font: {
                                       family: "'Roboto', sans-serif",
-                                      size: 20
+                                      size: 15,
                                     }
                                   },
                                   grid: {
